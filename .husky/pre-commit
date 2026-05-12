@@ -1,1 +1,1 @@
-echo "running pre-commit (placeholder; lint-staged wires in next commit)"
+pnpm exec lint-staged

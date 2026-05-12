@@ -1,0 +1,39 @@
+name: Bug report
+description: Something is broken in the spec, SDK, or CLI
+labels: ['bug', 'triage']
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Steps to reproduce, observed behavior, expected behavior.
+      placeholder: |
+        1. Ran `wv translate --from a.yaml --to b.yaml`
+        2. Got error: ...
+        3. Expected: ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `wv --version` (or git SHA)
+    validations:
+      required: true
+  - type: dropdown
+    id: package
+    attributes:
+      label: Which package?
+      options:
+        - '@wv/spec'
+        - '@wv/sdk'
+        - '@wv/cli'
+        - '@wv/adapters'
+        - Unsure
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Node version, pnpm version, LLM provider.

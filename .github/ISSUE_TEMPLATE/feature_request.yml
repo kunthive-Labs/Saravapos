@@ -1,0 +1,23 @@
+name: Feature request
+description: Propose a new capability or schema field
+labels: ['enhancement', 'triage']
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What use case is currently unsupported? Who hurts and why?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should change? Spec, SDK, CLI surface?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What else could solve this?

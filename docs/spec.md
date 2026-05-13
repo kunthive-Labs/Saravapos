@@ -110,7 +110,28 @@ An empty array (`analogy_bank: []`) is valid and means "no curated metaphors —
 
 ### cognitive_style
 
-_TODO_
+Optional object. Shapes phrasing choices that are orthogonal to expertise: diagrams vs prose, concrete examples vs general principles, density of abstraction.
+
+| Field                   | Type       | Required | Description                                                                           |
+| ----------------------- | ---------- | -------- | ------------------------------------------------------------------------------------- |
+| `mode`                  | `enum`     | yes      | Primary thinking modality. One of `visual`, `verbal`, `kinesthetic`, `mixed`.         |
+| `prefers`               | `string[]` | no       | Free-form phrasing preferences (e.g. `"step-by-step"`, `"bullet lists"`).             |
+| `abstraction_tolerance` | `enum`     | no       | How much abstract / symbolic phrasing the persona tolerates: `low`, `medium`, `high`. |
+
+`mode` guidance:
+
+| Mode          | Reach for                                                              |
+| ------------- | ---------------------------------------------------------------------- |
+| `visual`      | Diagrams, spatial layouts, "imagine…" phrasing, ASCII sketches.        |
+| `verbal`      | Prose, definitions, narrative flow, explicit transitions.              |
+| `kinesthetic` | Hands-on framing, "first you do X, then Y", physical-action verbs.     |
+| `mixed`       | No strong preference — translator may pick whichever fits the content. |
+
+`abstraction_tolerance` guidance:
+
+- `low` — prefer concrete, specific, named examples. Avoid symbolic generalities.
+- `medium` — mix examples with light generalisation.
+- `high` — comfortable with abstract principles, formal definitions, type-level reasoning.
 
 ### cultural_context
 

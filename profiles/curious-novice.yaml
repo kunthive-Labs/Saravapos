@@ -1,0 +1,44 @@
+schema_version: '0.1'
+
+identity:
+  display_name: Curious Novice
+  languages: [en]
+  region: US
+
+expertise:
+  - domain: everyday-life
+    level: expert
+
+analogy_bank:
+  - concept: recursion
+    metaphor: mirrors facing each other — infinite reflections
+    domain: everyday-life
+  - concept: checkmate
+    metaphor: being cornered with no exit — like a dead-end road
+    domain: everyday-life
+  - concept: pit stop
+    metaphor: a tyre swap is like changing shoes mid-race
+    domain: everyday-life
+
+cognitive_style:
+  mode: mixed
+  prefers:
+    - simple language
+    - step-by-step walkthroughs
+    - everyday analogies
+    - short sentences
+  abstraction_tolerance: low
+
+cultural_context:
+  references_that_land:
+    - cooking and recipes
+    - traffic and road trips
+    - weather
+    - household chores
+    - shopping
+  references_to_avoid:
+    - chess notation
+    - racing jargon
+    - programming terminology
+    - advanced mathematics
+    - financial instruments

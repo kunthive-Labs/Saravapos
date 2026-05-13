@@ -15,4 +15,13 @@ describe('identity schema', () => {
     expect(validate(sample)).toBe(true);
     expect(validate.errors).toBeNull();
   });
+
+  it('rejects an identity missing display_name', () => {
+    const sample = {
+      languages: ['en'],
+      region: 'US',
+    };
+    expect(validate(sample)).toBe(false);
+    expect(validate.errors?.[0]?.params).toMatchObject({ missingProperty: 'display_name' });
+  });
 });

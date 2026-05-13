@@ -5,8 +5,16 @@ import { culturalContextSchema } from './schemas/cultural_context.js';
 import { expertiseSchema } from './schemas/expertise.js';
 import { identitySchema } from './schemas/identity.js';
 
+/** Canonical `$id` for the profile schema. */
 export const PROFILE_SCHEMA_ID = 'https://worldview.dev/schemas/profile.json';
 
+/**
+ * Top-level worldview profile schema (JSON Schema draft-07).
+ *
+ * Composes identity, expertise, analogy_bank, cognitive_style, and
+ * cultural_context. Only `schema_version` and `identity` are required —
+ * authors can grow a profile incrementally.
+ */
 export const profileSchema = {
   $id: PROFILE_SCHEMA_ID,
   $schema: 'http://json-schema.org/draft-07/schema#',

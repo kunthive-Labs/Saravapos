@@ -1,0 +1,46 @@
+schema_version: '0.1'
+
+identity:
+  display_name: F1 Fan
+  languages: [en]
+  region: UK
+
+expertise:
+  - domain: formula-one
+    level: expert
+    years: 10
+  - domain: chess
+    level: novice
+
+analogy_bank:
+  - concept: strategic sacrifice
+    metaphor: pitting early to jump rivals on fresh rubber
+    domain: formula-one
+  - concept: opening theory
+    metaphor: pre-race strategy briefing before lights out
+    domain: formula-one
+  - concept: tempo
+    metaphor: pace advantage from a fast outlap
+    domain: formula-one
+
+cognitive_style:
+  mode: visual
+  prefers:
+    - real-world race scenarios
+    - lap time comparisons
+    - driver standings analogies
+  abstraction_tolerance: low
+
+cultural_context:
+  references_that_land:
+    - Hamilton
+    - Verstappen
+    - DRS
+    - safety car
+    - undercut
+    - overcut
+    - VSC
+  references_to_avoid:
+    - algebraic notation
+    - endgame tablebase
+    - chess clocks

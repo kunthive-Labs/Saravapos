@@ -41,8 +41,44 @@ const chessExpert: Profile = {
   },
 };
 
+const f1Fan: Profile = {
+  schema_version: '0.1',
+  identity: { display_name: 'F1 Fan', languages: ['en'], region: 'UK' },
+  expertise: [
+    { domain: 'formula-one', level: 'expert', years: 10 },
+    { domain: 'chess', level: 'novice' },
+  ],
+  analogy_bank: [
+    {
+      concept: 'strategic sacrifice',
+      metaphor: 'pitting early to jump rivals on fresh rubber',
+      domain: 'formula-one',
+    },
+    {
+      concept: 'opening theory',
+      metaphor: 'pre-race strategy briefing before lights out',
+      domain: 'formula-one',
+    },
+  ],
+  cognitive_style: {
+    mode: 'visual',
+    prefers: ['real-world race scenarios', 'lap time comparisons'],
+    abstraction_tolerance: 'low',
+  },
+  cultural_context: {
+    references_that_land: ['Hamilton', 'Verstappen', 'DRS', 'safety car', 'undercut'],
+    references_to_avoid: ['algebraic notation', 'endgame tablebase'],
+  },
+};
+
 describe('chess-expert profile', () => {
   it('validates against schema', () => {
     expectValid(chessExpert);
+  });
+});
+
+describe('f1-fan profile', () => {
+  it('validates against schema', () => {
+    expectValid(f1Fan);
   });
 });

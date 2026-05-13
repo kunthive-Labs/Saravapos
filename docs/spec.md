@@ -154,7 +154,59 @@ _TODO_
 
 ## Examples
 
-_TODO_
+A complete profile for a Formula 1 fan who knows little about chess:
+
+```yaml
+schema_version: '0.1'
+
+identity:
+  display_name: 'Jordan'
+  languages: ['en']
+  region: 'UK'
+
+expertise:
+  - domain: 'formula-one'
+    level: 'expert'
+    years: 15
+  - domain: 'chess'
+    level: 'novice'
+
+analogy_bank:
+  - concept: 'sacrificing a pawn for positional advantage'
+    metaphor: 'burning an extra pit stop to undercut the leader'
+    domain: 'formula-one'
+  - concept: 'opening theory'
+    metaphor: 'qualifying setup'
+    domain: 'formula-one'
+
+cognitive_style:
+  mode: 'verbal'
+  prefers:
+    - 'concrete examples'
+    - 'step-by-step'
+  abstraction_tolerance: 'medium'
+
+cultural_context:
+  references_that_land:
+    - 'Premier League'
+    - 'cricket'
+    - 'BBC'
+  references_to_avoid:
+    - 'NFL'
+    - 'NASCAR'
+```
+
+A **minimal** profile (only the required fields):
+
+```yaml
+schema_version: '0.1'
+identity:
+  display_name: 'Anon'
+  languages: ['en']
+  region: 'global'
+```
+
+Both validate against the schema. The minimal form is useful for tests and quick experiments.
 
 ## Versioning
 

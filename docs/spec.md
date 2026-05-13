@@ -84,7 +84,29 @@ Level definitions:
 
 ### analogy_bank
 
-_TODO_
+Optional array of preferred metaphor mappings. Each entry expresses "when you need to explain `concept`, reach for `metaphor` from `domain`." Translators consult this list **before** inventing new analogies, which is what makes a profile feel personal.
+
+Each entry:
+
+| Field      | Type     | Required | Description                                                            |
+| ---------- | -------- | -------- | ---------------------------------------------------------------------- |
+| `concept`  | `string` | yes      | Source concept being explained (e.g. `"pawn structure"`).              |
+| `metaphor` | `string` | yes      | Phrase the persona will readily grasp (e.g. `"tire strategy"`).        |
+| `domain`   | `string` | yes      | Domain the metaphor lives in (e.g. `"formula-one"`). Free-form string. |
+
+Example:
+
+```yaml
+analogy_bank:
+  - concept: 'sacrificing a pawn for positional advantage'
+    metaphor: 'burning an extra pit stop to undercut the leader'
+    domain: 'formula-one'
+  - concept: 'opening theory'
+    metaphor: 'qualifying setup'
+    domain: 'formula-one'
+```
+
+An empty array (`analogy_bank: []`) is valid and means "no curated metaphors — translator may improvise freely."
 
 ### cognitive_style
 

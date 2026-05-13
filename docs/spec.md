@@ -250,4 +250,20 @@ Both validate against the schema. The minimal form is useful for tests and quick
 
 ## Versioning
 
-_TODO_
+The `schema_version` field follows **semver-style discipline**, with one departure: while the spec is `0.y`, any version bump is treated as potentially breaking.
+
+| Bump          | Meaning                                                                      | Example           |
+| ------------- | ---------------------------------------------------------------------------- | ----------------- |
+| `0.y` → `0.z` | **Breaking allowed.** Anything goes during the alpha window.                 | `0.1` → `0.2`     |
+| `MAJOR`       | Breaking: required fields added/removed, enums tightened, semantics shifted. | `1.0` → `2.0`     |
+| `MINOR`       | Additive: new optional fields, new enum members in extensible enums.         | `1.0` → `1.1`     |
+| `PATCH`       | Editorial: documentation only. No schema or semantics change.                | `1.0.0` → `1.0.1` |
+
+Rules:
+
+- **Profiles pin `schema_version`** to the version they were authored against. Loaders MUST reject profiles whose `schema_version` is unknown to them.
+- **Translators are version-pinned.** A v1 translator may refuse, or attempt best-effort handling of, a v2 profile. The spec does not mandate compatibility shims.
+- **Deprecation policy** (post-1.0): a field marked deprecated MUST continue to be accepted for at least one MINOR cycle before removal in a MAJOR bump.
+- **Enum extension**: adding values to `expertise.level`, `cognitive_style.mode`, etc. is a MAJOR bump unless the field is explicitly marked extensible in a future revision.
+
+Today's version: `0.1`. Expect breaking changes through `0.x`. The first stable spec will be `1.0`.

@@ -31,9 +31,13 @@ wv translate \
   --text "I sacrificed a pawn for positional advantage"
 ```
 
+## Spec
+
+The profile schema and field semantics live in [`docs/spec.md`](./docs/spec.md). Read it in under 10 minutes to understand what a profile is and how a translator should consume one.
+
 ## Roadmap
 
-See [PLAN.md](./PLAN.md) for the 14-day MVP build plan. Spec details land in `docs/spec.md` once written.
+See [PLAN.md](./PLAN.md) for the 14-day MVP build plan.
 
 ## License
 

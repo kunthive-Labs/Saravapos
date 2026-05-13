@@ -2,6 +2,10 @@
 
 > Translate ideas between mental models. An open protocol for worldview-aware communication.
 
+[![CI](https://github.com/8harath/Context/actions/workflows/ci.yml/badge.svg)](https://github.com/8harath/Context/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![npm (placeholder)](https://img.shields.io/badge/npm-%40wv%2Fcli-blue)](https://www.npmjs.com/package/@wv/cli)
+
 **Status:** alpha — pre-0.1, schema unstable, breaking changes expected.
 
 ## What is this?

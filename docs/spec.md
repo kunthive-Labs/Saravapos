@@ -63,7 +63,24 @@ Required. Describes the persona at the surface so translators can pick language 
 
 ### expertise
 
-_TODO_
+Optional array. Each entry is a `{domain, level, years?}` tuple. The translator uses `level` to decide jargon density: an `expert` audience tolerates compressed technical phrasing; a `novice` requires expanded explanation.
+
+Each entry:
+
+| Field    | Type     | Required | Description                                                                  |
+| -------- | -------- | -------- | ---------------------------------------------------------------------------- |
+| `domain` | `string` | yes      | Free-form domain label (e.g. `"chess"`, `"machine-learning"`, `"baroque"`).  |
+| `level`  | `enum`   | yes      | One of `novice`, `intermediate`, `advanced`, `expert`. See below.            |
+| `years`  | `number` | no       | Years of practical exposure. Non-negative. Informational; not used for math. |
+
+Level definitions:
+
+| Level          | Rough meaning                                                                                             |
+| -------------- | --------------------------------------------------------------------------------------------------------- |
+| `novice`       | Has heard of the domain. Recognises a handful of named concepts. Needs expanded definitions.              |
+| `intermediate` | Practises occasionally. Can follow standard jargon if context is given.                                   |
+| `advanced`     | Practises regularly. Reads and writes about the domain fluently. Tolerates compressed technical phrasing. |
+| `expert`       | Lives in the domain. Notices when phrasing is imprecise. Prefers terse, exact language.                   |
 
 ### analogy_bank
 

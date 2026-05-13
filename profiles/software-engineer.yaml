@@ -1,0 +1,48 @@
+schema_version: '0.1'
+
+identity:
+  display_name: Software Engineer
+  languages: [en]
+  region: US
+
+expertise:
+  - domain: software-engineering
+    level: expert
+    years: 8
+  - domain: systems-design
+    level: advanced
+    years: 5
+  - domain: chess
+    level: intermediate
+    years: 3
+
+analogy_bank:
+  - concept: pawn structure
+    metaphor: dependency graph — weak pawns are tightly coupled modules
+    domain: software-engineering
+  - concept: opening repertoire
+    metaphor: design pattern library
+    domain: software-engineering
+  - concept: time pressure in bullet chess
+    metaphor: O(n) vs O(n²) under load
+    domain: software-engineering
+
+cognitive_style:
+  mode: verbal
+  prefers:
+    - code examples
+    - mental models
+    - first principles reasoning
+    - trade-off analysis
+  abstraction_tolerance: high
+
+cultural_context:
+  references_that_land:
+    - Big O notation
+    - distributed systems
+    - CAP theorem
+    - refactoring
+    - SOLID principles
+    - pull request
+  references_to_avoid:
+    - sports metaphors unrelated to strategy

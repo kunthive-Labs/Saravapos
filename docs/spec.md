@@ -20,11 +20,23 @@ The spec exists so multiple SDKs, CLIs, and editor plugins can agree on the same
 
 ## Scope
 
-_TODO_
+The spec defines:
+
+- A JSON Schema for **profile documents** (the structural contract).
+- A canonical **field semantics** section (how a translator should interpret each field — see below).
+- A **versioning policy** for evolving the schema without breaking existing profiles.
+
+It deliberately stops at the data layer. How a given SDK or CLI implements translation — prompt design, model choice, caching, evaluation — is out of scope for the spec.
 
 ## Non-goals
 
-_TODO_
+Explicitly **out of scope** for v0.x:
+
+- **Session portability.** Profiles describe a persona, not a conversation. There is no notion of dialogue state, memory, or per-turn context in this spec.
+- **Hosted service.** No central registry, no profile sync server, no accounts. Profiles are local files. A future companion spec _may_ describe a registry; this document will not.
+- **GUI / authoring tooling.** Authoring UX (forms, wizards, web editors) is left to implementations.
+- **Identity verification.** A profile is self-asserted. Nothing here authenticates that the person described actually exists or holds the stated expertise.
+- **Prescribing a prompt format.** Translators decide how to lower a profile into model prompts. The spec only fixes the data, not the prompt template.
 
 ## Schema
 

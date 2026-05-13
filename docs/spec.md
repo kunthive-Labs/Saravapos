@@ -40,11 +40,26 @@ Explicitly **out of scope** for v0.x:
 
 ## Schema
 
-_TODO_
+Top level keys (only `schema_version` and `identity` are required):
+
+| Field              | Type     | Required | Description                                     |
+| ------------------ | -------- | -------- | ----------------------------------------------- |
+| `schema_version`   | `string` | yes      | Pinned to the spec version (currently `"0.1"`). |
+| `identity`         | object   | yes      | Who the persona is at a surface level.          |
+| `expertise`        | array    | no       | One entry per domain the persona knows.         |
+| `analogy_bank`     | array    | no       | Preferred metaphors for translating concepts.   |
+| `cognitive_style`  | object   | no       | How the persona prefers ideas to be phrased.    |
+| `cultural_context` | object   | no       | References that land and references to avoid.   |
 
 ### identity
 
-_TODO_
+Required. Describes the persona at the surface so translators can pick language and addressing conventions.
+
+| Field          | Type       | Required | Description                                                                  |
+| -------------- | ---------- | -------- | ---------------------------------------------------------------------------- |
+| `display_name` | `string`   | yes      | Human-readable label for the persona. Used in logs and CLI output.           |
+| `languages`    | `string[]` | yes      | BCP-47-ish language tags ordered by preference. Must contain at least one.   |
+| `region`       | `string`   | yes      | Coarse geographic or cultural region (e.g. `"US"`, `"Tokyo"`, `"South-EU"`). |
 
 ### expertise
 

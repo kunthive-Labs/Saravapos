@@ -1,0 +1,44 @@
+schema_version: '0.1'
+
+identity:
+  display_name: Chess Expert
+  languages: [en]
+  region: UK
+
+expertise:
+  - domain: chess
+    level: expert
+    years: 15
+  - domain: formula-one
+    level: novice
+
+analogy_bank:
+  - concept: pawn sacrifice
+    metaphor: burning fresh tyres to gain track position
+    domain: formula-one
+  - concept: positional advantage
+    metaphor: controlling the undercut window
+    domain: formula-one
+  - concept: endgame technique
+    metaphor: managing tyre deg in the final stint
+    domain: formula-one
+
+cognitive_style:
+  mode: verbal
+  prefers:
+    - precise terminology
+    - concrete positions
+    - move sequences
+  abstraction_tolerance: high
+
+cultural_context:
+  references_that_land:
+    - Magnus Carlsen
+    - Kasparov
+    - Sicilian Defence
+    - en passant
+    - zugzwang
+  references_to_avoid:
+    - Premier League
+    - NASCAR
+    - NFL

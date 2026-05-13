@@ -150,7 +150,47 @@ Guidance:
 
 ## Semantics
 
-_TODO_
+This section describes **how a conforming translator should consume each field**. The schema fixes _what_ a profile says; this section fixes _how it should be acted on_.
+
+A translation call always takes two profiles: a `from` (the source author's worldview) and a `to` (the target reader's worldview). For each field the translator considers both sides.
+
+### identity
+
+- `languages[0]` of the `to` profile defines the **output language**. If the `to` persona has no overlap with the `from` languages, the translator must still produce output in `to.languages[0]`.
+- `region` is advisory. It is _not_ used to alter facts; it may bias examples and idioms (e.g. units of measurement, holidays).
+
+### expertise
+
+- The translator compares `from.expertise` and `to.expertise` by `domain` label.
+- For each domain present in the source content:
+  - If `to`'s level is **lower** than `from`'s, the translator must **expand**: replace jargon with definitions, slow the pace, add concrete examples.
+  - If `to`'s level is **higher** or equal, the translator may **compress**: use shorthand, omit definitions of well-known terms, increase information density.
+  - If the domain is absent from `to.expertise` entirely, treat as `novice`.
+- `years` is informational only. It does not modify behaviour in this version.
+
+### analogy_bank
+
+- Translators must **prefer** entries from `to.analogy_bank` over inventing new analogies.
+- Lookup is by `concept` string. Matching is case-insensitive substring; the spec does not mandate fuzzy/embedding-based search but does not forbid it.
+- If a concept has no entry, the translator may freely invent an analogy — preferably drawn from a `domain` the `to` persona has expertise in.
+- `from.analogy_bank` is informational. It can help the translator recognise that the source text already uses a metaphor (vs. a literal claim).
+
+### cognitive_style
+
+- `mode` and `prefers` jointly shape **format** decisions: prose vs. bullets, diagrams vs. paragraphs.
+- `abstraction_tolerance` shapes **phrasing**: a `low` reader gets concrete examples; a `high` reader can be given the general principle directly.
+- `from.cognitive_style` is informational.
+
+### cultural_context
+
+- `to.references_that_land` is a **shortlist** of touchstones the translator may reach for when an analogy is needed.
+- `to.references_to_avoid` is a **filter**: the translator should not surface these phrases or close variants in the output.
+- Both lists are advisory — there is no requirement to use them, and no requirement to avoid references that are absent from either list.
+
+### Open questions
+
+- How translators _verify_ they followed the profile (eval harness) is left to implementations.
+- Whether to expose a "trace" of which profile fields influenced which spans of output is an open design question for v0.2+.
 
 ## Examples
 

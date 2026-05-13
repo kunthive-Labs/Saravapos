@@ -1,1 +1,1 @@
-export const SCHEMA_VERSION = '0.1';
+export { SCHEMA_VERSION } from './schema_version.js';

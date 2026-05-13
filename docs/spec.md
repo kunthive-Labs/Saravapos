@@ -135,7 +135,18 @@ Optional object. Shapes phrasing choices that are orthogonal to expertise: diagr
 
 ### cultural_context
 
-_TODO_
+Optional object. Two free-form string lists that steer reference selection. Matching is by literal phrase — translators may do case-insensitive substring matching, but the spec does not mandate fuzzy semantics.
+
+| Field                  | Type       | Required | Description                                                                        |
+| ---------------------- | ---------- | -------- | ---------------------------------------------------------------------------------- |
+| `references_that_land` | `string[]` | no       | Cultural touchstones the persona is likely to recognise (e.g. `"Premier League"`). |
+| `references_to_avoid`  | `string[]` | no       | Touchstones to skip — unfamiliar, sensitive, or actively disliked (e.g. `"NFL"`).  |
+
+Guidance:
+
+- Use specific, concrete phrases. `"cricket"` lands better than `"sports"`.
+- The lists are advisory, not exhaustive. A translator may use references that appear in neither list; the lists only express _preferences_.
+- `references_to_avoid` is a soft filter, not a content-safety mechanism. It is meant for "unfamiliar to this persona," not "dangerous to discuss."
 
 ## Semantics
 

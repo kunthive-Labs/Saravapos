@@ -20,6 +20,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "validate:profiles": "vitest run profiles.test --reporter=verbose",
     "prepare": "husky"
   },
   "devDependencies": {

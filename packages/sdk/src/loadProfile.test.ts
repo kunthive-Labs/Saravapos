@@ -28,4 +28,22 @@ describe('loadProfile', () => {
       await unlink(tmp);
     }
   });
+
+  it('error message includes failing field path', async () => {
+    const bad = `schema_version: '0.1'\n`;
+    const tmp = join(PROFILES_DIR, '../.tmp-bad-profile2.yaml');
+    const { writeFile, unlink } = await import('node:fs/promises');
+    await writeFile(tmp, bad);
+    try {
+      await loadProfile(tmp);
+      expect.fail('should throw');
+    } catch (e) {
+      expect(e).toBeInstanceOf(ProfileValidationError);
+      const err = e as ProfileValidationError;
+      expect(err.fieldPath).toBeTruthy();
+      expect(err.message).toContain('"');
+    } finally {
+      await unlink(tmp);
+    }
+  });
 });

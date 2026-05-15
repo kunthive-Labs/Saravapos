@@ -60,6 +60,9 @@ importers:
       '@wv/spec':
         specifier: workspace:*
         version: link:../spec
+      yaml:
+        specifier: ^2.9.0
+        version: 2.9.0
 
   packages/spec:
     devDependencies:

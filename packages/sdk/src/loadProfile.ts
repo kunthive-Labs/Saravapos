@@ -1,12 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
-import { Ajv } from 'ajv';
-import { profileSchema } from '@wv/spec';
 import type { Profile } from '@wv/spec';
 import { ProfileValidationError } from './errors.js';
-
-const ajv = new Ajv({ allErrors: true });
-const validateProfile = ajv.compile(profileSchema);
+import { validateProfile } from './validator.js';
 
 export function loadProfileFromString(yamlContent: string): Profile {
   const parsed = parse(yamlContent) as unknown;

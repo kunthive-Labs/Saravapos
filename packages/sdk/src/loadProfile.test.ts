@@ -11,4 +11,8 @@ describe('loadProfile', () => {
     expect(profile.identity.display_name).toBe('Chess Expert');
     expect(profile.identity.languages).toContain('en');
   });
+
+  it('throws on missing file', async () => {
+    await expect(loadProfile('/nonexistent/path/profile.yaml')).rejects.toThrow();
+  });
 });

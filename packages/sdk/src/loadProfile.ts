@@ -8,9 +8,8 @@ import { ProfileValidationError } from './errors.js';
 const ajv = new Ajv({ allErrors: true });
 const validateProfile = ajv.compile(profileSchema);
 
-export async function loadProfile(filePath: string): Promise<Profile> {
-  const content = await readFile(filePath, 'utf-8');
-  const parsed = parse(content) as unknown;
+export function loadProfileFromString(yamlContent: string): Profile {
+  const parsed = parse(yamlContent) as unknown;
   if (!validateProfile(parsed)) {
     const errors = validateProfile.errors ?? [];
     const first = errors[0];
@@ -26,4 +25,9 @@ export async function loadProfile(filePath: string): Promise<Profile> {
     );
   }
   return parsed as Profile;
+}
+
+export async function loadProfile(filePath: string): Promise<Profile> {
+  const content = await readFile(filePath, 'utf-8');
+  return loadProfileFromString(content);
 }

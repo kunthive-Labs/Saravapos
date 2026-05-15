@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadProfile } from './loadProfile.js';
+import { loadProfile, loadProfileFromString } from './loadProfile.js';
 import { ProfileValidationError } from './errors.js';
 
 const PROFILES_DIR = join(fileURLToPath(new URL('.', import.meta.url)), '../../../profiles');
@@ -45,5 +45,15 @@ describe('loadProfile', () => {
     } finally {
       await unlink(tmp);
     }
+  });
+});
+
+describe('loadProfileFromString', () => {
+  it('round-trips a profile from YAML string', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const yaml = await readFile(join(PROFILES_DIR, 'chess-expert.yaml'), 'utf-8');
+    const profile = loadProfileFromString(yaml);
+    expect(profile.identity.display_name).toBe('Chess Expert');
+    expect(profile.schema_version).toBe('0.1');
   });
 });

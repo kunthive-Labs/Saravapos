@@ -7,11 +7,18 @@ export interface TranslateOptions {
   from: Profile;
   to: Profile;
   adapter: LLMAdapter;
+  model?: string;
+  temperature?: number;
 }
 
 export async function translate(options: TranslateOptions): Promise<string> {
   const system = buildSystemPrompt(options.from, options.to);
   const user = buildUserPrompt(options.text);
-  const result = await options.adapter.complete({ system, user });
+  const result = await options.adapter.complete({
+    system,
+    user,
+    model: options.model,
+    temperature: options.temperature,
+  });
   return result.text;
 }

@@ -21,6 +21,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate:profiles": "vitest run profiles.test --reporter=verbose",
+    "example:basic": "tsx examples/basic.ts",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -33,6 +34,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.2.11",
     "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.21.0",
     "vitest": "^2.1.8"

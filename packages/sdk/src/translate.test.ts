@@ -53,6 +53,17 @@ describe('translate', () => {
     expect(result).toBe('lights out and away we go');
   });
 
+  it('handles empty text without throwing and still calls the adapter', async () => {
+    const adapter = makeAdapter('');
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+
+    const result = await translate({ text: '', from, to, adapter });
+
+    expect(result).toBe('');
+    expect(adapter.complete).toHaveBeenCalledTimes(1);
+  });
+
   it('passes the source text verbatim inside the user prompt', async () => {
     const adapter = makeAdapter();
     const from = makeProfile('A', 'chess');

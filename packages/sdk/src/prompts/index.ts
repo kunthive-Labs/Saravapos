@@ -1,1 +1,1 @@
-export {};
+export { buildSystemPrompt } from './system.js';

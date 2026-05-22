@@ -27,22 +27,20 @@ export class AnthropicAdapter implements LLMAdapter {
 
   async complete(options: CompletionOptions): Promise<CompletionResult> {
     const model = options.model ?? this.defaultModel;
+    const request = {
+      model,
+      max_tokens: 4096,
+      system: options.system,
+      messages: [{ role: 'user' as const, content: options.user }],
+      ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
+    };
     try {
-      const response = await this.client.messages.create({
-        model,
-        max_tokens: 4096,
-        system: options.system,
-        messages: [{ role: 'user', content: options.user }],
-        ...(options.temperature !== undefined ? { temperature: options.temperature } : {}),
-      });
+      const response = await this.callWithRetry(request);
       const text = extractText(response.content);
       return { text, model, provider: this.name };
     } catch (err) {
       if (err instanceof AdapterError) throw err;
-      const status =
-        typeof err === 'object' && err !== null && 'status' in err
-          ? (err as { status?: number }).status
-          : undefined;
+      const status = statusOf(err);
       const message = err instanceof Error ? err.message : String(err);
       throw new AdapterError(`Anthropic API error: ${message}`, 'anthropic', {
         ...(status !== undefined ? { status } : {}),
@@ -50,6 +48,31 @@ export class AnthropicAdapter implements LLMAdapter {
       });
     }
   }
+
+  private async callWithRetry(
+    request: Parameters<Anthropic['messages']['create']>[0],
+  ): Promise<{ content: unknown }> {
+    try {
+      return (await this.client.messages.create(request)) as { content: unknown };
+    } catch (err) {
+      if (statusOf(err) !== 429) throw err;
+      await sleep(this.retryDelayMs);
+      return (await this.client.messages.create(request)) as { content: unknown };
+    }
+  }
+
+  private readonly retryDelayMs: number = 250;
+}
+
+function statusOf(err: unknown): number | undefined {
+  if (typeof err === 'object' && err !== null && 'status' in err) {
+    return (err as { status?: number }).status;
+  }
+  return undefined;
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 type ContentBlock = { type: string; text?: string };

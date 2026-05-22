@@ -1,3 +1,7 @@
-#!/usr/bin/env node
-// Real CLI lands Day 11. For now, this is a stub so the bin entry exists.
-console.log('wv: alpha scaffold. See https://github.com/ for status.');
+import { Command } from 'commander';
+
+const program = new Command();
+
+program.name('wv').description('Worldview translation CLI');
+
+program.parse();

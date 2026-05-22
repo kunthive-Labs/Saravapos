@@ -66,6 +66,24 @@ describe('AnthropicAdapter', () => {
     });
   });
 
+  // Will be enabled in the next commit once retry-on-429 lands.
+  it.skip('retries once on 429 with backoff before giving up', async () => {
+    const apiErr = Object.assign(new Error('rate limited'), { status: 429 });
+    let calls = 0;
+    const client = makeFakeClient(() => {
+      calls += 1;
+      if (calls === 1) throw apiErr;
+      return { content: [{ type: 'text', text: 'second try' }] };
+    });
+    const adapter = new AnthropicAdapter({
+      apiKey: 'test',
+      client: client as unknown as Anthropic,
+    });
+    const result = await adapter.complete({ system: 's', user: 'u' });
+    expect(result.text).toBe('second try');
+    expect(calls).toBe(2);
+  });
+
   it('throws AdapterError when no API key and no client', () => {
     const prev = process.env['ANTHROPIC_API_KEY'];
     delete process.env['ANTHROPIC_API_KEY'];

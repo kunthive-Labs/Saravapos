@@ -46,6 +46,15 @@ describe('profile schema (end-to-end)', () => {
     expect(validate.errors).toBeNull();
   });
 
+  it('rejects an unknown top-level field', () => {
+    const profile = {
+      schema_version: SCHEMA_VERSION,
+      identity: { display_name: 'X', languages: ['en'], region: 'US' },
+      not_a_real_field: 42,
+    };
+    expect(validate(profile)).toBe(false);
+  });
+
   it('rejects a profile missing schema_version', () => {
     const profile = {
       identity: { display_name: 'X', languages: ['en'], region: 'US' },

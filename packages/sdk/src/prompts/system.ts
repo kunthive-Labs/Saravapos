@@ -38,6 +38,24 @@ function describeProfile(profile: Profile, role: 'source' | 'target'): string {
   return lines.join('\n');
 }
 
+const INSTRUCTIONS = [
+  '# TASK',
+  'You are a worldview translator. Given a text expressed in the SOURCE worldview,',
+  'rewrite it so that it lands faithfully for someone with the TARGET worldview.',
+  '',
+  'Rules:',
+  '- Preserve the semantic content: claims, structure, and intent must not change.',
+  '- Replace jargon, references, and analogies the target would not recognize with',
+  '  equivalents drawn from the target worldview (use the analogy bank when relevant).',
+  '- Match the target cognitive style (mode, abstraction tolerance, preferred framings).',
+  '- Do not invent facts. If a concept has no faithful target-side analogue, keep it',
+  '  and briefly explain it in target-native terms.',
+  '- Avoid references the target is marked to avoid.',
+  '- Output only the translated text. No preamble, no meta-commentary.',
+].join('\n');
+
 export function buildSystemPrompt(from: Profile, to: Profile): string {
-  return [describeProfile(from, 'source'), describeProfile(to, 'target')].join('\n\n');
+  return [describeProfile(from, 'source'), describeProfile(to, 'target'), INSTRUCTIONS].join(
+    '\n\n',
+  );
 }

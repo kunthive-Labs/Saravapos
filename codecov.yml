@@ -1,0 +1,26 @@
+# Codecov configuration (optional; only consumed if the Codecov GitHub App is
+# installed on this repo). Locally, see `pnpm test:coverage` and the `coverage/`
+# artifact uploaded by CI.
+
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 2%
+    patch:
+      default:
+        target: 80%
+        threshold: 5%
+
+ignore:
+  - 'packages/*/src/**/*.test.ts'
+  - 'packages/*/src/**/*.d.ts'
+  - 'packages/*/src/__snapshots__/**'
+  - 'packages/cli/**' # CLI is scaffolding; revisit after Day 13.
+  - 'packages/eval/**'
+
+comment:
+  layout: 'diff, flags, files'
+  behavior: default
+  require_changes: true

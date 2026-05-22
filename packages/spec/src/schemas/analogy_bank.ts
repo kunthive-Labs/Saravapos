@@ -4,6 +4,7 @@
  */
 export const analogyEntrySchema = {
   type: 'object',
+  additionalProperties: false,
   required: ['concept', 'metaphor', 'domain'],
   properties: {
     /** Source concept being explained (e.g. "pawn structure"). */

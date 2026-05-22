@@ -19,6 +19,7 @@ export const profileSchema = {
   $id: PROFILE_SCHEMA_ID,
   $schema: 'http://json-schema.org/draft-07/schema#',
   type: 'object',
+  additionalProperties: false,
   required: ['schema_version', 'identity'],
   properties: {
     schema_version: { type: 'string', const: SCHEMA_VERSION },

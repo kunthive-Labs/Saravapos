@@ -12,6 +12,7 @@ export type AbstractionTolerance = (typeof ABSTRACTION_TOLERANCE)[number];
  */
 export const cognitiveStyleSchema = {
   type: 'object',
+  additionalProperties: false,
   required: ['mode'],
   properties: {
     /** Primary thinking modality. See `COGNITIVE_MODES`. */

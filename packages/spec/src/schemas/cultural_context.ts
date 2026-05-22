@@ -4,6 +4,7 @@
  */
 export const culturalContextSchema = {
   type: 'object',
+  additionalProperties: false,
   properties: {
     /** References the persona is likely to recognise (e.g. "Premier League"). */
     references_that_land: { type: 'array', items: { type: 'string' } },

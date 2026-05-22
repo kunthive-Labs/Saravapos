@@ -4,6 +4,7 @@
  */
 export const identitySchema = {
   type: 'object',
+  additionalProperties: false,
   required: ['display_name', 'languages', 'region'],
   properties: {
     /** Human-readable name for the persona. Used in logs and CLI output. */

@@ -8,6 +8,7 @@ export type ExpertiseLevel = (typeof EXPERTISE_LEVELS)[number];
  */
 export const expertiseSchema = {
   type: 'object',
+  additionalProperties: false,
   required: ['domain', 'level'],
   properties: {
     /** Domain label (e.g. "chess", "machine-learning"). Free-form. */

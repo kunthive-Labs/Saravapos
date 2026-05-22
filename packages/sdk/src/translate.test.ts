@@ -6,7 +6,7 @@ import { translate } from './translate.js';
 function makeProfile(name: string, domain: string): Profile {
   return {
     schema_version: '0.1',
-    identity: { display_name: name, languages: ['en'] },
+    identity: { display_name: name, languages: ['en'], region: 'XX' },
     expertise: [{ domain, level: 'expert' }],
   };
 }
@@ -35,8 +35,8 @@ describe('translate', () => {
     await translate({ text: 'hello', from, to, adapter });
 
     expect(adapter.complete).toHaveBeenCalledTimes(1);
-    const [call] = adapter.complete.mock.calls;
-    const system = (call[0] as { system: string }).system;
+    const call = adapter.complete.mock.calls[0]!;
+    const system = (call[0] as unknown as { system: string }).system;
     expect(system).toContain('SOURCE WORLDVIEW');
     expect(system).toContain('TARGET WORLDVIEW');
     expect(system).toContain('Chess Expert');
@@ -61,8 +61,8 @@ describe('translate', () => {
 
     await translate({ text, from, to, adapter });
 
-    const [call] = adapter.complete.mock.calls;
-    const user = (call[0] as { user: string }).user;
+    const call = adapter.complete.mock.calls[0]!;
+    const user = (call[0] as unknown as { user: string }).user;
     expect(user).toContain(text);
   });
 });

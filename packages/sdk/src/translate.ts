@@ -1,5 +1,5 @@
 import type { Profile } from '@wv/spec';
-import type { LLMAdapter } from '@wv/adapters';
+import type { CompletionOptions, LLMAdapter } from '@wv/adapters';
 import { buildSystemPrompt, buildUserPrompt } from './prompts/index.js';
 
 export interface TranslateOptions {
@@ -14,11 +14,9 @@ export interface TranslateOptions {
 export async function translate(options: TranslateOptions): Promise<string> {
   const system = buildSystemPrompt(options.from, options.to);
   const user = buildUserPrompt(options.text);
-  const result = await options.adapter.complete({
-    system,
-    user,
-    model: options.model,
-    temperature: options.temperature,
-  });
+  const completion: CompletionOptions = { system, user };
+  if (options.model !== undefined) completion.model = options.model;
+  if (options.temperature !== undefined) completion.temperature = options.temperature;
+  const result = await options.adapter.complete(completion);
   return result.text;
 }

@@ -8,10 +8,12 @@ function describeProfile(profile: Profile, role: 'source' | 'target'): string {
   if (profile.identity.region) {
     lines.push(`Region: ${profile.identity.region}`);
   }
-  const expertise = profile.expertise
-    .map((e) => `${e.domain} (${e.level}${e.years ? `, ${e.years}y` : ''})`)
-    .join('; ');
-  lines.push(`Expertise: ${expertise}`);
+  if (profile.expertise?.length) {
+    const expertise = profile.expertise
+      .map((e) => `${e.domain} (${e.level}${e.years ? `, ${e.years}y` : ''})`)
+      .join('; ');
+    lines.push(`Expertise: ${expertise}`);
+  }
   if (profile.cognitive_style) {
     const cs = profile.cognitive_style;
     const prefers = cs.prefers?.length ? ` prefers ${cs.prefers.join(', ')};` : '';

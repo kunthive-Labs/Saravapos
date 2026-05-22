@@ -36,6 +36,16 @@ describe('profile schema (end-to-end)', () => {
     expect(validate.errors).toBeNull();
   });
 
+  it('accepts a profile with an empty analogy_bank', () => {
+    const profile = {
+      schema_version: SCHEMA_VERSION,
+      identity: { display_name: 'Empty', languages: ['en'], region: 'XX' },
+      analogy_bank: [],
+    };
+    expect(validate(profile)).toBe(true);
+    expect(validate.errors).toBeNull();
+  });
+
   it('rejects a profile missing schema_version', () => {
     const profile = {
       identity: { display_name: 'X', languages: ['en'], region: 'US' },

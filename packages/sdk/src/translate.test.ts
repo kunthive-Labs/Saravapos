@@ -64,6 +64,19 @@ describe('translate', () => {
     expect(adapter.complete).toHaveBeenCalledTimes(1);
   });
 
+  it('handles a 10k-character source text', async () => {
+    const adapter = makeAdapter('ok');
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+    const text = 'x'.repeat(10_000);
+
+    await translate({ text, from, to, adapter });
+
+    const call = adapter.complete.mock.calls[0]!;
+    const user = (call[0] as unknown as { user: string }).user;
+    expect(user).toContain(text);
+  });
+
   it('passes the source text verbatim inside the user prompt', async () => {
     const adapter = makeAdapter();
     const from = makeProfile('A', 'chess');

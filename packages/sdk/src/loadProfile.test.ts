@@ -57,6 +57,11 @@ describe('loadProfileFromString', () => {
     expect(profile.schema_version).toBe('0.1');
   });
 
+  it('rejects YAML whose root is not an object', () => {
+    expect(() => loadProfileFromString('- just\n- a\n- list\n')).toThrow(ProfileValidationError);
+    expect(() => loadProfileFromString('"a bare string"\n')).toThrow(ProfileValidationError);
+  });
+
   it('handles a UTF-8 BOM at the start of the YAML', async () => {
     const yaml =
       '﻿' +

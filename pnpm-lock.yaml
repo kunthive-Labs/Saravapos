@@ -64,6 +64,9 @@ importers:
 
   packages/sdk:
     dependencies:
+      '@wv/adapters':
+        specifier: workspace:*
+        version: link:../adapters
       '@wv/spec':
         specifier: workspace:*
         version: link:../spec

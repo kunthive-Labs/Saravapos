@@ -22,6 +22,7 @@
     "test": "vitest run --dir src"
   },
   "dependencies": {
+    "@wv/adapters": "workspace:*",
     "@wv/spec": "workspace:*",
     "ajv": "^8.20.0",
     "yaml": "^2.9.0"

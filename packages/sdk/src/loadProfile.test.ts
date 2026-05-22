@@ -56,4 +56,18 @@ describe('loadProfileFromString', () => {
     expect(profile.identity.display_name).toBe('Chess Expert');
     expect(profile.schema_version).toBe('0.1');
   });
+
+  it('handles a UTF-8 BOM at the start of the YAML', async () => {
+    const yaml =
+      '﻿' +
+      [
+        "schema_version: '0.1'",
+        'identity:',
+        '  display_name: BOM Carrier',
+        '  languages: [en]',
+        '  region: ZZ',
+      ].join('\n');
+    const profile = loadProfileFromString(yaml);
+    expect(profile.identity.display_name).toBe('BOM Carrier');
+  });
 });

@@ -77,6 +77,17 @@ describe('translate', () => {
     expect(user).toContain(text);
   });
 
+  it('produces a stable system prompt when source and target profiles are identical', async () => {
+    const adapter = makeAdapter('echo');
+    const same = makeProfile('Same', 'chess');
+
+    await translate({ text: 'hello', from: same, to: same, adapter });
+
+    const call = adapter.complete.mock.calls[0]!;
+    const system = (call[0] as unknown as { system: string }).system;
+    expect(system).toMatchSnapshot();
+  });
+
   it('passes the source text verbatim inside the user prompt', async () => {
     const adapter = makeAdapter();
     const from = makeProfile('A', 'chess');

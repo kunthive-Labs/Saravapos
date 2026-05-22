@@ -38,6 +38,6 @@ function describeProfile(profile: Profile, role: 'source' | 'target'): string {
   return lines.join('\n');
 }
 
-export function buildSystemPrompt(from: Profile, _to: Profile): string {
-  return describeProfile(from, 'source');
+export function buildSystemPrompt(from: Profile, to: Profile): string {
+  return [describeProfile(from, 'source'), describeProfile(to, 'target')].join('\n\n');
 }

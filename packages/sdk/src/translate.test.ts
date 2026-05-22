@@ -43,6 +43,16 @@ describe('translate', () => {
     expect(system).toContain('F1 Fan');
   });
 
+  it('returns the adapter response text', async () => {
+    const adapter = makeAdapter('lights out and away we go');
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+
+    const result = await translate({ text: 'go', from, to, adapter });
+
+    expect(result).toBe('lights out and away we go');
+  });
+
   it('passes the source text verbatim inside the user prompt', async () => {
     const adapter = makeAdapter();
     const from = makeProfile('A', 'chess');

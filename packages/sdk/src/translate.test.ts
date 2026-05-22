@@ -42,4 +42,17 @@ describe('translate', () => {
     expect(system).toContain('Chess Expert');
     expect(system).toContain('F1 Fan');
   });
+
+  it('passes the source text verbatim inside the user prompt', async () => {
+    const adapter = makeAdapter();
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+    const text = 'I sacrificed a pawn for positional advantage.';
+
+    await translate({ text, from, to, adapter });
+
+    const [call] = adapter.complete.mock.calls;
+    const user = (call[0] as { user: string }).user;
+    expect(user).toContain(text);
+  });
 });

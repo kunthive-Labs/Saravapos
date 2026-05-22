@@ -9,13 +9,18 @@
   "bin": {
     "wv": "./dist/cli.js"
   },
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "echo \"no tests yet\" && exit 0"
   },
   "dependencies": {
-    "@wv/sdk": "workspace:*"
+    "@wv/adapters": "workspace:*",
+    "@wv/sdk": "workspace:*",
+    "commander": "^12.1.0"
   }
 }

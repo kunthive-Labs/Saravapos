@@ -72,6 +72,33 @@ pnpm --filter @wv/spec test
 pnpm --filter @wv/sdk build
 ```
 
+## Running tests
+
+The repo uses [Vitest](https://vitest.dev/) with a single root config that
+discovers tests across all packages.
+
+```bash
+# Run the full test suite once.
+pnpm test
+
+# Watch mode — reruns affected tests on save.
+pnpm test:watch
+
+# Coverage with text + lcov + html reporters. Output lands in ./coverage/.
+pnpm test:coverage
+
+# Run a single test file or pattern.
+pnpm vitest run packages/sdk/src/translate.test.ts
+pnpm vitest run -t "retries once on 429"
+```
+
+Coverage gates are configured per package in `vitest.config.ts`. CI uploads the
+`coverage/` directory as an artifact on every run; if Codecov is enabled for
+the repo, it will also post a PR comment per `codecov.yml`.
+
+Snapshot tests live next to their source under `__snapshots__/`. Update them
+intentionally with `pnpm vitest run --update` after reviewing the diff.
+
 ## Questions
 
 Open a GitHub Discussion or file an issue using the question template.

@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { loadProfile, ProfileValidationError } from '@wv/sdk';
-import { green } from '../util/colors.js';
+import { green, red } from '../util/colors.js';
 
 export async function runValidate(path: string): Promise<number> {
   try {
@@ -16,6 +16,11 @@ export async function runValidate(path: string): Promise<number> {
     return 0;
   } catch (err) {
     if (err instanceof ProfileValidationError) {
+      process.stderr.write(red(`✗ ${path} is invalid\n`));
+      for (const e of err.validationErrors) {
+        const field = e.instancePath || '(root)';
+        process.stderr.write(red(`  ${field}: ${e.message ?? 'invalid'}\n`));
+      }
       return 1;
     }
     throw err;

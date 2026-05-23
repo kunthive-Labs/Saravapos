@@ -25,4 +25,11 @@ program.addCommand(validateCommand);
 program.addCommand(initCommand);
 program.addCommand(listProvidersCommand);
 
+program
+  .command('version')
+  .description('Print the CLI version (same as --version)')
+  .action(() => {
+    process.stdout.write(`${pkg.version}\n`);
+  });
+
 program.parse();

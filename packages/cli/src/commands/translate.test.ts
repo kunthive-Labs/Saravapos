@@ -2,7 +2,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
 import type { CompletionOptions, CompletionResult, LLMAdapter } from '@wv/adapters';
-import { runTranslate } from './translate.js';
+import { runTranslate, translateCommand } from './translate.js';
 
 const repoRoot = resolve(fileURLToPath(import.meta.url), '..', '..', '..', '..', '..');
 const chessProfile = resolve(repoRoot, 'profiles', 'chess-expert.yaml');
@@ -20,6 +20,17 @@ class MockAdapter implements LLMAdapter {
 }
 
 describe('runTranslate', () => {
+  it('fails with a helpful message when --from is missing', async () => {
+    let captured = '';
+    const cmd = translateCommand
+      .exitOverride()
+      .configureOutput({ writeErr: (s) => (captured += s) });
+    await expect(cmd.parseAsync(['--to', f1Profile], { from: 'user' })).rejects.toMatchObject({
+      code: 'commander.missingMandatoryOptionValue',
+    });
+    expect(captured).toMatch(/--from/);
+  });
+
   it('writes translated text to stdout on the happy path', async () => {
     const adapter = new MockAdapter('Translated for F1 fans.');
     const writeSpy = vi.spyOn(process.stdout, 'write').mockImplementation(() => true);

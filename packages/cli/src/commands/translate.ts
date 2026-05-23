@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { Command } from 'commander';
 import { loadProfile, translate } from '@wv/sdk';
 import type { Profile } from '@wv/sdk';
@@ -11,6 +11,7 @@ export interface TranslateCliOptions {
   to: string;
   input?: string;
   text?: string;
+  output?: string;
   provider?: string;
 }
 
@@ -44,7 +45,11 @@ export async function runTranslate(
     to: toProfile,
     adapter,
   });
-  process.stdout.write(result + '\n');
+  if (opts.output !== undefined) {
+    writeFileSync(opts.output, result, 'utf-8');
+  } else {
+    process.stdout.write(result + '\n');
+  }
   return 0;
 }
 
@@ -54,6 +59,7 @@ export const translateCommand = new Command('translate')
   .requiredOption('--to <path>', 'path to destination profile YAML')
   .option('--input <path>', 'read source text from file')
   .option('--text <string>', 'inline source text')
+  .option('--output <path>', 'write translated output to file')
   .action(async (options: TranslateCliOptions, cmd: Command) => {
     const globals = cmd.optsWithGlobals<{ provider?: string }>();
     const merged: TranslateCliOptions = {

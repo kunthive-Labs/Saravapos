@@ -12,6 +12,7 @@ export interface TranslateCliOptions {
   input?: string;
   text?: string;
   output?: string;
+  model?: string;
   provider?: string;
 }
 
@@ -44,6 +45,7 @@ export async function runTranslate(
     from: fromProfile,
     to: toProfile,
     adapter,
+    ...(opts.model !== undefined ? { model: opts.model } : {}),
   });
   if (opts.output !== undefined) {
     writeFileSync(opts.output, result, 'utf-8');
@@ -60,6 +62,7 @@ export const translateCommand = new Command('translate')
   .option('--input <path>', 'read source text from file')
   .option('--text <string>', 'inline source text')
   .option('--output <path>', 'write translated output to file')
+  .option('--model <name>', 'override the LLM model')
   .action(async (options: TranslateCliOptions, cmd: Command) => {
     const globals = cmd.optsWithGlobals<{ provider?: string }>();
     const merged: TranslateCliOptions = {

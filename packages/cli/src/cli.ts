@@ -12,7 +12,11 @@ const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8')) as { version: string };
 
 const program = new Command();
 
-program.name('wv').description('Worldview translation CLI').version(pkg.version);
+program
+  .name('wv')
+  .description('Worldview translation CLI')
+  .version(pkg.version)
+  .option('-p, --provider <name>', 'LLM provider: anthropic | openai | ollama');
 
 program.addCommand(translateCommand);
 program.addCommand(validateCommand);

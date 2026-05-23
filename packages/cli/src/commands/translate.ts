@@ -1,10 +1,11 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { Command } from 'commander';
-import { loadProfile, translate } from '@wv/sdk';
+import { loadProfile, ProfileValidationError, translate } from '@wv/sdk';
 import type { Profile } from '@wv/sdk';
 import { resolveAdapter } from '@wv/adapters';
 import type { LLMAdapter } from '@wv/adapters';
 import { readStdin } from '../util/stdin.js';
+import { red } from '../util/colors.js';
 
 export interface TranslateCliOptions {
   from: string;
@@ -36,8 +37,18 @@ export async function runTranslate(
   } else {
     sourceText = await readStdin();
   }
-  const fromProfile: Profile = await loadProfile(opts.from);
-  const toProfile: Profile = await loadProfile(opts.to);
+  let fromProfile: Profile;
+  let toProfile: Profile;
+  try {
+    fromProfile = await loadProfile(opts.from);
+    toProfile = await loadProfile(opts.to);
+  } catch (err) {
+    if (err instanceof ProfileValidationError) {
+      process.stderr.write(red(`Profile validation failed at ${err.fieldPath}: ${err.message}\n`));
+      return 2;
+    }
+    throw err;
+  }
   const providerName = opts.provider ?? process.env.WV_PROVIDER ?? 'anthropic';
   const adapter = deps.adapter ?? resolveAdapter(providerName);
   const result = await translate({

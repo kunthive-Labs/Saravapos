@@ -20,6 +20,7 @@
     "test": "vitest run --dir src"
   },
   "dependencies": {
+    "@inquirer/prompts": "^8.4.3",
     "@wv/adapters": "workspace:*",
     "@wv/sdk": "workspace:*",
     "commander": "^12.1.0"

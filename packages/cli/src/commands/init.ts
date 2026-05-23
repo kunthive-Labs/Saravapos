@@ -1,9 +1,9 @@
-import { writeFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { Command } from 'commander';
 import { input, select } from '@inquirer/prompts';
 import { EXPERTISE_LEVELS } from '@wv/spec';
 import type { ExpertiseLevel } from '@wv/spec';
-import { green } from '../util/colors.js';
+import { green, red } from '../util/colors.js';
 
 export interface IdentityAnswers {
   display_name: string;
@@ -19,6 +19,7 @@ export interface ExpertiseAnswer {
 
 export interface InitCliOptions {
   output: string;
+  force?: boolean;
 }
 
 export interface InitDeps {
@@ -95,6 +96,10 @@ function buildYaml(identity: IdentityAnswers, expertise: ExpertiseAnswer): strin
 }
 
 export async function runInit(opts: InitCliOptions, deps: InitDeps = {}): Promise<number> {
+  if (existsSync(opts.output) && !opts.force) {
+    process.stderr.write(red(`✗ ${opts.output} already exists. Pass --force to overwrite.\n`));
+    return 1;
+  }
   const askIdentity = deps.askIdentity ?? defaultAskIdentity;
   const askExpertise = deps.askExpertise ?? defaultAskExpertise;
   const identity = await askIdentity();
@@ -107,6 +112,7 @@ export async function runInit(opts: InitCliOptions, deps: InitDeps = {}): Promis
 export const initCommand = new Command('init')
   .description('Create a new worldview profile YAML file interactively')
   .requiredOption('-o, --output <path>', 'destination YAML path')
+  .option('-f, --force', 'overwrite the destination if it already exists')
   .action(async (options: InitCliOptions) => {
     const code = await runInit(options);
     process.exitCode = code;

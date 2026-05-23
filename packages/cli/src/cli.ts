@@ -16,7 +16,8 @@ program
   .name('wv')
   .description('Worldview translation CLI')
   .version(pkg.version)
-  .option('-p, --provider <name>', 'LLM provider: anthropic | openai | ollama');
+  .option('-p, --provider <name>', 'LLM provider: anthropic | openai | ollama')
+  .option('-v, --verbose', 'enable verbose logging');
 
 program.addCommand(translateCommand);
 program.addCommand(validateCommand);

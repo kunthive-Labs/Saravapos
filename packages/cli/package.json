@@ -23,6 +23,7 @@
     "@inquirer/prompts": "^8.4.3",
     "@wv/adapters": "workspace:*",
     "@wv/sdk": "workspace:*",
+    "@wv/spec": "workspace:*",
     "commander": "^12.1.0"
   },
   "devDependencies": {

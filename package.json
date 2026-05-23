@@ -22,6 +22,7 @@
     "format:check": "prettier --check .",
     "validate:profiles": "vitest run profiles.test --reporter=verbose",
     "example:basic": "tsx examples/basic.ts",
+    "dev:cli": "tsx packages/cli/src/cli.ts",
     "prepare": "husky"
   },
   "devDependencies": {

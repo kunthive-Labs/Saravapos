@@ -1,5 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { Command } from 'commander';
+import { loadProfile } from '@wv/sdk';
+import type { Profile } from '@wv/sdk';
 import { readStdin } from '../util/stdin.js';
 
 export interface TranslateCliOptions {
@@ -22,8 +24,10 @@ export async function runTranslate(opts: TranslateCliOptions): Promise<number> {
   } else {
     sourceText = await readStdin();
   }
+  const fromProfile: Profile = await loadProfile(opts.from);
+  const toProfile: Profile = await loadProfile(opts.to);
   process.stdout.write(
-    `translate: ${sourceText.length} chars (from=${opts.from}, to=${opts.to})\n`,
+    `translate: ${sourceText.length} chars (${fromProfile.identity.display_name} → ${toProfile.identity.display_name})\n`,
   );
   return 0;
 }

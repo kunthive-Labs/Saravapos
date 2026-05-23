@@ -6,6 +6,7 @@ import { Command } from 'commander';
 import { translateCommand } from './commands/translate.js';
 import { validateCommand } from './commands/validate.js';
 import { initCommand } from './commands/init.js';
+import { listProvidersCommand } from './commands/list-providers.js';
 
 const pkgPath = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'package.json');
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8')) as { version: string };
@@ -22,5 +23,6 @@ program
 program.addCommand(translateCommand);
 program.addCommand(validateCommand);
 program.addCommand(initCommand);
+program.addCommand(listProvidersCommand);
 
 program.parse();

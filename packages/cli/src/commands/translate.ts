@@ -10,6 +10,10 @@ export interface TranslateCliOptions {
 }
 
 export async function runTranslate(opts: TranslateCliOptions): Promise<number> {
+  if (opts.input !== undefined && opts.text !== undefined) {
+    process.stderr.write('Error: provide at most one of --input or --text\n');
+    return 1;
+  }
   let sourceText: string;
   if (opts.text !== undefined) {
     sourceText = opts.text;

@@ -27,6 +27,51 @@ npx @wv/cli --help
 | `--version`             | Print the CLI version                            |
 | `-h, --help`            | Print help                                       |
 
+## `wv translate` examples
+
+Translate a chess concept for an F1 fan, with inline text:
+
+```sh
+wv translate \
+  --from profiles/chess-expert.yaml \
+  --to   profiles/f1-fan.yaml \
+  --text "I sacrificed a pawn for positional advantage"
+```
+
+Read the source from a file, write the translation to disk:
+
+```sh
+wv translate \
+  --from profiles/software-engineer.yaml \
+  --to   profiles/curious-novice.yaml \
+  --input notes.md \
+  --output notes.translated.md
+```
+
+Pipe input on stdin, switch provider, pick a specific model:
+
+```sh
+echo "Recursion is the soul of induction." | wv \
+  --provider openai \
+  translate \
+  --from profiles/software-engineer.yaml \
+  --to   profiles/curious-novice.yaml \
+  --model gpt-4o
+```
+
+Translate flags reference:
+
+| Flag              | Purpose                                              |
+| ----------------- | ---------------------------------------------------- |
+| `--from <path>`   | Source profile YAML (required)                       |
+| `--to <path>`     | Destination profile YAML (required)                  |
+| `--input <path>`  | Read source text from a file                         |
+| `--text <string>` | Inline source text                                   |
+| `--output <path>` | Write translated output to a file (otherwise stdout) |
+| `--model <name>`  | Override the LLM model                               |
+
+If neither `--input` nor `--text` is provided, source text is read from stdin.
+
 ## Development
 
 ```sh

@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { Command } from 'commander';
 import { loadProfile, ProfileValidationError, translate } from '@wv/sdk';
 import type { Profile } from '@wv/sdk';
-import { resolveAdapter } from '@wv/adapters';
+import { AdapterError, resolveAdapter } from '@wv/adapters';
 import type { LLMAdapter } from '@wv/adapters';
 import { readStdin } from '../util/stdin.js';
 import { red } from '../util/colors.js';
@@ -51,19 +51,43 @@ export async function runTranslate(
   }
   const providerName = opts.provider ?? process.env.WV_PROVIDER ?? 'anthropic';
   const adapter = deps.adapter ?? resolveAdapter(providerName);
-  const result = await translate({
-    text: sourceText,
-    from: fromProfile,
-    to: toProfile,
-    adapter,
-    ...(opts.model !== undefined ? { model: opts.model } : {}),
-  });
+  let result: string;
+  try {
+    result = await translate({
+      text: sourceText,
+      from: fromProfile,
+      to: toProfile,
+      adapter,
+      ...(opts.model !== undefined ? { model: opts.model } : {}),
+    });
+  } catch (err) {
+    if (err instanceof AdapterError) {
+      const envVar = envVarFor(err.provider);
+      process.stderr.write(red(`Adapter error (${err.provider}): ${err.message}\n`));
+      process.stderr.write(red(`Hint: ensure ${envVar} is set in your environment.\n`));
+      return 3;
+    }
+    throw err;
+  }
   if (opts.output !== undefined) {
     writeFileSync(opts.output, result, 'utf-8');
   } else {
     process.stdout.write(result + '\n');
   }
   return 0;
+}
+
+function envVarFor(provider: string): string {
+  switch (provider) {
+    case 'anthropic':
+      return 'ANTHROPIC_API_KEY';
+    case 'openai':
+      return 'OPENAI_API_KEY';
+    case 'ollama':
+      return 'OLLAMA_HOST';
+    default:
+      return `${provider.toUpperCase()}_API_KEY`;
+  }
 }
 
 export const translateCommand = new Command('translate')

@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { Command } from 'commander';
 import { loadProfile } from '@wv/sdk';
 import type { Profile } from '@wv/sdk';
+import { resolveAdapter } from '@wv/adapters';
 import { readStdin } from '../util/stdin.js';
 
 export interface TranslateCliOptions {
@@ -9,6 +10,7 @@ export interface TranslateCliOptions {
   to: string;
   input?: string;
   text?: string;
+  provider?: string;
 }
 
 export async function runTranslate(opts: TranslateCliOptions): Promise<number> {
@@ -26,8 +28,10 @@ export async function runTranslate(opts: TranslateCliOptions): Promise<number> {
   }
   const fromProfile: Profile = await loadProfile(opts.from);
   const toProfile: Profile = await loadProfile(opts.to);
+  const providerName = opts.provider ?? process.env.WV_PROVIDER ?? 'anthropic';
+  const adapter = resolveAdapter(providerName);
   process.stdout.write(
-    `translate: ${sourceText.length} chars (${fromProfile.identity.display_name} → ${toProfile.identity.display_name})\n`,
+    `translate: ${sourceText.length} chars (${fromProfile.identity.display_name} → ${toProfile.identity.display_name}) via ${adapter.name}\n`,
   );
   return 0;
 }
@@ -38,7 +42,12 @@ export const translateCommand = new Command('translate')
   .requiredOption('--to <path>', 'path to destination profile YAML')
   .option('--input <path>', 'read source text from file')
   .option('--text <string>', 'inline source text')
-  .action(async (options: TranslateCliOptions) => {
-    const code = await runTranslate(options);
+  .action(async (options: TranslateCliOptions, cmd: Command) => {
+    const globals = cmd.optsWithGlobals<{ provider?: string }>();
+    const merged: TranslateCliOptions = {
+      ...options,
+      ...(globals.provider !== undefined ? { provider: globals.provider } : {}),
+    };
+    const code = await runTranslate(merged);
     if (code !== 0) process.exit(code);
   });

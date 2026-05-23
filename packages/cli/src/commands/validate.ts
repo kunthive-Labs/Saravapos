@@ -23,7 +23,9 @@ export async function runValidate(path: string): Promise<number> {
       }
       return 1;
     }
-    throw err;
+    const msg = err instanceof Error ? err.message : String(err);
+    process.stderr.write(red(`✗ could not read ${path}: ${msg}\n`));
+    return 1;
   }
 }
 
@@ -32,5 +34,5 @@ export const validateCommand = new Command('validate')
   .argument('<path>', 'path to profile YAML')
   .action(async (path: string) => {
     const code = await runValidate(path);
-    if (code !== 0) process.exit(code);
+    process.exitCode = code;
   });

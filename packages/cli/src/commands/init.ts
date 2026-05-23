@@ -59,17 +59,38 @@ function buildYaml(identity: IdentityAnswers, expertise: ExpertiseAnswer): strin
   const languages = `[${identity.languages.join(', ')}]`;
   const yearsLine = expertise.years !== undefined ? `    years: ${expertise.years}\n` : '';
   return (
+    `# Worldview profile — describes how this persona thinks and what they know.\n` +
+    `# Edit freely; run \`wv validate <this-file>\` to check against the schema.\n` +
     `schema_version: '0.1'\n` +
     `\n` +
+    `# Identity: surface-level labels.\n` +
     `identity:\n` +
     `  display_name: ${identity.display_name}\n` +
-    `  languages: ${languages}\n` +
+    `  languages: ${languages}    # ISO 639 codes\n` +
     `  region: ${identity.region}\n` +
     `\n` +
+    `# Expertise: domains the persona knows. Add more entries as needed.\n` +
+    `# level ∈ { novice, intermediate, advanced, expert }\n` +
     `expertise:\n` +
     `  - domain: ${expertise.domain}\n` +
     `    level: ${expertise.level}\n` +
-    yearsLine
+    yearsLine +
+    `\n` +
+    `# Optional sections — uncomment and fill in as you learn what helps.\n` +
+    `#\n` +
+    `# analogy_bank:\n` +
+    `#   - concept: <abstract concept this persona finds hard>\n` +
+    `#     metaphor: <concrete metaphor from a domain they DO know>\n` +
+    `#     domain: <which expertise.domain the metaphor lives in>\n` +
+    `#\n` +
+    `# cognitive_style:\n` +
+    `#   mode: verbal           # verbal | visual | mathematical | mixed\n` +
+    `#   abstraction_tolerance: medium  # low | medium | high\n` +
+    `#   prefers: []\n` +
+    `#\n` +
+    `# cultural_context:\n` +
+    `#   references_that_land: []\n` +
+    `#   references_to_avoid: []\n`
   );
 }
 

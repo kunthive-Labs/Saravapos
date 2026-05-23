@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { Command } from 'commander';
-import { loadProfile } from '@wv/sdk';
+import { loadProfile, translate } from '@wv/sdk';
 import type { Profile } from '@wv/sdk';
 import { resolveAdapter } from '@wv/adapters';
+import type { LLMAdapter } from '@wv/adapters';
 import { readStdin } from '../util/stdin.js';
 
 export interface TranslateCliOptions {
@@ -13,7 +14,14 @@ export interface TranslateCliOptions {
   provider?: string;
 }
 
-export async function runTranslate(opts: TranslateCliOptions): Promise<number> {
+export interface TranslateDeps {
+  adapter?: LLMAdapter;
+}
+
+export async function runTranslate(
+  opts: TranslateCliOptions,
+  deps: TranslateDeps = {},
+): Promise<number> {
   if (opts.input !== undefined && opts.text !== undefined) {
     process.stderr.write('Error: provide at most one of --input or --text\n');
     return 1;
@@ -29,10 +37,14 @@ export async function runTranslate(opts: TranslateCliOptions): Promise<number> {
   const fromProfile: Profile = await loadProfile(opts.from);
   const toProfile: Profile = await loadProfile(opts.to);
   const providerName = opts.provider ?? process.env.WV_PROVIDER ?? 'anthropic';
-  const adapter = resolveAdapter(providerName);
-  process.stdout.write(
-    `translate: ${sourceText.length} chars (${fromProfile.identity.display_name} → ${toProfile.identity.display_name}) via ${adapter.name}\n`,
-  );
+  const adapter = deps.adapter ?? resolveAdapter(providerName);
+  const result = await translate({
+    text: sourceText,
+    from: fromProfile,
+    to: toProfile,
+    adapter,
+  });
+  process.stdout.write(result + '\n');
   return 0;
 }
 

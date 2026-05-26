@@ -21,7 +21,8 @@
     "build": "tsc -p tsconfig.json",
     "bundle": "tsup",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run --dir src"
+    "test": "vitest run --dir src",
+    "prepublishOnly": "pnpm run build && pnpm run test"
   },
   "dependencies": {
     "@inquirer/prompts": "^8.4.3",

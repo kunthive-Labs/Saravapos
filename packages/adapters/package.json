@@ -1,6 +1,6 @@
 {
   "name": "@wv/adapters",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "description": "LLM provider adapters for worldview translation",
   "license": "MIT",
   "type": "module",

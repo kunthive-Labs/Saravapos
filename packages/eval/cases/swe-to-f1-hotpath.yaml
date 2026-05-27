@@ -1,0 +1,16 @@
+id: swe-to-f1-hotpath
+from: profiles/software-engineer.yaml
+to: profiles/f1-fan.yaml
+input: We profiled the system, found the hot path, and optimized it to cut tail latency by 20% under peak load.
+rubric:
+  - name: fidelity
+    description: Keeps the idea of measuring, finding the biggest bottleneck, and tuning it for a clear gain under stress.
+    weight: 2
+  - name: lands-for-target
+    description: Uses motorsport framing (laps, sector times, setup tuning) the F1 fan connects with.
+    weight: 2
+  - name: no-source-jargon
+    description: Avoids raw engineering terms like hot path or tail latency without translation.
+must_avoid:
+  - hot path
+  - latency

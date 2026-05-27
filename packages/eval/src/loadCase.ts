@@ -1,4 +1,5 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
+import { join } from 'node:path';
 import { parse } from 'yaml';
 import { Ajv } from 'ajv';
 import { goldenCaseSchema } from './schema.js';
@@ -27,4 +28,11 @@ export function loadCaseFromString(yamlContent: string): GoldenCase {
 export async function loadCase(filePath: string): Promise<GoldenCase> {
   const content = await readFile(filePath, 'utf-8');
   return loadCaseFromString(content);
+}
+
+export async function loadAllCases(dir: string): Promise<GoldenCase[]> {
+  const entries = await readdir(dir);
+  const files = entries.filter((f) => f.endsWith('.yaml') || f.endsWith('.yml')).sort();
+  const cases = await Promise.all(files.map((f) => loadCase(join(dir, f))));
+  return cases.sort((a, b) => a.id.localeCompare(b.id));
 }

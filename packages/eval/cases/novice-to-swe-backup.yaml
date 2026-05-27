@@ -1,0 +1,14 @@
+id: novice-to-swe-backup
+from: profiles/curious-novice.yaml
+to: profiles/software-engineer.yaml
+input: Before I change anything important, I make a copy I can go back to if the new version turns out worse.
+rubric:
+  - name: fidelity
+    description: Preserves the safety-net idea — keep a recoverable prior state before a risky change.
+    weight: 2
+  - name: lands-for-target
+    description: Uses precise engineering framing (versioning, snapshots, rollback) the engineer expects.
+  - name: appropriate-density
+    description: Raises the technical density without inventing details beyond the source.
+must_include:
+  - roll

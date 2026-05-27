@@ -19,8 +19,12 @@ export interface GoldenCase {
   must_avoid?: string[];
 }
 
-/** One dimension the judge scores. Fleshed out in the next commit. */
+/** One dimension the judge scores a translation against. */
 export interface RubricCriterion {
+  /** Short label, e.g. "fidelity" or "lands-for-target". */
   name: string;
+  /** What a high score on this criterion means — fed verbatim to the judge. */
   description: string;
+  /** Relative weight in the overall score. Defaults to 1 when omitted. */
+  weight?: number;
 }

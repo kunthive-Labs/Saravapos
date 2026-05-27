@@ -1,0 +1,15 @@
+id: chess-to-f1-pawn
+from: profiles/chess-expert.yaml
+to: profiles/f1-fan.yaml
+input: I sacrificed a pawn for a positional advantage.
+rubric:
+  - name: fidelity
+    description: Preserves the idea of giving up something small now for a lasting structural edge.
+    weight: 2
+  - name: lands-for-target
+    description: Uses Formula 1 framing (tyres, track position, pit strategy) the F1 fan recognises.
+  - name: no-source-jargon
+    description: Avoids chess terminology the target audience would not understand.
+must_avoid:
+  - pawn
+  - zugzwang

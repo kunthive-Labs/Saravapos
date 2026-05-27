@@ -1,0 +1,17 @@
+id: swe-to-novice-refactor
+from: profiles/software-engineer.yaml
+to: profiles/curious-novice.yaml
+input: We refactored the tightly-coupled modules so a failure in one no longer cascades through the whole system.
+rubric:
+  - name: fidelity
+    description: Keeps the idea of reorganising parts so one breakage stops spreading everywhere.
+    weight: 2
+  - name: plain-language
+    description: Uses an everyday analogy and short sentences a non-technical reader follows.
+    weight: 2
+  - name: no-jargon
+    description: Avoids software terms or explains them in plain words.
+must_avoid:
+  - refactored
+  - modules
+  - cascades

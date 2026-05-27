@@ -1,0 +1,14 @@
+id: chess-to-novice-checkmate
+from: profiles/chess-expert.yaml
+to: profiles/curious-novice.yaml
+input: Checkmate.
+rubric:
+  - name: fidelity
+    description: Conveys that the game is decisively over with no escape — a final, unavoidable loss.
+    weight: 2
+  - name: plain-language
+    description: Explains the single term in everyday words rather than restating it.
+# Edge case: a one-word input. The harness must not choke on minimal
+# text, and the translation should expand it into an understandable idea.
+must_avoid:
+  - checkmate

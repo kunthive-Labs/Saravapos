@@ -1,0 +1,15 @@
+id: f1-to-chess-undercut
+from: profiles/f1-fan.yaml
+to: profiles/chess-expert.yaml
+input: He pitted early for the undercut, sacrificing track position on old tyres to jump ahead once everyone else stopped.
+rubric:
+  - name: fidelity
+    description: Preserves the idea of a timed, proactive move that trades a short-term cost for a decisive lead.
+    weight: 2
+  - name: lands-for-target
+    description: Frames the move in chess strategic terms (tempo, initiative, sacrifice) the expert recognises.
+  - name: no-source-jargon
+    description: Avoids F1 pit-strategy terminology the chess audience would not parse.
+must_avoid:
+  - undercut
+  - tyres

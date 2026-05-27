@@ -1,0 +1,17 @@
+id: swe-to-novice-memleak
+from: profiles/software-engineer.yaml
+to: profiles/curious-novice.yaml
+input: The API got slow because a memory leak in the cache layer kept eating RAM until the server thrashed.
+rubric:
+  - name: fidelity
+    description: Keeps the chain — a slow-building waste of a limited resource eventually choked the whole thing.
+    weight: 2
+  - name: plain-language
+    description: Explains with an everyday analogy and no acronyms.
+# This case exists primarily to exercise the must_avoid lexical gate:
+# none of these source-domain terms should survive for a novice audience.
+must_avoid:
+  - API
+  - memory leak
+  - cache
+  - RAM

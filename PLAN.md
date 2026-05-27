@@ -348,11 +348,146 @@ These block nothing but must be answered:
 
 ---
 
-## Beyond Day 14 (preview, not detailed)
+## Week 3 — Eval harness (Days 15-19)
 
-- Week 3 (Days 15-19): eval harness — golden cases, LLM judge, CI gate.
+> Goal: a repeatable signal on translation _quality_, so Weeks 4-5 (prompt
+> tuning, analogy injection) are driven by data instead of vibes. Lives in the
+> existing `packages/eval` (stays `private: true` — never published). Depends on
+> `@wv/sdk`, `@wv/adapters`, `@wv/spec`.
+>
+> Design decisions baked in:
+>
+> - **Golden case** = one YAML file: `from`/`to` profile paths, `input` text, a
+>   `rubric` (named criteria), optional `must_include`/`must_avoid` lexical
+>   checks. Cases live in `packages/eval/cases/`.
+> - **Judge** = an `LLMAdapter` call with a scoring system prompt that returns
+>   strict JSON: per-criterion 1-5 score + one-line reasoning. Default judge
+>   model `claude-sonnet-4-6`, `temperature: 0`.
+> - **Determinism + cost**: translate + judge both run at `temperature: 0`;
+>   responses cached on disk keyed by a hash of (prompt + model) so re-runs are
+>   free. `--no-cache` to force.
+> - **CI gate**: mean score >= threshold AND no single case below a floor.
+>   Gated on `ANTHROPIC_API_KEY` so fork PRs skip rather than fail.
+
+---
+
+## Day 15 — Eval scaffold + golden-case format (14 commits)
+
+Goal: a typed golden-case loader + the case schema. No LLM calls yet.
+
+1. `feat(eval): add dependencies` — `@wv/sdk`, `@wv/adapters`, `@wv/spec` (workspace:\*), `yaml`, `ajv`.
+2. `feat(eval): define GoldenCase type` — `id`, `from`, `to`, `input`, `rubric[]`, `must_include?`, `must_avoid?`.
+3. `feat(eval): define Rubric criterion type` — `name`, `description`, `weight?` (default 1).
+4. `feat(eval): add goldenCaseSchema (ajv)` — `additionalProperties: false`.
+5. `test(eval): schema validates a sample case`.
+6. `test(eval): schema rejects case missing input`.
+7. `feat(eval): loadCase(path) — read YAML, validate, return typed GoldenCase`.
+8. `feat(eval): loadCase throws CaseValidationError with field path`.
+9. `test(eval): loadCase happy path + bad-schema path`.
+10. `feat(eval): loadAllCases(dir) — glob cases/*.yaml, sorted by id`.
+11. `test(eval): loadAllCases returns cases in stable order`.
+12. `feat(eval): add cases/ directory + cases/README explaining the format`.
+13. `feat(eval): add one seed case` — chess-expert → f1-fan, the pawn-sacrifice line.
+14. `chore(eval): export types + loaders from index`.
+
+End-of-day check: `loadAllCases('cases')` returns the seed case, fully typed.
+
+---
+
+## Day 16 — Golden-case corpus (10 commits)
+
+Goal: enough cases to make the score meaningful across profile pairs + directions.
+
+1. `feat(eval): case — chess-expert → curious-novice (jargon stripping)`.
+2. `feat(eval): case — f1-fan → chess-expert (reverse direction)`.
+3. `feat(eval): case — software-engineer → curious-novice (abstraction lowering)`.
+4. `feat(eval): case — curious-novice → software-engineer (abstraction raising)`.
+5. `feat(eval): case — software-engineer → f1-fan (cross-domain analogy)`.
+6. `feat(eval): case with must_avoid` — assert a jargon term does NOT survive.
+7. `feat(eval): case with must_include` — assert a target-domain anchor appears.
+8. `feat(eval): edge case — empty-ish input (single word)`.
+9. `test(eval): every case in cases/ validates against schema (one suite)`.
+10. `docs(eval): cases/README — table of cases, what each probes`.
+
+End-of-day check: `pnpm --filter @wv/eval test` validates the whole corpus, green.
+
+---
+
+## Day 17 — LLM judge (16 commits)
+
+Goal: score one (case, translation) pair into structured JSON.
+
+1. `feat(eval): define JudgeResult type` — `overall` (1-5), `criteria[] {name, score, reasoning}`, `passedLexical` (bool).
+2. `feat(eval): buildJudgeSystemPrompt(case)` — describes profiles + rubric, demands JSON-only output.
+3. `feat(eval): buildJudgeUserPrompt(input, output)` — wraps source + translation with markers.
+4. `feat(eval): judge(case, translation, adapter) — calls adapter at temperature 0`.
+5. `feat(eval): parseJudgeResponse — strict JSON parse, throw JudgeParseError on malformed`.
+6. `feat(eval): clamp + validate scores into 1-5, reject out-of-range`.
+7. `feat(eval): runLexicalChecks(case, translation) — must_include / must_avoid`.
+8. `feat(eval): fold lexical result into JudgeResult.passedLexical`.
+9. `test(eval): judge with mock adapter returns parsed result`.
+10. `test(eval): judge surfaces JudgeParseError on non-JSON`.
+11. `test(eval): lexical must_avoid fails when banned term present`.
+12. `test(eval): lexical must_include passes/fails correctly`.
+13. `feat(eval): weighted overall score from per-criterion weights`.
+14. `test(eval): weighted score math`.
+15. `feat(eval): default judge model = claude-sonnet-4-6, overridable`.
+16. `chore(eval): export judge from index`.
+
+End-of-day check: unit suite green with mocks; no real API needed to test judge logic.
+
+---
+
+## Day 18 — Runner + caching + report (16 commits)
+
+Goal: `eval run` executes the full corpus end-to-end and prints a report.
+
+1. `feat(eval): add disk cache — key = sha256(provider+model+system+user)`.
+2. `feat(eval): cachedComplete(adapter, opts) — read-through cache in .eval-cache/`.
+3. `test(eval): cache hit skips adapter call (mock)`.
+4. `feat(eval): runCase(case, translateAdapter, judgeAdapter) — translate then judge`.
+5. `feat(eval): runCase returns {case, translation, result, ms}`.
+6. `feat(eval): runSuite(cases, ...) — runs all, collects results`.
+7. `feat(eval): aggregate — mean overall, min case, lexical pass rate`.
+8. `feat(eval): scaffold bin/eval.ts CLI (commander)` — `eval run`.
+9. `feat(eval): run --cases <dir> --provider <p> --judge-model <m> flags`.
+10. `feat(eval): run --no-cache flag`.
+11. `feat(eval): table report to stdout — per-case overall + pass/fail`.
+12. `feat(eval): summary line — mean, min, lexical pass rate`.
+13. `feat(eval): --json flag writes machine-readable report`.
+14. `feat(eval): exit non-zero if any JudgeParseError (infra failure ≠ quality)`.
+15. `feat(eval): add pnpm eval script at root` — `tsx packages/eval/bin/eval.ts run`.
+16. `docs(eval): README — how to run, env vars, reading the report`.
+
+End-of-day check: `pnpm eval run` with real key scores the corpus and prints a table.
+
+---
+
+## Day 19 — CI gate + baseline (12 commits)
+
+Goal: eval score becomes a checked-in baseline and an optional CI gate.
+
+1. `feat(eval): run --threshold <n> (mean floor) + --min-case <n> (per-case floor)`.
+2. `feat(eval): run exits non-zero when below threshold or any case below floor`.
+3. `test(eval): threshold logic — pass/fail boundaries (mock results)`.
+4. `feat(eval): run --baseline <file> compares against saved scores`.
+5. `feat(eval): report regressions (case dropped > delta vs baseline)`.
+6. `feat(eval): run --write-baseline saves current scores`.
+7. `chore(eval): commit eval-baseline.json from one real run`.
+8. `ci: add eval job to ci.yml — runs only if ANTHROPIC_API_KEY secret present`.
+9. `ci: eval job uses cache, runs eval run --threshold 3.5 --min-case 3`.
+10. `ci: eval job is non-blocking (continue-on-error) for now — report only`.
+11. `docs: add "Evals" section to CONTRIBUTING — how to add a case, update baseline`.
+12. `docs: link eval results expectations from README roadmap`.
+
+End-of-day check: CI eval job runs on a PR (when key present), prints scores, doesn't block. Re-plan Week 4 prompt-tuning against this baseline.
+
+---
+
+## Beyond Week 3 (preview, not detailed)
+
 - Week 4 (Days 20-25): prompt engineering loop driven by eval signal.
 - Week 5 (Days 26-30): analogy_bank injection — concept extraction → metaphor lookup → prompt enrichment.
 - Week 6 (Days 31-35): v0.1 stable release, announce externally (HN Show, dev.to, r/LocalLLaMA).
 
-Re-plan in detail after Day 14 retrospective.
+Re-plan Weeks 4-6 in detail after the Day 19 eval baseline lands.

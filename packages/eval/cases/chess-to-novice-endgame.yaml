@@ -1,0 +1,17 @@
+id: chess-to-novice-endgame
+from: profiles/chess-expert.yaml
+to: profiles/curious-novice.yaml
+input: After reaching the endgame a pawn up, I converted the advantage by creating a passed pawn and promoting it to a queen.
+rubric:
+  - name: fidelity
+    description: Keeps the core idea — a small lasting lead was carefully turned into a win.
+    weight: 2
+  - name: plain-language
+    description: Uses short, everyday sentences with no specialist vocabulary.
+    weight: 2
+  - name: no-jargon
+    description: Explains or removes chess terms rather than assuming them.
+must_avoid:
+  - endgame
+  - passed pawn
+  - promoting

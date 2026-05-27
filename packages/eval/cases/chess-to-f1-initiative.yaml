@@ -1,0 +1,16 @@
+id: chess-to-f1-initiative
+from: profiles/chess-expert.yaml
+to: profiles/f1-fan.yaml
+input: Seizing the initiative early forced my opponent to react to every threat instead of building their own plan.
+rubric:
+  - name: fidelity
+    description: Keeps the idea of taking control so the rival is stuck responding rather than executing their own strategy.
+    weight: 2
+  - name: lands-for-target
+    description: Frames control via racing concepts (leading, pace, dictating the race) the F1 fan recognises.
+# Exercises the must_include lexical gate: a good F1 framing of seizing
+# the initiative should anchor on the idea of leading the race.
+must_include:
+  - lead
+must_avoid:
+  - initiative

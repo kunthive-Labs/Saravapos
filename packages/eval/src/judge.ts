@@ -4,7 +4,11 @@ import { buildJudgeSystemPrompt, buildJudgeUserPrompt } from './judgePrompts.js'
 import { JudgeParseError } from './errors.js';
 import { runLexicalChecks } from './lexical.js';
 
+/** Default model the judge invokes when none is passed in. */
+export const DEFAULT_JUDGE_MODEL = 'claude-sonnet-4-6';
+
 export interface JudgeOptions {
+  /** Judge model override. Defaults to DEFAULT_JUDGE_MODEL. */
   model?: string;
 }
 
@@ -79,7 +83,7 @@ export async function judge(
   const completion = await adapter.complete({
     system,
     user,
-    ...(options.model !== undefined ? { model: options.model } : {}),
+    model: options.model ?? DEFAULT_JUDGE_MODEL,
     temperature: 0,
   });
   const raw = parseJudgeResponse(completion.text);

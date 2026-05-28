@@ -34,6 +34,17 @@ export function parseJudgeResponse(text: string): RawJudgeResponse {
   return parsed as RawJudgeResponse;
 }
 
+/** Reject non-numeric or out-of-range scores; coerce to an integer in 1-5. */
+function clampScore(score: unknown, raw: string): number {
+  if (typeof score !== 'number' || Number.isNaN(score)) {
+    throw new JudgeParseError(`Non-numeric score: ${String(score)}`, raw);
+  }
+  if (score < 1 || score > 5) {
+    throw new JudgeParseError(`Score out of range 1-5: ${score}`, raw);
+  }
+  return Math.round(score);
+}
+
 /**
  * Run the judge on one (case, translation) pair. Forces temperature 0 so
  * scores are reproducible across runs and the disk cache stays meaningful.
@@ -55,7 +66,7 @@ export async function judge(
   const raw = parseJudgeResponse(completion.text);
   const criteria: CriterionScore[] = raw.criteria.map((cr) => ({
     name: cr.name,
-    score: cr.score,
+    score: clampScore(cr.score, completion.text),
     reasoning: cr.reasoning,
   }));
   const overall =

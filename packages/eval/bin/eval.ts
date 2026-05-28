@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { writeFile } from 'node:fs/promises';
 import { Command } from 'commander';
 import { resolveAdapter, type AdapterName } from '@wv/adapters';
 import { loadAllCases } from '../src/loadCase.js';
@@ -17,8 +18,15 @@ program
   .option('--provider <name>', 'translation provider: anthropic | openai | ollama', 'anthropic')
   .option('--judge-model <model>', 'judge model override')
   .option('--no-cache', 'force fresh adapter calls (still writes responses to disk)')
+  .option('--json <file>', 'also write a machine-readable JSON report to <file>')
   .action(
-    async (opts: { cases: string; provider: string; judgeModel?: string; cache: boolean }) => {
+    async (opts: {
+      cases: string;
+      provider: string;
+      judgeModel?: string;
+      cache: boolean;
+      json?: string;
+    }) => {
       const cases = await loadAllCases(opts.cases);
       const adapter = resolveAdapter(opts.provider as AdapterName);
       const results = await runSuite(cases, {
@@ -30,6 +38,18 @@ program
       const summary = aggregate(results);
       process.stdout.write(`${formatTable(results)}\n\n`);
       process.stdout.write(`${formatSummary(summary)}\n`);
+      if (opts.json !== undefined) {
+        const payload = {
+          summary,
+          results: results.map((r) => ({
+            id: r.case.id,
+            translation: r.translation,
+            result: r.result,
+            ms: r.ms,
+          })),
+        };
+        await writeFile(opts.json, `${JSON.stringify(payload, null, 2)}\n`, 'utf-8');
+      }
     },
   );
 

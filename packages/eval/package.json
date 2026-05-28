@@ -17,6 +17,7 @@
     "@wv/sdk": "workspace:*",
     "@wv/spec": "workspace:*",
     "ajv": "^8.20.0",
+    "commander": "^12.1.0",
     "yaml": "^2.9.0"
   }
 }

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { CompletionOptions, CompletionResult, LLMAdapter } from '@wv/adapters';
 import { judge } from './judge.js';
+import { JudgeParseError } from './errors.js';
 import type { GoldenCase } from './types.js';
 
 const sampleCase: GoldenCase = {
@@ -40,6 +41,16 @@ describe('judge', () => {
     expect(result.criteria[0]).toMatchObject({ name: 'fidelity', score: 4 });
     expect(result.criteria[1]?.score).toBe(5);
     expect(result.overall).toBeCloseTo(4.5);
+  });
+
+  it('surfaces JudgeParseError when the model returns non-JSON', async () => {
+    const adapter = new FixedAdapter('not json at all, sorry');
+    await expect(judge(sampleCase, 'x', adapter)).rejects.toBeInstanceOf(JudgeParseError);
+  });
+
+  it('surfaces JudgeParseError when criteria field is absent', async () => {
+    const adapter = new FixedAdapter(JSON.stringify({ overall: 4 }));
+    await expect(judge(sampleCase, 'x', adapter)).rejects.toBeInstanceOf(JudgeParseError);
   });
 
   it('forces temperature 0 on the adapter call', async () => {

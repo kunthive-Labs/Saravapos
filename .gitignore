@@ -31,3 +31,6 @@ Thumbs.db
 # coverage
 coverage/
 .nyc_output/
+
+# eval runner disk cache
+.eval-cache/

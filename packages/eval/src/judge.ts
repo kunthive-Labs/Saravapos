@@ -35,6 +35,24 @@ export function parseJudgeResponse(text: string): RawJudgeResponse {
   return parsed as RawJudgeResponse;
 }
 
+/**
+ * Weighted mean of per-criterion scores, using each rubric entry's `weight`
+ * (defaults to 1 when omitted). Criteria with no matching rubric entry fall
+ * back to weight 1 so unexpected judge output still contributes something.
+ */
+export function weightedOverall(c: GoldenCase, scores: CriterionScore[]): number {
+  if (scores.length === 0) return 0;
+  const weightOf = (name: string): number => c.rubric.find((r) => r.name === name)?.weight ?? 1;
+  let weightedSum = 0;
+  let totalWeight = 0;
+  for (const s of scores) {
+    const w = weightOf(s.name);
+    weightedSum += s.score * w;
+    totalWeight += w;
+  }
+  return totalWeight === 0 ? 0 : weightedSum / totalWeight;
+}
+
 /** Reject non-numeric or out-of-range scores; coerce to an integer in 1-5. */
 function clampScore(score: unknown, raw: string): number {
   if (typeof score !== 'number' || Number.isNaN(score)) {
@@ -70,8 +88,7 @@ export async function judge(
     score: clampScore(cr.score, completion.text),
     reasoning: cr.reasoning,
   }));
-  const overall =
-    criteria.length === 0 ? 0 : criteria.reduce((sum, s) => sum + s.score, 0) / criteria.length;
+  const overall = weightedOverall(c, criteria);
   const passedLexical = runLexicalChecks(c, translation).passed;
   return { overall, criteria, passedLexical };
 }

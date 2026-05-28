@@ -4,6 +4,7 @@ import { resolveAdapter, type AdapterName } from '@wv/adapters';
 import { loadAllCases } from '../src/loadCase.js';
 import { runSuite } from '../src/runSuite.js';
 import { aggregate } from '../src/aggregate.js';
+import { formatTable } from '../src/report.js';
 
 const program = new Command();
 
@@ -27,6 +28,7 @@ program
         ...(opts.judgeModel !== undefined ? { judgeOptions: { model: opts.judgeModel } } : {}),
       });
       const summary = aggregate(results);
+      process.stdout.write(`${formatTable(results)}\n`);
       process.stdout.write(`${JSON.stringify(summary, null, 2)}\n`);
     },
   );

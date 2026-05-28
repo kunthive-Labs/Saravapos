@@ -20,10 +20,19 @@ export interface RunCaseOptions {
  * judge the translation. Both completions flow through the disk cache so
  * re-runs of an unchanged corpus are free.
  */
-export async function runCase(
-  c: GoldenCase,
-  opts: RunCaseOptions,
-): Promise<{ translation: string; result: JudgeResult }> {
+export interface CaseRunResult {
+  /** The case that was run, echoed for downstream reporting. */
+  case: GoldenCase;
+  /** The translator's output text. */
+  translation: string;
+  /** The judge's structured verdict. */
+  result: JudgeResult;
+  /** Wall-clock time for the whole case, in milliseconds. */
+  ms: number;
+}
+
+export async function runCase(c: GoldenCase, opts: RunCaseOptions): Promise<CaseRunResult> {
+  const started = Date.now();
   const [fromProfile, toProfile] = await Promise.all([loadProfile(c.from), loadProfile(c.to)]);
 
   // Route the translation step through the cache by wrapping the adapter.
@@ -48,5 +57,5 @@ export async function runCase(
   };
 
   const result = await judge(c, translation, cachedJudgeAdapter, opts.judgeOptions);
-  return { translation, result };
+  return { case: c, translation, result, ms: Date.now() - started };
 }

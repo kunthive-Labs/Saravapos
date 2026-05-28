@@ -29,3 +29,23 @@ describe('runLexicalChecks: must_avoid', () => {
     expect(result.presentAvoids).toEqual([]);
   });
 });
+
+describe('runLexicalChecks: must_include', () => {
+  it('passes when every required term appears (case-insensitive)', () => {
+    const result = runLexicalChecks(
+      { ...baseCase, must_include: ['Initiative', 'tempo'] },
+      'White held the initiative thanks to superior tempo.',
+    );
+    expect(result.passed).toBe(true);
+    expect(result.missingIncludes).toEqual([]);
+  });
+
+  it('fails and lists every term that did not appear', () => {
+    const result = runLexicalChecks(
+      { ...baseCase, must_include: ['pit', 'undercut'] },
+      'He stayed out a lap longer for fresh tyres.',
+    );
+    expect(result.passed).toBe(false);
+    expect(result.missingIncludes).toEqual(['pit', 'undercut']);
+  });
+});

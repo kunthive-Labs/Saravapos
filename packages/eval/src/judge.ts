@@ -2,6 +2,7 @@ import type { LLMAdapter } from '@wv/adapters';
 import type { CriterionScore, GoldenCase, JudgeResult } from './types.js';
 import { buildJudgeSystemPrompt, buildJudgeUserPrompt } from './judgePrompts.js';
 import { JudgeParseError } from './errors.js';
+import { runLexicalChecks } from './lexical.js';
 
 export interface JudgeOptions {
   model?: string;
@@ -71,5 +72,6 @@ export async function judge(
   }));
   const overall =
     criteria.length === 0 ? 0 : criteria.reduce((sum, s) => sum + s.score, 0) / criteria.length;
-  return { overall, criteria, passedLexical: true };
+  const passedLexical = runLexicalChecks(c, translation).passed;
+  return { overall, criteria, passedLexical };
 }

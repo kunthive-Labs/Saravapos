@@ -2,6 +2,7 @@
 import { writeFile } from 'node:fs/promises';
 import { Command } from 'commander';
 import { resolveAdapter, type AdapterName } from '@wv/adapters';
+import { JudgeParseError } from '../src/errors.js';
 import { loadAllCases } from '../src/loadCase.js';
 import { runSuite } from '../src/runSuite.js';
 import { aggregate } from '../src/aggregate.js';
@@ -54,6 +55,11 @@ program
   );
 
 program.parseAsync().catch((err: unknown) => {
+  if (err instanceof JudgeParseError) {
+    process.stderr.write(`infra: judge output unparseable — ${err.message}\n`);
+    process.stderr.write(`raw response (truncated):\n${err.raw.slice(0, 500)}\n`);
+    process.exit(2);
+  }
   process.stderr.write(`${err instanceof Error ? err.message : String(err)}\n`);
   process.exit(1);
 });

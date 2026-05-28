@@ -18,3 +18,11 @@ export function buildJudgeSystemPrompt(c: GoldenCase): string {
     'Include exactly one entry per criterion, using the criterion names above verbatim.',
   ].join('\n\n');
 }
+
+/**
+ * Wrap the source text and the candidate translation with unambiguous markers
+ * so the judge can never confuse one for the other.
+ */
+export function buildJudgeUserPrompt(input: string, output: string): string {
+  return ['<source>', input, '</source>', '<translation>', output, '</translation>'].join('\n');
+}

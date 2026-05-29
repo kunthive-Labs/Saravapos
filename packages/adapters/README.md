@@ -1,6 +1,6 @@
-# @wv/adapters
+# @saravapos/adapters
 
-LLM provider adapters for worldview translation. Bring your own key (BYOK) — no provider is hardcoded into the SDK or CLI; you choose one at runtime via `resolveAdapter('<name>')` or the CLI `--provider` flag.
+LLM provider adapters for Saravapos. Bring your own key (BYOK) — no provider is hardcoded into the SDK or CLI; you choose one at runtime via `resolveAdapter('<name>')` or the CLI `--provider` flag.
 
 ## Supported providers
 
@@ -13,7 +13,7 @@ LLM provider adapters for worldview translation. Bring your own key (BYOK) — n
 ## Usage
 
 ```ts
-import { resolveAdapter } from '@wv/adapters';
+import { resolveAdapter } from '@saravapos/adapters';
 
 const adapter = resolveAdapter('anthropic'); // reads ANTHROPIC_API_KEY
 const result = await adapter.complete({
@@ -26,7 +26,7 @@ console.log(result.text);
 You can also instantiate a specific adapter directly:
 
 ```ts
-import { AnthropicAdapter, OpenAIAdapter, OllamaAdapter } from '@wv/adapters';
+import { AnthropicAdapter, OpenAIAdapter, OllamaAdapter } from '@saravapos/adapters';
 
 const a = new AnthropicAdapter({ apiKey: '...', defaultModel: 'claude-opus-4-7' });
 const o = new OpenAIAdapter({ apiKey: '...' });

@@ -1,9 +1,9 @@
-# Worldview Translation Protocol — 14-Day Build Plan
+# Saravapos Translation Protocol — 14-Day Build Plan
 
-> Codename: **`wv`** (worldview). Rename pre-launch.
+> Project: **Saravapos** (formerly internal codename `worldview` / `wv`).
 > Cadence: 1-2 hrs/day. 10-25 commits/day. Conventional Commits.
 > Stack: TypeScript / Node, pnpm workspaces. License: MIT.
-> MVP scope: bidirectional worldview translation CLI. Local-first profiles.
+> MVP scope: bidirectional worldview-aware translation CLI. Local-first profiles.
 
 ---
 
@@ -80,7 +80,7 @@ Goal: profile JSON Schema v0.1 drafted + validated against samples.
 14. `docs(spec): inline JSDoc on each schema field`.
 15. `chore(spec): export schema from package index`.
 
-End-of-day check: `import { profileSchema, Profile } from '@wv/spec'` works in sdk pkg.
+End-of-day check: `import { profileSchema, Profile } from '@saravapos/spec'` works in sdk pkg.
 
 ---
 
@@ -192,7 +192,7 @@ Goal: 2 more adapters. Provider parity for v1.
 13. `docs(adapters): document each adapter's env vars + default model`.
 14. `chore(adapters): export OpenAIAdapter + OllamaAdapter`.
 
-End-of-day check: switch provider via `WV_PROVIDER` env var works end-to-end with mocks.
+End-of-day check: switch provider via `SARAVAPOS_PROVIDER` env var works end-to-end with mocks.
 
 ---
 
@@ -249,7 +249,7 @@ End-of-day check: `pnpm -r test --coverage` shows >80% on sdk + spec.
 
 ## Day 11 — CLI scaffold (12 commits)
 
-Goal: `wv --help` works. Subcommand structure.
+Goal: `saravapos --help` works. Subcommand structure.
 
 1. `feat(cli): add commander dependency`.
 2. `feat(cli): create src/cli.ts entry`.
@@ -264,11 +264,11 @@ Goal: `wv --help` works. Subcommand structure.
 11. `chore(cli): add `pnpm dev:cli` script for local linking`.
 12. `docs(cli): packages/cli/README with subcommand table`.
 
-End-of-day check: `pnpm --filter @wv/cli build && node packages/cli/dist/cli.js --help` shows help.
+End-of-day check: `pnpm --filter @saravapos/cli build && node packages/cli/dist/cli.js --help` shows help.
 
 ---
 
-## Day 12 — `wv translate` command (16 commits)
+## Day 12 — `saravapos translate` command (16 commits)
 
 Goal: working translate command end-to-end from terminal.
 
@@ -289,11 +289,11 @@ Goal: working translate command end-to-end from terminal.
 15. `test(cli): translate fails with helpful message when --from missing`.
 16. `docs(cli): add translate examples to packages/cli/README`.
 
-End-of-day check: `wv translate --from profiles/chess-expert.yaml --to profiles/f1-fan.yaml --text "I sacrificed a pawn for a positional advantage"` produces F1-flavored explanation.
+End-of-day check: `saravapos translate --from profiles/chess-expert.yaml --to profiles/f1-fan.yaml --text "I sacrificed a pawn for a positional advantage"` produces F1-flavored explanation.
 
 ---
 
-## Day 13 — `wv validate` + `wv init` (14 commits)
+## Day 13 — `saravapos validate` + `saravapos init` (14 commits)
 
 Goal: profile lifecycle commands. Authoring UX baseline.
 
@@ -308,17 +308,17 @@ Goal: profile lifecycle commands. Authoring UX baseline.
 9. `feat(cli): init writes well-commented YAML template`.
 10. `feat(cli): init refuses to overwrite without --force`.
 11. `test(cli): init writes valid profile that passes validate`.
-12. `feat(cli): add `wv list-providers` command — prints supported adapters + env vars`.
-13. `feat(cli): add `wv version` alongside --version`.
+12. `feat(cli): add `saravapos list-providers` command — prints supported adapters + env vars`.
+13. `feat(cli): add `saravapos version` alongside --version`.
 14. `docs(cli): expand README with full command reference`.
 
-End-of-day check: `wv init -o me.yaml` interactive flow produces a file that `wv validate me.yaml` passes.
+End-of-day check: `saravapos init -o me.yaml` interactive flow produces a file that `saravapos validate me.yaml` passes.
 
 ---
 
 ## Day 14 — Alpha release prep (12 commits)
 
-Goal: published to npm under `@wv/*` (or chosen scope), tagged `alpha`, announced internally.
+Goal: published to npm under `@saravapos/*` (or chosen scope), tagged `alpha`, announced internally.
 
 1. `chore: set package versions to 0.1.0-alpha.0` (all publishable packages).
 2. `chore: set publishConfig.access=public in each package.json`.
@@ -328,12 +328,12 @@ Goal: published to npm under `@wv/*` (or chosen scope), tagged `alpha`, announce
 6. `docs: write CHANGELOG.md — 0.1.0-alpha.0 entry`.
 7. `docs: write top-level README — pitch, install, quickstart, links`.
 8. `chore: dry-run pnpm publish on each package, verify tarball contents`.
-9. `chore: publish @wv/spec` (manual or `pnpm -r publish --tag alpha`).
-10. `chore: publish @wv/sdk`.
-11. `chore: publish @wv/adapters + @wv/cli`.
+9. `chore: publish @saravapos/spec` (manual or `pnpm -r publish --tag alpha`).
+10. `chore: publish @saravapos/sdk`.
+11. `chore: publish @saravapos/adapters + @saravapos/cli`.
 12. `chore: tag v0.1.0-alpha.0 + push tag` — creates GitHub release auto-draft.
 
-End-of-day check: `npx @wv/cli@alpha --help` works on a fresh machine.
+End-of-day check: `npx @saravapos/cli@alpha --help` works on a fresh machine.
 
 ---
 
@@ -341,7 +341,7 @@ End-of-day check: `npx @wv/cli@alpha --help` works on a fresh machine.
 
 These block nothing but must be answered:
 
-- **Final or codename name?** Default to `wv` if undecided. If renamed, search-replace before Day 14.
+- **Final or codename name?** Default to `saravapos` if undecided. If renamed, search-replace before Day 14.
 - **GitHub org/handle for repo URL** — needed Day 1 to push.
 - **Primary LLM provider** you hold a key for — sets which adapter to integration-test against (Day 7 vs Day 8).
 - **Dev-log channel** — Twitter/X, dev.to, Mastodon, none. Affects nothing before Day 14 announce.
@@ -353,7 +353,7 @@ These block nothing but must be answered:
 > Goal: a repeatable signal on translation _quality_, so Weeks 4-5 (prompt
 > tuning, analogy injection) are driven by data instead of vibes. Lives in the
 > existing `packages/eval` (stays `private: true` — never published). Depends on
-> `@wv/sdk`, `@wv/adapters`, `@wv/spec`.
+> `@saravapos/sdk`, `@saravapos/adapters`, `@saravapos/spec`.
 >
 > Design decisions baked in:
 >
@@ -375,7 +375,7 @@ These block nothing but must be answered:
 
 Goal: a typed golden-case loader + the case schema. No LLM calls yet.
 
-1. `feat(eval): add dependencies` — `@wv/sdk`, `@wv/adapters`, `@wv/spec` (workspace:\*), `yaml`, `ajv`.
+1. `feat(eval): add dependencies` — `@saravapos/sdk`, `@saravapos/adapters`, `@saravapos/spec` (workspace:\*), `yaml`, `ajv`.
 2. `feat(eval): define GoldenCase type` — `id`, `from`, `to`, `input`, `rubric[]`, `must_include?`, `must_avoid?`.
 3. `feat(eval): define Rubric criterion type` — `name`, `description`, `weight?` (default 1).
 4. `feat(eval): add goldenCaseSchema (ajv)` — `additionalProperties: false`.
@@ -409,7 +409,7 @@ Goal: enough cases to make the score meaningful across profile pairs + direction
 9. `test(eval): every case in cases/ validates against schema (one suite)`.
 10. `docs(eval): cases/README — table of cases, what each probes`.
 
-End-of-day check: `pnpm --filter @wv/eval test` validates the whole corpus, green.
+End-of-day check: `pnpm --filter @saravapos/eval test` validates the whole corpus, green.
 
 ---
 

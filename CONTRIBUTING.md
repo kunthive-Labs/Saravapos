@@ -1,4 +1,4 @@
-# Contributing to worldview
+# Contributing to Saravapos
 
 Thank you for considering a contribution. This guide covers dev setup, commit conventions, and the PR flow.
 
@@ -8,8 +8,8 @@ Thank you for considering a contribution. This guide covers dev setup, commit co
 
 ```bash
 # clone and install
-git clone git@github.com:8harath/Context.git
-cd Context
+git clone git@github.com:kunthive-Labs/Saravapos.git
+cd Saravapos
 pnpm install
 
 # build all packages
@@ -30,7 +30,7 @@ packages/
   spec/       # JSON Schema + TypeScript types for profiles
   sdk/        # loadProfile, translate — core library
   adapters/   # LLM backends (Anthropic, OpenAI, Ollama)
-  cli/        # wv command-line tool
+  cli/        # saravapos command-line tool
   eval/       # eval harness (future)
 profiles/     # hand-authored sample profiles
 docs/         # spec doc and references
@@ -68,8 +68,8 @@ PRs that touch the schema (`packages/spec`) must include a test.
 ## Running a specific package
 
 ```bash
-pnpm --filter @wv/spec test
-pnpm --filter @wv/sdk build
+pnpm --filter @saravapos/spec test
+pnpm --filter @saravapos/sdk build
 ```
 
 ## Running tests

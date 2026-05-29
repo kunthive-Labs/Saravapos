@@ -1,6 +1,6 @@
 # Sample Profiles
 
-Hand-authored worldview profiles used for development, testing, and dogfooding the translator.
+Hand-authored Saravapos profiles used for development, testing, and dogfooding the translator.
 
 | File                     | Persona           | Strong domain                 | Weak domain           |
 | ------------------------ | ----------------- | ----------------------------- | --------------------- |
@@ -9,7 +9,7 @@ Hand-authored worldview profiles used for development, testing, and dogfooding t
 | `software-engineer.yaml` | Software Engineer | software-engineering (expert) | —                     |
 | `curious-novice.yaml`    | Curious Novice    | everyday-life (expert)        | all technical domains |
 
-Each profile validates against the `@wv/spec` JSON Schema. Run `pnpm validate:profiles` to verify.
+Each profile validates against the `@saravapos/spec` JSON Schema. Run `pnpm validate:profiles` to verify.
 
 ---
 

@@ -1,17 +1,17 @@
-# @wv/spec
+# @saravapos/spec
 
-Profile JSON Schema and TypeScript types for the worldview translation protocol.
+Profile JSON Schema and TypeScript types for the Saravapos protocol.
 
 ## Install
 
 ```bash
-pnpm add @wv/spec
+pnpm add @saravapos/spec
 ```
 
 ## Usage
 
 ```ts
-import { profileSchema, SCHEMA_VERSION, type Profile } from '@wv/spec';
+import { profileSchema, SCHEMA_VERSION, type Profile } from '@saravapos/spec';
 
 console.log(SCHEMA_VERSION); // '0.1'
 

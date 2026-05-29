@@ -1,7 +1,7 @@
 {
-  "name": "@wv/spec",
+  "name": "@saravapos/spec",
   "version": "0.1.0-alpha.0",
-  "description": "Worldview profile schema and types",
+  "description": "Saravapos profile schema and TypeScript types",
   "license": "MIT",
   "type": "module",
   "publishConfig": {

@@ -6,10 +6,10 @@ import { expertiseSchema } from './schemas/expertise.js';
 import { identitySchema } from './schemas/identity.js';
 
 /** Canonical `$id` for the profile schema. */
-export const PROFILE_SCHEMA_ID = 'https://worldview.dev/schemas/profile.json';
+export const PROFILE_SCHEMA_ID = 'https://saravapos.dev/schemas/profile.json';
 
 /**
- * Top-level worldview profile schema (JSON Schema draft-07).
+ * Top-level Saravapos profile schema (JSON Schema draft-07).
  *
  * Composes identity, expertise, analogy_bank, cognitive_style, and
  * cultural_context. Only `schema_version` and `identity` are required —

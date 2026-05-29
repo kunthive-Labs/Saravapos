@@ -19,7 +19,7 @@ export function runListProviders(): number {
       `  ${p.name.padEnd(10)} env: ${p.envVar.padEnd(20)} default: ${p.defaultModel}\n`,
     );
   }
-  process.stdout.write('\nSelect with `--provider <name>` or the WV_PROVIDER env var.\n');
+  process.stdout.write('\nSelect with `--provider <name>` or the SARAVAPOS_PROVIDER env var.\n');
   return 0;
 }
 

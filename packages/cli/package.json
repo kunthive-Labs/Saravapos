@@ -1,7 +1,7 @@
 {
-  "name": "@wv/cli",
+  "name": "@saravapos/cli",
   "version": "0.1.0-alpha.0",
-  "description": "Worldview translation CLI",
+  "description": "Saravapos translation CLI — translate ideas between mental models",
   "license": "MIT",
   "type": "module",
   "publishConfig": {
@@ -10,7 +10,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "wv": "./dist/cli.js"
+    "saravapos": "./dist/cli.js"
   },
   "files": [
     "dist",
@@ -26,9 +26,9 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^8.4.3",
-    "@wv/adapters": "workspace:*",
-    "@wv/sdk": "workspace:*",
-    "@wv/spec": "workspace:*",
+    "@saravapos/adapters": "workspace:*",
+    "@saravapos/sdk": "workspace:*",
+    "@saravapos/spec": "workspace:*",
     "commander": "^12.1.0"
   },
   "devDependencies": {

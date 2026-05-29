@@ -9,7 +9,7 @@ describe('runInit', () => {
   let workDir: string;
 
   beforeEach(() => {
-    workDir = mkdtempSync(join(tmpdir(), 'wv-init-'));
+    workDir = mkdtempSync(join(tmpdir(), 'saravapos-init-'));
   });
 
   afterEach(() => {

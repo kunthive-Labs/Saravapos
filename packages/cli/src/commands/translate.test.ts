@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it, vi } from 'vitest';
-import type { CompletionOptions, CompletionResult, LLMAdapter } from '@wv/adapters';
+import type { CompletionOptions, CompletionResult, LLMAdapter } from '@saravapos/adapters';
 import { runTranslate, translateCommand } from './translate.js';
 
 const repoRoot = resolve(fileURLToPath(import.meta.url), '..', '..', '..', '..', '..');

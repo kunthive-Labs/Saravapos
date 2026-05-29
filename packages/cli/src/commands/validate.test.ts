@@ -12,7 +12,7 @@ describe('runValidate', () => {
   let workDir: string;
 
   beforeEach(() => {
-    workDir = mkdtempSync(join(tmpdir(), 'wv-validate-'));
+    workDir = mkdtempSync(join(tmpdir(), 'saravapos-validate-'));
   });
 
   afterEach(() => {

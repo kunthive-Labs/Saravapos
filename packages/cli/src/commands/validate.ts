@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { loadProfile, ProfileValidationError } from '@wv/sdk';
+import { loadProfile, ProfileValidationError } from '@saravapos/sdk';
 import { green, red } from '../util/colors.js';
 
 export async function runValidate(path: string): Promise<number> {
@@ -30,7 +30,7 @@ export async function runValidate(path: string): Promise<number> {
 }
 
 export const validateCommand = new Command('validate')
-  .description('Validate a worldview profile YAML file')
+  .description('Validate a Saravapos profile YAML file')
   .argument('<path>', 'path to profile YAML')
   .action(async (path: string) => {
     const code = await runValidate(path);

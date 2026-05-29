@@ -1,24 +1,24 @@
-# @wv/cli
+# @saravapos/cli
 
-The `wv` command-line interface for the Worldview Translation Protocol.
+The `saravapos` command-line interface for the Saravapos Translation Protocol.
 
 ## Install
 
 ```sh
-npm install -g @wv/cli
+npm install -g @saravapos/cli
 # or use without installing
-npx @wv/cli --help
+npx @saravapos/cli --help
 ```
 
 ## Commands
 
-| Command              | Purpose                                                       |
-| -------------------- | ------------------------------------------------------------- |
-| `wv translate`       | Translate text between two worldview profiles                 |
-| `wv validate <path>` | Validate a worldview profile YAML file against the spec       |
-| `wv init -o <path>`  | Create a new worldview profile YAML file (interactive wizard) |
-| `wv list-providers`  | List supported LLM providers and their required env vars      |
-| `wv version`         | Print the CLI version (same as `--version`)                   |
+| Command                     | Purpose                                                       |
+| --------------------------- | ------------------------------------------------------------- |
+| `saravapos translate`       | Translate text between two Saravapos profiles                 |
+| `saravapos validate <path>` | Validate a Saravapos profile YAML file against the spec       |
+| `saravapos init -o <path>`  | Create a new Saravapos profile YAML file (interactive wizard) |
+| `saravapos list-providers`  | List supported LLM providers and their required env vars      |
+| `saravapos version`         | Print the CLI version (same as `--version`)                   |
 
 ## Global flags
 
@@ -29,12 +29,12 @@ npx @wv/cli --help
 | `--version`             | Print the CLI version                            |
 | `-h, --help`            | Print help                                       |
 
-## `wv translate` examples
+## `saravapos translate` examples
 
 Translate a chess concept for an F1 fan, with inline text:
 
 ```sh
-wv translate \
+saravapos translate \
   --from profiles/chess-expert.yaml \
   --to   profiles/f1-fan.yaml \
   --text "I sacrificed a pawn for positional advantage"
@@ -43,7 +43,7 @@ wv translate \
 Read the source from a file, write the translation to disk:
 
 ```sh
-wv translate \
+saravapos translate \
   --from profiles/software-engineer.yaml \
   --to   profiles/curious-novice.yaml \
   --input notes.md \
@@ -53,7 +53,7 @@ wv translate \
 Pipe input on stdin, switch provider, pick a specific model:
 
 ```sh
-echo "Recursion is the soul of induction." | wv \
+echo "Recursion is the soul of induction." | saravapos \
   --provider openai \
   translate \
   --from profiles/software-engineer.yaml \
@@ -74,10 +74,10 @@ Translate flags reference:
 
 If neither `--input` nor `--text` is provided, source text is read from stdin.
 
-## `wv validate` examples
+## `saravapos validate` examples
 
 ```sh
-wv validate profiles/chess-expert.yaml
+saravapos validate profiles/chess-expert.yaml
 # ✓ profiles/chess-expert.yaml is valid
 #   display_name: Chess Expert
 #   expertise:    2
@@ -87,43 +87,43 @@ wv validate profiles/chess-expert.yaml
 On failure, prints field-level errors and exits non-zero:
 
 ```sh
-wv validate bad-profile.yaml
+saravapos validate bad-profile.yaml
 # ✗ bad-profile.yaml is invalid
 #   /identity: must have required property 'display_name'
 ```
 
-## `wv init` examples
+## `saravapos init` examples
 
 Interactive wizard — prompts for identity + first expertise entry, then writes a well-commented YAML template:
 
 ```sh
-wv init --output me.yaml
+saravapos init --output me.yaml
 # (prompts) → wrote me.yaml
-wv validate me.yaml   # the file it just wrote is guaranteed to pass
+saravapos validate me.yaml   # the file it just wrote is guaranteed to pass
 ```
 
 Init refuses to overwrite an existing file unless `--force` is passed:
 
 ```sh
-wv init -o me.yaml --force
+saravapos init -o me.yaml --force
 ```
 
-## `wv list-providers` example
+## `saravapos list-providers` example
 
 ```sh
-wv list-providers
+saravapos list-providers
 # Supported LLM providers:
 #
 #   anthropic   env: ANTHROPIC_API_KEY     default: claude-sonnet-4-6
 #   openai      env: OPENAI_API_KEY        default: gpt-4o
 #   ollama      env: OLLAMA_HOST           default: llama3.1
 #
-# Select with `--provider <name>` or the WV_PROVIDER env var.
+# Select with `--provider <name>` or the SARAVAPOS_PROVIDER env var.
 ```
 
 ## Development
 
 ```sh
 pnpm dev:cli -- --help     # run the CLI without building
-pnpm --filter @wv/cli build
+pnpm --filter @saravapos/cli build
 ```

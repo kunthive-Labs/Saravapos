@@ -14,8 +14,8 @@ const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8')) as { version: string };
 const program = new Command();
 
 program
-  .name('wv')
-  .description('Worldview translation CLI')
+  .name('saravapos')
+  .description('Saravapos translation CLI — translate ideas between mental models')
   .version(pkg.version)
   .option('-p, --provider <name>', 'LLM provider: anthropic | openai | ollama')
   .option('-v, --verbose', 'enable verbose logging');

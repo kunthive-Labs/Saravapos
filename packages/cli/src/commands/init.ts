@@ -1,8 +1,8 @@
 import { existsSync, writeFileSync } from 'node:fs';
 import { Command } from 'commander';
 import { input, select } from '@inquirer/prompts';
-import { EXPERTISE_LEVELS } from '@wv/spec';
-import type { ExpertiseLevel } from '@wv/spec';
+import { EXPERTISE_LEVELS } from '@saravapos/spec';
+import type { ExpertiseLevel } from '@saravapos/spec';
 import { green, red } from '../util/colors.js';
 
 export interface IdentityAnswers {
@@ -60,8 +60,8 @@ function buildYaml(identity: IdentityAnswers, expertise: ExpertiseAnswer): strin
   const languages = `[${identity.languages.join(', ')}]`;
   const yearsLine = expertise.years !== undefined ? `    years: ${expertise.years}\n` : '';
   return (
-    `# Worldview profile — describes how this persona thinks and what they know.\n` +
-    `# Edit freely; run \`wv validate <this-file>\` to check against the schema.\n` +
+    `# Saravapos profile — describes how this persona thinks and what they know.\n` +
+    `# Edit freely; run \`saravapos validate <this-file>\` to check against the schema.\n` +
     `schema_version: '0.1'\n` +
     `\n` +
     `# Identity: surface-level labels.\n` +
@@ -110,7 +110,7 @@ export async function runInit(opts: InitCliOptions, deps: InitDeps = {}): Promis
 }
 
 export const initCommand = new Command('init')
-  .description('Create a new worldview profile YAML file interactively')
+  .description('Create a new Saravapos profile YAML file interactively')
   .requiredOption('-o, --output <path>', 'destination YAML path')
   .option('-f, --force', 'overwrite the destination if it already exists')
   .action(async (options: InitCliOptions) => {

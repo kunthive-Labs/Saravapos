@@ -1,9 +1,9 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { Command } from 'commander';
-import { loadProfile, ProfileValidationError, translate } from '@wv/sdk';
-import type { Profile } from '@wv/sdk';
-import { AdapterError, resolveAdapter } from '@wv/adapters';
-import type { LLMAdapter } from '@wv/adapters';
+import { loadProfile, ProfileValidationError, translate } from '@saravapos/sdk';
+import type { Profile } from '@saravapos/sdk';
+import { AdapterError, resolveAdapter } from '@saravapos/adapters';
+import type { LLMAdapter } from '@saravapos/adapters';
 import { readStdin } from '../util/stdin.js';
 import { red } from '../util/colors.js';
 
@@ -49,7 +49,7 @@ export async function runTranslate(
     }
     throw err;
   }
-  const providerName = opts.provider ?? process.env.WV_PROVIDER ?? 'anthropic';
+  const providerName = opts.provider ?? process.env.SARAVAPOS_PROVIDER ?? 'anthropic';
   const adapter = deps.adapter ?? resolveAdapter(providerName);
   let result: string;
   try {
@@ -91,7 +91,7 @@ function envVarFor(provider: string): string {
 }
 
 export const translateCommand = new Command('translate')
-  .description('Translate text between two worldview profiles')
+  .description('Translate text between two Saravapos profiles')
   .requiredOption('--from <path>', 'path to source profile YAML')
   .requiredOption('--to <path>', 'path to destination profile YAML')
   .option('--input <path>', 'read source text from file')

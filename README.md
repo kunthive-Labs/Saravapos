@@ -1,30 +1,32 @@
-# worldview
+# Saravapos
 
-> Translate ideas between mental models. An open protocol for worldview-aware communication.
+> An open protocol for worldview-aware communication. Translate ideas between mental models — explain a chess concept to a Formula 1 fan, or compress a software talk for a novice — using a portable persona profile and an LLM.
 
-[![CI](https://github.com/8harath/Context/actions/workflows/ci.yml/badge.svg)](https://github.com/8harath/Context/actions/workflows/ci.yml)
+[![CI](https://github.com/kunthive-Labs/Saravapos/actions/workflows/ci.yml/badge.svg)](https://github.com/kunthive-Labs/Saravapos/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![npm](https://img.shields.io/npm/v/@wv/cli/alpha)](https://www.npmjs.com/package/@wv/cli)
+[![npm](https://img.shields.io/npm/v/@saravapos/cli/alpha)](https://www.npmjs.com/package/@saravapos/cli)
 
 **Status:** `0.1.0-alpha.0` — schema unstable, breaking changes expected before `0.1.0` stable.
 
 ## What is this?
 
-A chess expert explains "sacrificing a pawn for positional advantage" — but if your audience only knows Formula 1, that metaphor lands wrong. `worldview` lets you describe a person's mental model (their expertise, analogies, cognitive style, cultural context) as a portable YAML profile, then translates content between profiles using an LLM.
+Every explanation rides on shared metaphors. A chess coach says "sacrifice a pawn for positional advantage" and another chess player nods — but a Formula 1 fan hears empty noise. The information is sound; the **mental model** behind it is missing.
 
-- **Protocol-first.** A JSON Schema for profiles. Anyone can implement.
-- **Local-first.** Profiles are YAML files you own. No accounts, no servers.
-- **Multi-provider.** Bring your own LLM key — Anthropic, OpenAI, or Ollama.
-- **CLI + SDK.** Use `wv` from the terminal, or `@wv/sdk` from a Node app.
+Saravapos closes that gap. You describe a person's worldview — their expertise, preferred analogies, cognitive style, cultural references — as a small YAML profile. Given a `from` profile and a `to` profile, Saravapos rewrites content so the metaphors land while the facts stay intact.
+
+- **Protocol-first.** A JSON Schema defines what a profile is. Anyone can implement against it.
+- **Local-first.** Profiles are plain YAML files you own. No accounts, no servers, no telemetry.
+- **Multi-provider.** Bring your own LLM key — Anthropic, OpenAI, or Ollama (local).
+- **CLI + SDK.** Use `saravapos` from the terminal, or `@saravapos/sdk` from a Node app.
 
 ## Install
 
 ```bash
 # global CLI
-npm install -g @wv/cli@alpha
+npm install -g @saravapos/cli@alpha
 
 # or per-project
-pnpm add @wv/sdk @wv/adapters
+pnpm add @saravapos/sdk @saravapos/adapters
 ```
 
 Requires Node 20+.
@@ -33,26 +35,26 @@ Requires Node 20+.
 
 ```bash
 # author a profile interactively
-wv init --output me.yaml
+saravapos init --output me.yaml
 
-# validate it
-wv validate me.yaml
+# validate it against the schema
+saravapos validate me.yaml
 
 # translate something
 export ANTHROPIC_API_KEY=sk-...
-wv translate \
+saravapos translate \
   --from profiles/chess-expert.yaml \
   --to   profiles/f1-fan.yaml \
   --text "I sacrificed a pawn for a positional advantage"
 ```
 
-See [`packages/cli/README.md`](./packages/cli/README.md) for the full command reference.
+See [`packages/cli/README.md`](./packages/cli/README.md) for the full command reference, including stdin piping, file I/O, and provider/model overrides.
 
 ## SDK usage
 
 ```ts
-import { loadProfile, translate } from '@wv/sdk';
-import { resolveAdapter } from '@wv/adapters';
+import { loadProfile, translate } from '@saravapos/sdk';
+import { resolveAdapter } from '@saravapos/adapters';
 
 const from = await loadProfile('profiles/chess-expert.yaml');
 const to = await loadProfile('profiles/f1-fan.yaml');
@@ -69,21 +71,26 @@ console.log(out);
 
 ## Packages
 
-| Package                               | What it does                           |
-| ------------------------------------- | -------------------------------------- |
-| [`@wv/spec`](./packages/spec)         | Profile JSON Schema + TypeScript types |
-| [`@wv/sdk`](./packages/sdk)           | `loadProfile`, `translate`             |
-| [`@wv/adapters`](./packages/adapters) | Anthropic, OpenAI, Ollama backends     |
-| [`@wv/cli`](./packages/cli)           | The `wv` command                       |
+| Package                                      | What it does                                   |
+| -------------------------------------------- | ---------------------------------------------- |
+| [`@saravapos/spec`](./packages/spec)         | Profile JSON Schema + TypeScript types         |
+| [`@saravapos/sdk`](./packages/sdk)           | `loadProfile`, `translate` — the core library  |
+| [`@saravapos/adapters`](./packages/adapters) | LLM backends: Anthropic, OpenAI, Ollama        |
+| [`@saravapos/cli`](./packages/cli)           | The `saravapos` command                        |
+| `@saravapos/eval` (private)                  | Eval harness for translation quality + CI gate |
 
 ## Spec
 
-The profile schema and field semantics live in [`docs/spec.md`](./docs/spec.md). Read it in under 10 minutes to understand what a profile is and how a translator should consume one.
+The profile schema, field semantics, and versioning policy live in [`docs/spec.md`](./docs/spec.md). It's a ~10-minute read that defines what a profile is and how a conforming translator should consume one.
+
+## Sample profiles
+
+The [`profiles/`](./profiles) directory ships hand-authored personas — chess expert, F1 fan, software engineer, curious novice — used in tests, examples, and the eval harness. Use them as templates for your own.
 
 ## Roadmap
 
 - ✅ Weeks 1–2: protocol, SDK, three adapters, CLI, alpha release (this).
-- Week 3: eval harness — golden cases, LLM-judge, CI gate.
+- ✅ Week 3: eval harness — golden cases, LLM judge, lexical checks, CI-ready report.
 - Week 4: prompt engineering driven by eval signal.
 - Week 5: `analogy_bank` injection — concept extraction → metaphor lookup → enriched prompt.
 - Week 6: `0.1.0` stable, public announce.
@@ -92,7 +99,7 @@ See [`PLAN.md`](./PLAN.md) for the build plan and [`CHANGELOG.md`](./CHANGELOG.m
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](./CONTRIBUTING.md). The schema and prompt shape are the highest-leverage areas to push back on right now.
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md). The schema shape and the prompt design are the highest-leverage areas to push back on right now.
 
 ## License
 

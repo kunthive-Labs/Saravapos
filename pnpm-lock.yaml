@@ -62,13 +62,13 @@ importers:
       '@inquirer/prompts':
         specifier: ^8.4.3
         version: 8.4.3(@types/node@20.19.41)
-      '@wv/adapters':
+      '@saravapos/adapters':
         specifier: workspace:*
         version: link:../adapters
-      '@wv/sdk':
+      '@saravapos/sdk':
         specifier: workspace:*
         version: link:../sdk
-      '@wv/spec':
+      '@saravapos/spec':
         specifier: workspace:*
         version: link:../spec
       commander:
@@ -81,13 +81,13 @@ importers:
 
   packages/eval:
     dependencies:
-      '@wv/adapters':
+      '@saravapos/adapters':
         specifier: workspace:*
         version: link:../adapters
-      '@wv/sdk':
+      '@saravapos/sdk':
         specifier: workspace:*
         version: link:../sdk
-      '@wv/spec':
+      '@saravapos/spec':
         specifier: workspace:*
         version: link:../spec
       ajv:
@@ -102,10 +102,10 @@ importers:
 
   packages/sdk:
     dependencies:
-      '@wv/adapters':
+      '@saravapos/adapters':
         specifier: workspace:*
         version: link:../adapters
-      '@wv/spec':
+      '@saravapos/spec':
         specifier: workspace:*
         version: link:../spec
       ajv:

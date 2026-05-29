@@ -1,8 +1,8 @@
 {
-  "name": "worldview",
+  "name": "saravapos",
   "version": "0.0.0",
   "private": true,
-  "description": "Worldview translation protocol: rewrite content from one mental model to another",
+  "description": "Saravapos — an open protocol for worldview-aware communication. Translate content between mental models.",
   "license": "MIT",
   "author": "Bharath Bhaktha <bharath.bhaktha@testsigma.com>",
   "type": "module",

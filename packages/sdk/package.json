@@ -1,7 +1,7 @@
 {
-  "name": "@wv/sdk",
+  "name": "@saravapos/sdk",
   "version": "0.1.0-alpha.0",
-  "description": "Worldview translation SDK: load profiles, translate between them",
+  "description": "Saravapos SDK: load profiles, translate content between mental models",
   "license": "MIT",
   "type": "module",
   "publishConfig": {
@@ -27,8 +27,8 @@
     "prepublishOnly": "pnpm run build && pnpm run test"
   },
   "dependencies": {
-    "@wv/adapters": "workspace:*",
-    "@wv/spec": "workspace:*",
+    "@saravapos/adapters": "workspace:*",
+    "@saravapos/spec": "workspace:*",
     "ajv": "^8.20.0",
     "yaml": "^2.9.0"
   }

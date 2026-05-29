@@ -1,4 +1,4 @@
-import type { Profile } from '@wv/spec';
+import type { Profile } from '@saravapos/spec';
 
 function describeProfile(profile: Profile, role: 'source' | 'target'): string {
   const lines: string[] = [];

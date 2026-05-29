@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { LLMAdapter } from '@wv/adapters';
-import type { Profile } from '@wv/spec';
+import type { LLMAdapter } from '@saravapos/adapters';
+import type { Profile } from '@saravapos/spec';
 import { translate } from './translate.js';
 
 function makeProfile(name: string, domain: string): Profile {

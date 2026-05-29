@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { parse } from 'yaml';
-import type { Profile } from '@wv/spec';
+import type { Profile } from '@saravapos/spec';
 import { ProfileValidationError } from './errors.js';
 import { validateProfile } from './validator.js';
 

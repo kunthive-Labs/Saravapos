@@ -1,18 +1,18 @@
-# @wv/sdk
+# @saravapos/sdk
 
-Worldview translation SDK: load profiles, rewrite text between worldviews.
+Saravapos SDK: load profiles, rewrite text between worldviews.
 
 ## Install
 
 ```bash
-pnpm add @wv/sdk @wv/adapters
+pnpm add @saravapos/sdk @saravapos/adapters
 ```
 
 ## Usage
 
 ```ts
-import { loadProfile, translate } from '@wv/sdk';
-import { resolveAdapter } from '@wv/adapters';
+import { loadProfile, translate } from '@saravapos/sdk';
+import { resolveAdapter } from '@saravapos/adapters';
 
 const from = await loadProfile('./profiles/chess-expert.yaml');
 const to = await loadProfile('./profiles/f1-fan.yaml');

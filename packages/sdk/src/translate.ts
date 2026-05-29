@@ -1,5 +1,5 @@
-import type { Profile } from '@wv/spec';
-import type { CompletionOptions, LLMAdapter } from '@wv/adapters';
+import type { Profile } from '@saravapos/spec';
+import type { CompletionOptions, LLMAdapter } from '@saravapos/adapters';
 import { buildSystemPrompt, buildUserPrompt } from './prompts/index.js';
 
 export interface TranslateOptions {

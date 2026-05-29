@@ -1,6 +1,6 @@
-# @wv/eval
+# @saravapos/eval
 
-Eval harness for `wv` translation quality. Private workspace package — never
+Eval harness for Saravapos translation quality. Private workspace package — never
 published. Drives prompt-tuning and the CI quality gate from real numbers
 instead of vibes.
 
@@ -9,7 +9,7 @@ instead of vibes.
 For every YAML golden case in `cases/`:
 
 1. Loads the `from` and `to` profiles.
-2. Runs `@wv/sdk`'s `translate()` at `temperature: 0`.
+2. Runs `@saravapos/sdk`'s `translate()` at `temperature: 0`.
 3. Asks an LLM judge to score the translation against the case's rubric and
    returns strict JSON.
 4. Runs `must_include` / `must_avoid` lexical checks against the translation.

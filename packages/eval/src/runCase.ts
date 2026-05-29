@@ -1,5 +1,5 @@
-import type { LLMAdapter } from '@wv/adapters';
-import { loadProfile, translate } from '@wv/sdk';
+import type { LLMAdapter } from '@saravapos/adapters';
+import { loadProfile, translate } from '@saravapos/sdk';
 import type { GoldenCase, JudgeResult } from './types.js';
 import { judge, type JudgeOptions } from './judge.js';
 import { cachedComplete, type CachedCompleteOptions } from './cache.js';

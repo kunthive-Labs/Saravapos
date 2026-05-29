@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { writeFile } from 'node:fs/promises';
 import { Command } from 'commander';
-import { resolveAdapter, type AdapterName } from '@wv/adapters';
+import { resolveAdapter, type AdapterName } from '@saravapos/adapters';
 import { JudgeParseError } from '../src/errors.js';
 import { loadAllCases } from '../src/loadCase.js';
 import { runSuite } from '../src/runSuite.js';
@@ -10,7 +10,7 @@ import { formatSummary, formatTable } from '../src/report.js';
 
 const program = new Command();
 
-program.name('wv-eval').description('Worldview translation eval harness');
+program.name('saravapos-eval').description('Saravapos translation eval harness');
 
 program
   .command('run')

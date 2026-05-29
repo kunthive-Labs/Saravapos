@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { CompletionOptions, CompletionResult, LLMAdapter } from '@wv/adapters';
+import type { CompletionOptions, CompletionResult, LLMAdapter } from '@saravapos/adapters';
 import { judge, weightedOverall } from './judge.js';
 import { JudgeParseError } from './errors.js';
 import type { GoldenCase } from './types.js';

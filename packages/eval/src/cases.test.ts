@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { loadProfile } from '@wv/sdk';
+import { loadProfile } from '@saravapos/sdk';
 import { loadAllCases } from './loadCase.js';
 
 const casesDir = fileURLToPath(new URL('../cases', import.meta.url));

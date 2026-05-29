@@ -1,4 +1,4 @@
-import type { LLMAdapter } from '@wv/adapters';
+import type { LLMAdapter } from '@saravapos/adapters';
 import type { CriterionScore, GoldenCase, JudgeResult } from './types.js';
 import { buildJudgeSystemPrompt, buildJudgeUserPrompt } from './judgePrompts.js';
 import { JudgeParseError } from './errors.js';

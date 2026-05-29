@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import type { CompletionOptions, CompletionResult, LLMAdapter } from '@wv/adapters';
+import type { CompletionOptions, CompletionResult, LLMAdapter } from '@saravapos/adapters';
 import { cachedComplete, cacheKey } from './cache.js';
 
 class CountingAdapter implements LLMAdapter {
@@ -20,7 +20,7 @@ class CountingAdapter implements LLMAdapter {
 }
 
 async function withTempDir<T>(fn: (dir: string) => Promise<T>): Promise<T> {
-  const dir = await mkdtemp(join(tmpdir(), 'wv-eval-cache-'));
+  const dir = await mkdtemp(join(tmpdir(), 'saravapos-eval-cache-'));
   try {
     return await fn(dir);
   } finally {

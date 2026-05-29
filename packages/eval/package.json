@@ -1,8 +1,8 @@
 {
-  "name": "@wv/eval",
+  "name": "@saravapos/eval",
   "version": "0.0.0",
   "private": true,
-  "description": "Eval harness for worldview translation quality",
+  "description": "Eval harness for Saravapos translation quality",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -13,9 +13,9 @@
     "test": "vitest run --dir src"
   },
   "dependencies": {
-    "@wv/adapters": "workspace:*",
-    "@wv/sdk": "workspace:*",
-    "@wv/spec": "workspace:*",
+    "@saravapos/adapters": "workspace:*",
+    "@saravapos/sdk": "workspace:*",
+    "@saravapos/spec": "workspace:*",
     "ajv": "^8.20.0",
     "commander": "^12.1.0",
     "yaml": "^2.9.0"

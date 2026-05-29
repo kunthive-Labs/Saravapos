@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { CompletionOptions, CompletionResult, LLMAdapter } from '@wv/adapters';
+import type { CompletionOptions, CompletionResult, LLMAdapter } from '@saravapos/adapters';
 
 /** Default on-disk cache root, relative to the runner cwd. */
 export const DEFAULT_CACHE_DIR = '.eval-cache';

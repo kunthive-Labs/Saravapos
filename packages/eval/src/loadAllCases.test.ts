@@ -17,7 +17,7 @@ rubric:
 let dir: string;
 
 beforeAll(async () => {
-  dir = await mkdtemp(join(tmpdir(), 'wv-eval-'));
+  dir = await mkdtemp(join(tmpdir(), 'saravapos-eval-'));
   // Write filenames whose lexical order differs from id order.
   await writeFile(join(dir, 'zzz.yaml'), caseYaml('alpha'));
   await writeFile(join(dir, 'aaa.yaml'), caseYaml('zeta'));

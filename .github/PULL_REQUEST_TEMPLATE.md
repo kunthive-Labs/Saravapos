@@ -18,7 +18,7 @@
 
 ## Spec impact
 
-<!-- Does this change the @wv/spec schema or semantics? If yes, link the spec section that changed and note whether it's a breaking change. -->
+<!-- Does this change the @saravapos/spec schema or semantics? If yes, link the spec section that changed and note whether it's a breaking change. -->
 
 - [ ] No spec change
 - [ ] Spec change (backwards compatible)

@@ -90,10 +90,12 @@ The [`profiles/`](./profiles) directory ships hand-authored personas — chess e
 ## Roadmap
 
 - ✅ Weeks 1–2: protocol, SDK, three adapters, CLI, alpha release (this).
-- ✅ Week 3: eval harness — golden cases, LLM judge, lexical checks, CI-ready report.
+- ✅ Week 3: eval harness — golden cases, LLM judge, lexical checks, quality gate (`--threshold` / `--min-case`), baseline regression tracking, and a non-blocking CI eval job.
 - Week 4: prompt engineering driven by eval signal.
 - Week 5: `analogy_bank` injection — concept extraction → metaphor lookup → enriched prompt.
 - Week 6: `0.1.0` stable, public announce.
+
+The CI eval gate expects a corpus mean ≥ `3.5` with no single case below `3`, and flags regressions against [`eval-baseline.json`](./eval-baseline.json). See the [Evals section in CONTRIBUTING](./CONTRIBUTING.md#evals) for how to add a case or refresh the baseline.
 
 See [`PLAN.md`](./PLAN.md) for the build plan and [`CHANGELOG.md`](./CHANGELOG.md) for what shipped.
 

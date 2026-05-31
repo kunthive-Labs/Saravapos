@@ -86,3 +86,28 @@ export function buildScorecard(runs: VariantRun[]): Scorecard {
 
   return { variants, rows, means };
 }
+
+/** The winning variant and its mean. */
+export interface Winner {
+  variant: string;
+  mean: number;
+}
+
+/**
+ * Pick the variant with the highest mean `overall`. Ties resolve to the variant
+ * that appears first in `variants` (the reference), so a candidate must strictly
+ * beat the baseline to win. Returns `null` for an empty scorecard.
+ */
+export function pickWinner(scorecard: Scorecard): Winner | null {
+  let best: Winner | null = null;
+  for (const variant of scorecard.variants) {
+    const mean = scorecard.means[variant];
+    if (mean === undefined) {
+      continue;
+    }
+    if (best === null || mean > best.mean) {
+      best = { variant, mean };
+    }
+  }
+  return best;
+}

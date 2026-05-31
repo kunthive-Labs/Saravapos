@@ -1,6 +1,7 @@
 import type { Profile } from '@saravapos/spec';
 import type { CompletionOptions, LLMAdapter } from '@saravapos/adapters';
-import { buildSystemPrompt, buildUserPrompt } from './prompts/index.js';
+import { resolveStrategy } from './prompts/registry.js';
+import type { PromptStrategy } from './prompts/types.js';
 
 export interface TranslateOptions {
   text: string;
@@ -9,11 +10,22 @@ export interface TranslateOptions {
   adapter: LLMAdapter;
   model?: string;
   temperature?: number;
+  /** Prompt strategy by name or object. Defaults to `baseline`. */
+  strategy?: string | PromptStrategy;
+}
+
+/** Resolve the `strategy` option (name, object, or absent) to a PromptStrategy. */
+function asStrategy(strategy: string | PromptStrategy | undefined): PromptStrategy {
+  if (strategy === undefined || typeof strategy === 'string') {
+    return resolveStrategy(strategy);
+  }
+  return strategy;
 }
 
 export async function translate(options: TranslateOptions): Promise<string> {
-  const system = buildSystemPrompt(options.from, options.to);
-  const user = buildUserPrompt(options.text);
+  const strategy = asStrategy(options.strategy);
+  const system = strategy.buildSystemPrompt(options.from, options.to);
+  const user = strategy.buildUserPrompt(options.text);
   const completion: CompletionOptions = { system, user };
   if (options.model !== undefined) completion.model = options.model;
   if (options.temperature !== undefined) completion.temperature = options.temperature;

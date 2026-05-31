@@ -1,6 +1,6 @@
 import type { Profile } from '@saravapos/spec';
 
-function describeProfile(profile: Profile, role: 'source' | 'target'): string {
+export function describeProfile(profile: Profile, role: 'source' | 'target'): string {
   const lines: string[] = [];
   lines.push(`# ${role === 'source' ? 'SOURCE' : 'TARGET'} WORLDVIEW`);
   lines.push(`Display name: ${profile.identity.display_name}`);

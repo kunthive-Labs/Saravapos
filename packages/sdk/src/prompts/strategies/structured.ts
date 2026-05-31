@@ -25,7 +25,7 @@ const CHECKLIST = [
 const OUTPUT = '# OUTPUT\nReturn only the translated text.';
 
 /** Build a sectioned system prompt: role, profiles, contract, checklist, output. */
-function buildStructuredSystemPrompt(from: Profile, to: Profile): string {
+export function buildStructuredSystemPrompt(from: Profile, to: Profile): string {
   return [
     '# ROLE\nYou are a worldview translator. Rewrite text expressed in the SOURCE',
     'worldview so it lands faithfully for someone with the TARGET worldview.',

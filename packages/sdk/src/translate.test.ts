@@ -100,4 +100,52 @@ describe('translate', () => {
     const user = (call[0] as unknown as { user: string }).user;
     expect(user).toContain(text);
   });
+
+  it('routes prompts through a named strategy', async () => {
+    const adapter = makeAdapter();
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+
+    await translate({ text: 'go', from, to, adapter, strategy: 'structured' });
+
+    const call = adapter.complete.mock.calls[0]!;
+    const system = (call[0] as unknown as { system: string }).system;
+    expect(system).toContain('# TRANSLATION CONTRACT');
+  });
+
+  it('defaults to the baseline strategy (no structured sections)', async () => {
+    const adapter = makeAdapter();
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+
+    await translate({ text: 'go', from, to, adapter });
+
+    const call = adapter.complete.mock.calls[0]!;
+    const system = (call[0] as unknown as { system: string }).system;
+    expect(system).not.toContain('# TRANSLATION CONTRACT');
+  });
+
+  it('accepts a custom strategy object', async () => {
+    const adapter = makeAdapter();
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+
+    await translate({
+      text: 'go',
+      from,
+      to,
+      adapter,
+      strategy: {
+        name: 'custom',
+        description: 'test-only',
+        buildSystemPrompt: () => 'CUSTOM-SYSTEM',
+        buildUserPrompt: (t) => `CUSTOM-${t}`,
+      },
+    });
+
+    const call = adapter.complete.mock.calls[0]!;
+    const sent = call[0] as unknown as { system: string; user: string };
+    expect(sent.system).toBe('CUSTOM-SYSTEM');
+    expect(sent.user).toBe('CUSTOM-go');
+  });
 });

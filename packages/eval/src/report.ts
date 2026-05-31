@@ -1,5 +1,6 @@
 import type { CaseRunResult } from './runCase.js';
 import type { SuiteAggregate } from './aggregate.js';
+import type { GateReport } from './gate.js';
 
 /** Format one case row: id, overall (1 decimal), lexical pass/fail, ms. */
 function formatRow(r: CaseRunResult): string {
@@ -22,4 +23,17 @@ export function formatSummary(a: SuiteAggregate): string {
     `mean=${a.meanOverall.toFixed(2)}  min=${min}  lexical=${(a.lexicalPassRate * 100).toFixed(0)}%`,
     `cases=${a.count}`,
   ].join('\n');
+}
+
+/** One line on PASS, or FAIL plus an indented line per violated floor. */
+export function formatGate(report: GateReport): string {
+  if (report.passed) {
+    return 'gate: PASS';
+  }
+  const lines = report.violations.map((v) =>
+    v.kind === 'mean'
+      ? `  mean ${v.actual.toFixed(2)} below threshold ${v.floor}`
+      : `  ${v.id ?? '?'} ${v.actual.toFixed(1)} below min-case ${v.floor}`,
+  );
+  return [`gate: FAIL (${report.violations.length} violation(s))`, ...lines].join('\n');
 }

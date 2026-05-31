@@ -6,11 +6,21 @@ import { JudgeParseError } from '../src/errors.js';
 import { loadAllCases } from '../src/loadCase.js';
 import { runSuite } from '../src/runSuite.js';
 import { aggregate } from '../src/aggregate.js';
-import { formatSummary, formatTable } from '../src/report.js';
+import { evaluateGate } from '../src/gate.js';
+import { formatGate, formatSummary, formatTable } from '../src/report.js';
 
 const program = new Command();
 
 program.name('saravapos-eval').description('Saravapos translation eval harness');
+
+/** Parse a CLI floor value, rejecting anything that is not a finite number. */
+function toFloor(value: string): number {
+  const n = Number(value);
+  if (!Number.isFinite(n)) {
+    throw new Error(`expected a number, got "${value}"`);
+  }
+  return n;
+}
 
 program
   .command('run')
@@ -20,6 +30,8 @@ program
   .option('--judge-model <model>', 'judge model override')
   .option('--no-cache', 'force fresh adapter calls (still writes responses to disk)')
   .option('--json <file>', 'also write a machine-readable JSON report to <file>')
+  .option('--threshold <n>', 'fail if the mean overall falls below this floor', toFloor)
+  .option('--min-case <n>', 'fail if any single case falls below this floor', toFloor)
   .action(
     async (opts: {
       cases: string;
@@ -27,6 +39,8 @@ program
       judgeModel?: string;
       cache: boolean;
       json?: string;
+      threshold?: number;
+      minCase?: number;
     }) => {
       const cases = await loadAllCases(opts.cases);
       const adapter = resolveAdapter(opts.provider as AdapterName);
@@ -50,6 +64,14 @@ program
           })),
         };
         await writeFile(opts.json, `${JSON.stringify(payload, null, 2)}\n`, 'utf-8');
+      }
+
+      if (opts.threshold !== undefined || opts.minCase !== undefined) {
+        const gate = evaluateGate(results, summary, {
+          ...(opts.threshold !== undefined ? { threshold: opts.threshold } : {}),
+          ...(opts.minCase !== undefined ? { minCase: opts.minCase } : {}),
+        });
+        process.stdout.write(`\n${formatGate(gate)}\n`);
       }
     },
   );

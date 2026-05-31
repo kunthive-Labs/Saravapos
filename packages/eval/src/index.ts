@@ -11,3 +11,4 @@ export {
 } from './judge.js';
 export { runLexicalChecks, type LexicalResult } from './lexical.js';
 export { buildJudgeSystemPrompt, buildJudgeUserPrompt } from './judgePrompts.js';
+export { evaluateGate, type GateThresholds, type GateViolation, type GateReport } from './gate.js';

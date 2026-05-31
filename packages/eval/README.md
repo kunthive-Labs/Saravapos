@@ -65,6 +65,47 @@ cases=9
   appeared, otherwise `FAIL`.
 - **mean / min** — used by the Day 19 CI gate (`--threshold`, `--min-case`).
 
+## Comparing prompt variants (A/B)
+
+`eval compare` runs the corpus once per prompt strategy and prints a scorecard,
+so prompt changes are chosen by score rather than by eye. The first variant is
+the reference; `Δ` is the last variant's score minus the reference's.
+
+```bash
+ANTHROPIC_API_KEY=sk-… pnpm eval compare --variants baseline,structured
+```
+
+```
+case                               baseline structured       Δ
+--------------------------------------------------------------
+chess-to-f1-pawn                        3.4        4.1    +0.7
+swe-to-novice-memleak                   3.0        3.5    +0.5
+...
+--------------------------------------------------------------
+mean                                    3.50       3.85
+
+winner: structured (mean 3.85, +0.35 vs baseline)
+```
+
+`--variants`, `--cases`, `--provider`, `--judge-model`, `--no-cache`, and
+`--json <file>` (writes `{ scorecard, winner }`) are all accepted. Because the
+disk cache keys on the system prompt, each variant caches independently — so
+re-comparing an unchanged variant is free.
+
+### Prompt variants
+
+Strategies live in `@saravapos/sdk` (`prompts/strategies/`). All three render the
+profiles identically, so a comparison isolates the instruction change.
+
+| Variant      | What it does                                                       |
+| ------------ | ------------------------------------------------------------------ |
+| `baseline`   | The original v0 prompt: profile descriptions + translation rules.  |
+| `structured` | Sectioned system prompt: role / profiles / contract / checklist.   |
+| `fewShot`    | `structured` plus two worked, domain-neutral translation examples. |
+
+Add a variant by exporting a new `PromptStrategy` and registering it in
+`prompts/registry.ts`; it becomes available to both `translate()` and `compare`.
+
 ## Exit codes
 
 - `0` — suite ran cleanly.
@@ -75,6 +116,7 @@ cases=9
 
 ## Adding a case
 
-See [`cases/README.md`](./cases/README.md) for the YAML format. Day 19 will
-add `--write-baseline` and a CI gate; until then, tune prompts freely and
-re-run.
+See [`cases/README.md`](./cases/README.md) for the YAML format. The quality gate
+(`--threshold` / `--min-case`) and baseline tracking (`--baseline` /
+`--write-baseline`) shipped in Day 19; use `eval compare` (above) to pick the
+prompt that scores best across the corpus.

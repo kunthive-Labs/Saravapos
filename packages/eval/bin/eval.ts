@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { Command } from 'commander';
 import { resolveAdapter, type AdapterName } from '@saravapos/adapters';
 import { JudgeParseError } from '../src/errors.js';
 import { loadAllCases } from '../src/loadCase.js';
 import { runSuite } from '../src/runSuite.js';
 import { aggregate } from '../src/aggregate.js';
-import { evaluateGate } from '../src/gate.js';
-import { formatGate, formatSummary, formatTable } from '../src/report.js';
+import { compareToBaseline, evaluateGate, type Baseline } from '../src/gate.js';
+import { formatGate, formatRegressions, formatSummary, formatTable } from '../src/report.js';
 
 const program = new Command();
 
@@ -32,6 +32,7 @@ program
   .option('--json <file>', 'also write a machine-readable JSON report to <file>')
   .option('--threshold <n>', 'fail if the mean overall falls below this floor', toFloor)
   .option('--min-case <n>', 'fail if any single case falls below this floor', toFloor)
+  .option('--baseline <file>', 'compare scores against a saved baseline and report regressions')
   .action(
     async (opts: {
       cases: string;
@@ -41,6 +42,7 @@ program
       json?: string;
       threshold?: number;
       minCase?: number;
+      baseline?: string;
     }) => {
       const cases = await loadAllCases(opts.cases);
       const adapter = resolveAdapter(opts.provider as AdapterName);
@@ -64,6 +66,11 @@ program
           })),
         };
         await writeFile(opts.json, `${JSON.stringify(payload, null, 2)}\n`, 'utf-8');
+      }
+
+      if (opts.baseline !== undefined) {
+        const baseline = JSON.parse(await readFile(opts.baseline, 'utf-8')) as Baseline;
+        process.stdout.write(`\n${formatRegressions(compareToBaseline(results, baseline))}\n`);
       }
 
       if (opts.threshold !== undefined || opts.minCase !== undefined) {

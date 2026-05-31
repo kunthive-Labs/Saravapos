@@ -72,6 +72,10 @@ program
           ...(opts.minCase !== undefined ? { minCase: opts.minCase } : {}),
         });
         process.stdout.write(`\n${formatGate(gate)}\n`);
+        if (!gate.passed) {
+          // Quality failure (exit 1) is distinct from infra failure (exit 2).
+          process.exitCode = 1;
+        }
       }
     },
   );

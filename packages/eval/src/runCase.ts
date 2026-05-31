@@ -1,5 +1,5 @@
 import type { LLMAdapter } from '@saravapos/adapters';
-import { loadProfile, translate } from '@saravapos/sdk';
+import { loadProfile, translate, type PromptStrategy } from '@saravapos/sdk';
 import type { GoldenCase, JudgeResult } from './types.js';
 import { judge, type JudgeOptions } from './judge.js';
 import { cachedComplete, type CachedCompleteOptions } from './cache.js';
@@ -13,6 +13,8 @@ export interface RunCaseOptions {
   judgeOptions?: JudgeOptions;
   /** Cache settings passed to both completions. */
   cache?: CachedCompleteOptions;
+  /** Prompt strategy (name or object) used for the translation step. */
+  strategy?: string | PromptStrategy;
 }
 
 /**
@@ -48,6 +50,7 @@ export async function runCase(c: GoldenCase, opts: RunCaseOptions): Promise<Case
     to: toProfile,
     adapter: cachedTranslateAdapter,
     temperature: 0,
+    ...(opts.strategy !== undefined ? { strategy: opts.strategy } : {}),
   });
 
   const cachedJudgeAdapter: LLMAdapter = {

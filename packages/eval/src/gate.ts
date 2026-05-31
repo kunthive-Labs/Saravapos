@@ -68,8 +68,20 @@ export interface Baseline {
   cases: Record<string, number>;
 }
 
+/** Current baseline file format version, stamped onto written baselines. */
+export const BASELINE_VERSION = 1;
+
 /** Default score drop (on the 1-5 scale) that counts as a regression. */
 export const DEFAULT_REGRESSION_DELTA = 0.5;
+
+/** Snapshot a finished run into a Baseline ready to serialise to disk. */
+export function buildBaseline(results: CaseRunResult[], summary: SuiteAggregate): Baseline {
+  const cases: Record<string, number> = {};
+  for (const r of results) {
+    cases[r.case.id] = r.result.overall;
+  }
+  return { version: BASELINE_VERSION, meanOverall: summary.meanOverall, cases };
+}
 
 /** One case whose score dropped beyond the allowed delta versus the baseline. */
 export interface Regression {

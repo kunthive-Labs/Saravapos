@@ -6,7 +6,7 @@ import { JudgeParseError } from '../src/errors.js';
 import { loadAllCases } from '../src/loadCase.js';
 import { runSuite } from '../src/runSuite.js';
 import { aggregate } from '../src/aggregate.js';
-import { compareToBaseline, evaluateGate, type Baseline } from '../src/gate.js';
+import { buildBaseline, compareToBaseline, evaluateGate, type Baseline } from '../src/gate.js';
 import { formatGate, formatRegressions, formatSummary, formatTable } from '../src/report.js';
 
 const program = new Command();
@@ -33,6 +33,7 @@ program
   .option('--threshold <n>', 'fail if the mean overall falls below this floor', toFloor)
   .option('--min-case <n>', 'fail if any single case falls below this floor', toFloor)
   .option('--baseline <file>', 'compare scores against a saved baseline and report regressions')
+  .option('--write-baseline <file>', 'save the current scores as a baseline to <file>')
   .action(
     async (opts: {
       cases: string;
@@ -43,6 +44,7 @@ program
       threshold?: number;
       minCase?: number;
       baseline?: string;
+      writeBaseline?: string;
     }) => {
       const cases = await loadAllCases(opts.cases);
       const adapter = resolveAdapter(opts.provider as AdapterName);
@@ -71,6 +73,12 @@ program
       if (opts.baseline !== undefined) {
         const baseline = JSON.parse(await readFile(opts.baseline, 'utf-8')) as Baseline;
         process.stdout.write(`\n${formatRegressions(compareToBaseline(results, baseline))}\n`);
+      }
+
+      if (opts.writeBaseline !== undefined) {
+        const baseline = buildBaseline(results, summary);
+        await writeFile(opts.writeBaseline, `${JSON.stringify(baseline, null, 2)}\n`, 'utf-8');
+        process.stdout.write(`\nwrote baseline to ${opts.writeBaseline}\n`);
       }
 
       if (opts.threshold !== undefined || opts.minCase !== undefined) {

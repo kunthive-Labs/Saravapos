@@ -14,6 +14,8 @@ export { buildJudgeSystemPrompt, buildJudgeUserPrompt } from './judgePrompts.js'
 export {
   evaluateGate,
   compareToBaseline,
+  buildBaseline,
+  BASELINE_VERSION,
   DEFAULT_REGRESSION_DELTA,
   type GateThresholds,
   type GateViolation,

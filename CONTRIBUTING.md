@@ -99,6 +99,48 @@ the repo, it will also post a PR comment per `codecov.yml`.
 Snapshot tests live next to their source under `__snapshots__/`. Update them
 intentionally with `pnpm vitest run --update` after reviewing the diff.
 
+## Evals
+
+The `@saravapos/eval` harness scores translation quality against a corpus of
+golden cases. It gives Weeks 4–5 (prompt tuning, analogy injection) a data
+signal instead of vibes. The harness needs an `ANTHROPIC_API_KEY`; runs are
+cached on disk in `.eval-cache/`, so re-running an unchanged corpus is free.
+
+```bash
+# Score the whole corpus and print a table + summary.
+ANTHROPIC_API_KEY=sk-... pnpm eval run
+
+# Enforce quality floors (non-zero exit on failure).
+pnpm eval run --threshold 3.5 --min-case 3
+
+# Compare against the checked-in baseline and report regressions.
+pnpm eval run --baseline eval-baseline.json
+```
+
+### Adding a case
+
+1. Add a YAML file under `packages/eval/cases/` — see `cases/README.md` for the
+   schema (`id`, `from`, `to`, `input`, `rubric[]`, optional
+   `must_include` / `must_avoid`).
+2. Give it a unique, descriptive `id` (e.g. `swe-to-novice-memleak`); the id is
+   the sort key and report label.
+3. `pnpm --filter @saravapos/eval test` to confirm it validates.
+
+### Updating the baseline
+
+`eval-baseline.json` is the regression reference. The committed file is a
+**placeholder seed** (all-zero scores) — regenerate it from a real run before
+relying on regression detection:
+
+```bash
+ANTHROPIC_API_KEY=sk-... pnpm eval run --write-baseline eval-baseline.json
+```
+
+Commit the regenerated baseline in the same PR as any intended score change, so
+reviewers can see the delta. CI runs the eval job only when the
+`ANTHROPIC_API_KEY` secret is present (fork PRs skip it), and it is
+`continue-on-error` for now — report-only, never blocking.
+
 ## Questions
 
 Open a GitHub Discussion or file an issue using the question template.

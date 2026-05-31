@@ -484,10 +484,74 @@ End-of-day check: CI eval job runs on a PR (when key present), prints scores, do
 
 ---
 
-## Beyond Week 3 (preview, not detailed)
+## Week 4 — Prompt engineering (Days 20-25)
 
-- Week 4 (Days 20-25): prompt engineering loop driven by eval signal.
+> Goal: turn translation prompts from a single hand-written string into a set of
+> named, swappable **strategies**, and give the eval harness an A/B **compare**
+> mode so prompt changes are chosen by score, not vibes. Depends on the Day 19
+> eval gate + baseline.
+>
+> Design decisions baked in:
+>
+> - A **PromptStrategy** is `{ name, description, buildSystemPrompt, buildUserPrompt }`.
+>   `translate()` takes an optional `strategy` (name or object); default stays
+>   `baseline`, so existing callers are unchanged.
+> - Three seed variants: `baseline` (today's prompt, verbatim), `structured`
+>   (sectioned system prompt + fidelity checklist), `fewShot` (structured plus
+>   worked translation examples). All share the same profile rendering so the
+>   A/B isolates the instruction change.
+> - The eval harness threads a strategy through `runCase`, and a new
+>   `eval compare --variants a,b` runs the corpus per variant, builds a
+>   **scorecard** (per-case scores + delta), and names a winner by mean overall.
+> - No live-API work is required to land the machinery: every strategy builder,
+>   the registry, the scorecard, and the winner pick are pure + unit-tested. The
+>   actual score measurement is a real-key `pnpm eval compare` run.
+
+---
+
+## Day 20 — Prompt strategies + eval A/B compare (20 commits)
+
+Goal: swappable prompt strategies in the SDK and a `compare` command in eval.
+
+1. `docs: detail Week 4 prompt-engineering plan (Days 20-25)` — this section.
+2. `feat(sdk): define PromptStrategy interface` — name, description, builders.
+3. `refactor(sdk): extract current prompts into the baseline strategy`.
+4. `test(sdk): baseline strategy reproduces the current prompt`.
+5. `feat(sdk): add structured prompt strategy` — sectioned system + fidelity checklist.
+6. `test(sdk): structured strategy emits a sectioned system prompt`.
+7. `feat(sdk): add few-shot prompt strategy` — structured plus worked examples.
+8. `test(sdk): few-shot strategy includes worked examples`.
+9. `feat(sdk): add prompt strategy registry and resolveStrategy`.
+10. `test(sdk): resolveStrategy returns each variant and rejects unknown`.
+11. `feat(sdk): translate() accepts an optional prompt strategy`.
+12. `test(sdk): translate routes prompts through the chosen strategy`.
+13. `chore(sdk): export prompt strategies from package index`.
+14. `feat(eval): thread a prompt strategy through runCase and runSuite`.
+15. `feat(eval): buildScorecard computes per-variant means and per-case deltas`.
+16. `feat(eval): pickWinner selects the best variant by mean overall`.
+17. `test(eval): scorecard deltas and winner selection`.
+18. `feat(eval): formatScorecard renders a per-case comparison table`.
+19. `feat(eval): add eval compare command across prompt variants`.
+20. `docs(eval): document the compare command and prompt variants`.
+
+End-of-day check: `pnpm eval compare --variants baseline,structured` (real key)
+prints a scorecard and names a winner; SDK unit suite green without a key.
+
+---
+
+## Days 21-25 (outline, detail when Day 20 lands)
+
+- Day 21: author 2-3 more candidate strategies from the Day 20 scorecard's weak cases.
+- Day 22: per-criterion (not just overall) deltas in the scorecard; spot which rubric dimension each variant moves.
+- Day 23: promote the winning strategy to default; record the score lift in CHANGELOG.
+- Day 24: regression-guard the chosen prompt — snapshot its system prompt + re-baseline the corpus.
+- Day 25: document the prompt-tuning loop in CONTRIBUTING (add a variant → compare → promote).
+
+---
+
+## Beyond Week 4 (preview, not detailed)
+
 - Week 5 (Days 26-30): analogy_bank injection — concept extraction → metaphor lookup → prompt enrichment.
 - Week 6 (Days 31-35): v0.1 stable release, announce externally (HN Show, dev.to, r/LocalLLaMA).
 
-Re-plan Weeks 4-6 in detail after the Day 19 eval baseline lands.
+Re-plan Weeks 5-6 in detail after the Week 4 prompt work lands.

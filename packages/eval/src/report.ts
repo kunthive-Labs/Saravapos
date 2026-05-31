@@ -1,6 +1,7 @@
 import type { CaseRunResult } from './runCase.js';
 import type { SuiteAggregate } from './aggregate.js';
 import type { GateReport, RegressionReport } from './gate.js';
+import type { Scorecard, Winner } from './compare.js';
 
 /** Format one case row: id, overall (1 decimal), lexical pass/fail, ms. */
 function formatRow(r: CaseRunResult): string {
@@ -58,4 +59,51 @@ export function formatRegressions(r: RegressionReport): string {
     lines.push(`  new since baseline: ${r.added.join(', ')}`);
   }
   return lines.join('\n');
+}
+
+const ID_COL = 32;
+const NUM_COL = 11;
+const DELTA_COL = 8;
+
+function signed(n: number): string {
+  return `${n >= 0 ? '+' : ''}${n.toFixed(1)}`;
+}
+
+/** Render an A/B scorecard: a per-case table, a means row, and the winner. */
+export function formatScorecard(card: Scorecard, winner: Winner | null): string {
+  const header = [
+    'case'.padEnd(ID_COL),
+    ...card.variants.map((v) => v.padStart(NUM_COL)),
+    'Δ'.padStart(DELTA_COL),
+  ].join('');
+  const sep = '-'.repeat(header.length);
+
+  const rows = card.rows.map((row) => {
+    const cells = card.variants.map((v) => {
+      const score = row.scores[v];
+      return (score === undefined ? '-' : score.toFixed(1)).padStart(NUM_COL);
+    });
+    const delta = (row.delta === null ? '' : signed(row.delta)).padStart(DELTA_COL);
+    return [row.id.padEnd(ID_COL), ...cells, delta].join('');
+  });
+
+  const meansRow = [
+    'mean'.padEnd(ID_COL),
+    ...card.variants.map((v) => {
+      const mean = card.means[v];
+      return (mean === undefined ? '-' : mean.toFixed(2)).padStart(NUM_COL);
+    }),
+  ].join('');
+
+  const reference = card.variants[0];
+  const refMean = reference !== undefined ? card.means[reference] : undefined;
+  const winnerLine =
+    winner === null
+      ? 'winner: n/a'
+      : `winner: ${winner.variant} (mean ${winner.mean.toFixed(2)}` +
+        (refMean !== undefined && reference !== winner.variant
+          ? `, ${signed(winner.mean - refMean)} vs ${reference})`
+          : ')');
+
+  return [header, sep, ...rows, sep, meansRow, '', winnerLine].join('\n');
 }

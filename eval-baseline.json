@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "note": "PLACEHOLDER SEED — scores are 0 (out of the 1-5 range) and are NOT real measurements. Regenerate from a real run before relying on the gate: ANTHROPIC_API_KEY=sk-... pnpm eval run --write-baseline eval-baseline.json",
+  "meanOverall": 0,
+  "cases": {
+    "chess-to-f1-initiative": 0,
+    "chess-to-f1-pawn": 0,
+    "chess-to-novice-checkmate": 0,
+    "chess-to-novice-endgame": 0,
+    "f1-to-chess-undercut": 0,
+    "novice-to-swe-backup": 0,
+    "swe-to-f1-hotpath": 0,
+    "swe-to-novice-memleak": 0,
+    "swe-to-novice-refactor": 0
+  }
+}

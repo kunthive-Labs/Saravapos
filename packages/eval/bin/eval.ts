@@ -2,12 +2,20 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { Command } from 'commander';
 import { resolveAdapter, type AdapterName } from '@saravapos/adapters';
+import { resolveStrategy } from '@saravapos/sdk';
 import { JudgeParseError } from '../src/errors.js';
 import { loadAllCases } from '../src/loadCase.js';
 import { runSuite } from '../src/runSuite.js';
 import { aggregate } from '../src/aggregate.js';
 import { buildBaseline, compareToBaseline, evaluateGate, type Baseline } from '../src/gate.js';
-import { formatGate, formatRegressions, formatSummary, formatTable } from '../src/report.js';
+import { buildScorecard, pickWinner, type VariantRun } from '../src/compare.js';
+import {
+  formatGate,
+  formatRegressions,
+  formatScorecard,
+  formatSummary,
+  formatTable,
+} from '../src/report.js';
 
 const program = new Command();
 
@@ -91,6 +99,58 @@ program
           // Quality failure (exit 1) is distinct from infra failure (exit 2).
           process.exitCode = 1;
         }
+      }
+    },
+  );
+
+program
+  .command('compare')
+  .description('Run the corpus across prompt variants and print an A/B scorecard')
+  .option('--variants <list>', 'comma-separated prompt strategies', 'baseline,structured')
+  .option('--cases <dir>', 'directory of golden case YAML files', 'packages/eval/cases')
+  .option('--provider <name>', 'translation provider: anthropic | openai | ollama', 'anthropic')
+  .option('--judge-model <model>', 'judge model override')
+  .option('--no-cache', 'force fresh adapter calls (still writes responses to disk)')
+  .option('--json <file>', 'also write the scorecard as JSON to <file>')
+  .action(
+    async (opts: {
+      variants: string;
+      cases: string;
+      provider: string;
+      judgeModel?: string;
+      cache: boolean;
+      json?: string;
+    }) => {
+      const variants = opts.variants
+        .split(',')
+        .map((v) => v.trim())
+        .filter((v) => v.length > 0);
+      // Validate strategy names up front so a typo fails before any API call.
+      for (const v of variants) {
+        resolveStrategy(v);
+      }
+
+      const cases = await loadAllCases(opts.cases);
+      const adapter = resolveAdapter(opts.provider as AdapterName);
+
+      const runs: VariantRun[] = [];
+      for (const variant of variants) {
+        const results = await runSuite(cases, {
+          translateAdapter: adapter,
+          judgeAdapter: adapter,
+          strategy: variant,
+          cache: { noCache: !opts.cache },
+          ...(opts.judgeModel !== undefined ? { judgeOptions: { model: opts.judgeModel } } : {}),
+        });
+        runs.push({ variant, results, summary: aggregate(results) });
+      }
+
+      const scorecard = buildScorecard(runs);
+      const winner = pickWinner(scorecard);
+      process.stdout.write(`${formatScorecard(scorecard, winner)}\n`);
+
+      if (opts.json !== undefined) {
+        await writeFile(opts.json, `${JSON.stringify({ scorecard, winner }, null, 2)}\n`, 'utf-8');
       }
     },
   );

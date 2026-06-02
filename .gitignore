@@ -34,3 +34,6 @@ coverage/
 
 # eval runner disk cache
 .eval-cache/
+
+# local-only working notes (never pushed)
+*.local.md

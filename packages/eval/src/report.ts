@@ -62,7 +62,9 @@ export function formatRegressions(r: RegressionReport): string {
 }
 
 const ID_COL = 32;
-const NUM_COL = 11;
+// Wide enough for the longest built-in variant name ("plainLanguage", 13) plus
+// a separating space, so per-variant column headers never abut.
+const NUM_COL = 14;
 const DELTA_COL = 8;
 
 function signed(n: number): string {
@@ -105,5 +107,45 @@ export function formatScorecard(card: Scorecard, winner: Winner | null): string 
           ? `, ${signed(winner.mean - refMean)} vs ${reference})`
           : ')');
 
-  return [header, sep, ...rows, sep, meansRow, '', winnerLine].join('\n');
+  return [
+    header,
+    sep,
+    ...rows,
+    sep,
+    meansRow,
+    ...formatCriterionBreakdown(card),
+    '',
+    winnerLine,
+  ].join('\n');
+}
+
+/**
+ * Per-criterion section of the scorecard: one row per rubric dimension, showing
+ * each variant's mean for that dimension and the candidate-vs-reference delta.
+ * This is what tells you *why* a variant won — e.g. it lifted `plain-language`
+ * while costing a little `fidelity`. Empty when no criteria were recorded.
+ */
+export function formatCriterionBreakdown(card: Scorecard): string[] {
+  if (card.criteria.length === 0) {
+    return [];
+  }
+  const header = [
+    'criterion'.padEnd(ID_COL),
+    ...card.variants.map((v) => v.padStart(NUM_COL)),
+    'Δ'.padStart(DELTA_COL),
+  ].join('');
+
+  const rows = card.criteria.map((name) => {
+    const cells = card.variants.map((v) => {
+      const mean = card.criterionMeans[v]?.[name];
+      return (mean === undefined ? '-' : mean.toFixed(2)).padStart(NUM_COL);
+    });
+    const delta = card.criterionDeltas[name];
+    const deltaCell = (delta === null || delta === undefined ? '' : signed(delta)).padStart(
+      DELTA_COL,
+    );
+    return [name.padEnd(ID_COL), ...cells, deltaCell].join('');
+  });
+
+  return ['', 'per-criterion means:', header, ...rows];
 }

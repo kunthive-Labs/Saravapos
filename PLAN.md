@@ -539,10 +539,44 @@ prints a scorecard and names a winner; SDK unit suite green without a key.
 
 ---
 
-## Days 21-25 (outline, detail when Day 20 lands)
+## Day 21 — Candidate strategies from weak cases (9 commits)
 
-- Day 21: author 2-3 more candidate strategies from the Day 20 scorecard's weak cases.
-- Day 22: per-criterion (not just overall) deltas in the scorecard; spot which rubric dimension each variant moves.
+Goal: add 2-3 more `PromptStrategy` variants, each aimed at a class of case the
+corpus is known to stress. The outline framed these as coming "from the Day 20
+scorecard's weak cases"; since no live `eval compare` has run yet (no real key,
+placeholder baseline), they instead target the weak spots the golden cases are
+explicitly **designed** to probe — the `must_avoid` lexical gate, the
+`plain-language` rubric on novice targets, and the cross-domain "lands" cases.
+All three build on `structured` so a compare isolates the added directive.
+
+1. `docs: detail Day 21 candidate strategies (weak-case targets)` — this section.
+2. `feat(sdk): add plainLanguage prompt strategy` — structured + aggressive jargon-strip / everyday-analogy directive (targets `must_avoid` + plain-language).
+3. `test(sdk): plainLanguage forbids surviving source jargon`.
+4. `feat(sdk): add planned prompt strategy` — structured + private plan-then-write (claim + term inventory) for claim-preservation fidelity.
+5. `test(sdk): planned instructs a silent plan kept out of the output`.
+6. `feat(sdk): add analogyFirst prompt strategy` — structured + anchor in the target's analogy bank (targets cross-domain "lands-for-target").
+7. `test(sdk): analogyFirst directs use of the analogy bank`.
+8. `feat(sdk): register + export plainLanguage / planned / analogyFirst`.
+9. `test(sdk): resolveStrategy returns the new variants`.
+
+End-of-day check: `pnpm eval compare --variants baseline,plainLanguage,planned,analogyFirst --help` and the SDK suite green without a key. (A real winner still needs a keyed `eval compare` run.)
+
+## Day 22 — Per-criterion scorecard deltas (5 commits)
+
+Goal: surface per-rubric-dimension movement in the scorecard, not just the
+overall number, so a compare shows _which_ criterion a variant moved (e.g. it
+lifted `plain-language` while costing a little `fidelity`).
+
+1. `docs: detail Day 22 per-criterion scorecard deltas` — this section.
+2. `feat(eval): aggregate per-criterion means per variant in the scorecard` — `criteria`, `criterionMeans`, `criterionDeltas` on `Scorecard`; each criterion averaged only over cases that include it.
+3. `test(eval): scorecard reports per-criterion means and deltas`.
+4. `feat(eval): formatScorecard renders a per-criterion breakdown` — `formatCriterionBreakdown`; widen the variant column for longer variant names.
+5. `test(eval): formatScorecard embeds the per-criterion table`.
+
+End-of-day check: `formatScorecard` prints a `per-criterion means:` block; the `--json` scorecard carries `criterionMeans` + `criterionDeltas`.
+
+## Days 23-25 (outline, detail when Day 22 lands)
+
 - Day 23: promote the winning strategy to default; record the score lift in CHANGELOG.
 - Day 24: regression-guard the chosen prompt — snapshot its system prompt + re-baseline the corpus.
 - Day 25: document the prompt-tuning loop in CONTRIBUTING (add a variant → compare → promote).

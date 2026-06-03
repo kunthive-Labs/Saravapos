@@ -2,6 +2,9 @@ import type { PromptStrategy } from './types.js';
 import { baselineStrategy } from './strategies/baseline.js';
 import { structuredStrategy } from './strategies/structured.js';
 import { fewShotStrategy } from './strategies/fewShot.js';
+import { plainLanguageStrategy } from './strategies/plainLanguage.js';
+import { plannedStrategy } from './strategies/planned.js';
+import { analogyFirstStrategy } from './strategies/analogyFirst.js';
 
 /** Strategy used when a caller does not name one. */
 export const DEFAULT_STRATEGY = 'baseline';
@@ -11,6 +14,9 @@ export const promptStrategies: Record<string, PromptStrategy> = {
   [baselineStrategy.name]: baselineStrategy,
   [structuredStrategy.name]: structuredStrategy,
   [fewShotStrategy.name]: fewShotStrategy,
+  [plainLanguageStrategy.name]: plainLanguageStrategy,
+  [plannedStrategy.name]: plannedStrategy,
+  [analogyFirstStrategy.name]: analogyFirstStrategy,
 };
 
 /**

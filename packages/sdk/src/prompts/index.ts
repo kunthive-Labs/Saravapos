@@ -5,3 +5,6 @@ export { promptStrategies, resolveStrategy, DEFAULT_STRATEGY } from './registry.
 export { baselineStrategy } from './strategies/baseline.js';
 export { structuredStrategy } from './strategies/structured.js';
 export { fewShotStrategy } from './strategies/fewShot.js';
+export { plainLanguageStrategy } from './strategies/plainLanguage.js';
+export { plannedStrategy } from './strategies/planned.js';
+export { analogyFirstStrategy } from './strategies/analogyFirst.js';

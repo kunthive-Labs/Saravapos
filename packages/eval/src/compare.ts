@@ -32,6 +32,51 @@ export interface Scorecard {
   rows: ScorecardRow[];
   /** Variant name -> mean `overall`. */
   means: Record<string, number>;
+  /** Rubric criterion names seen across the corpus, in first-seen order. */
+  criteria: string[];
+  /**
+   * Variant name -> criterion name -> mean score for that criterion across the
+   * cases that include it. Lets a compare show *which rubric dimension* moved,
+   * not just the overall number.
+   */
+  criterionMeans: Record<string, Record<string, number>>;
+  /**
+   * Criterion name -> the last variant's mean minus the first's (the same
+   * candidate-vs-reference framing as the per-case `delta`), or `null` when one
+   * side did not score that criterion or only one variant ran.
+   */
+  criterionDeltas: Record<string, number | null>;
+}
+
+/**
+ * Average each rubric criterion's score across a variant's case results, and
+ * collect the criterion names in first-seen order. A criterion is averaged only
+ * over the cases that actually include it, so rubrics that differ per case
+ * still produce a meaningful per-dimension mean.
+ */
+function criterionMeansForRun(
+  run: VariantRun,
+  order: string[],
+  seen: Set<string>,
+): Record<string, number> {
+  const sums = new Map<string, { total: number; count: number }>();
+  for (const r of run.results) {
+    for (const c of r.result.criteria) {
+      if (!seen.has(c.name)) {
+        seen.add(c.name);
+        order.push(c.name);
+      }
+      const acc = sums.get(c.name) ?? { total: 0, count: 0 };
+      acc.total += c.score;
+      acc.count += 1;
+      sums.set(c.name, acc);
+    }
+  }
+  const means: Record<string, number> = {};
+  for (const [name, { total, count }] of sums) {
+    means[name] = total / count;
+  }
+  return means;
 }
 
 /**
@@ -84,7 +129,24 @@ export function buildScorecard(runs: VariantRun[]): Scorecard {
     means[run.variant] = run.summary.meanOverall;
   }
 
-  return { variants, rows, means };
+  const criteria: string[] = [];
+  const criteriaSeen = new Set<string>();
+  const criterionMeans: Record<string, Record<string, number>> = {};
+  for (const run of runs) {
+    criterionMeans[run.variant] = criterionMeansForRun(run, criteria, criteriaSeen);
+  }
+
+  const criterionDeltas: Record<string, number | null> = {};
+  for (const name of criteria) {
+    const refMean = reference !== undefined ? criterionMeans[reference]?.[name] : undefined;
+    const candMean = candidate !== undefined ? criterionMeans[candidate]?.[name] : undefined;
+    criterionDeltas[name] =
+      reference !== candidate && refMean !== undefined && candMean !== undefined
+        ? candMean - refMean
+        : null;
+  }
+
+  return { variants, rows, means, criteria, criterionMeans, criterionDeltas };
 }
 
 /** The winning variant and its mean. */

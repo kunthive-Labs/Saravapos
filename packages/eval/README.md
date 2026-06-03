@@ -76,32 +76,50 @@ ANTHROPIC_API_KEY=sk-… pnpm eval compare --variants baseline,structured
 ```
 
 ```
-case                               baseline structured       Δ
---------------------------------------------------------------
-chess-to-f1-pawn                        3.4        4.1    +0.7
-swe-to-novice-memleak                   3.0        3.5    +0.5
+case                                  baseline structured       Δ
+----------------------------------------------------------------
+chess-to-f1-pawn                           3.4        4.1    +0.7
+swe-to-novice-memleak                      3.0        3.5    +0.5
 ...
---------------------------------------------------------------
-mean                                    3.50       3.85
+----------------------------------------------------------------
+mean                                      3.50       3.85
+
+per-criterion means:
+criterion                             baseline structured       Δ
+fidelity                                  3.80       3.90    +0.1
+plain-language                            3.10       3.95    +0.9
+lands-for-target                          3.40       3.70    +0.3
 
 winner: structured (mean 3.85, +0.35 vs baseline)
 ```
 
+The **per-criterion means** block (Day 22) breaks the overall down by rubric
+dimension, so you can see _which_ dimension a variant moved — e.g. a prompt that
+lifts `plain-language` while costing a little `fidelity`. Each criterion is
+averaged only over the cases whose rubric includes it. `Δ` is the last variant's
+per-criterion mean minus the reference's.
+
 `--variants`, `--cases`, `--provider`, `--judge-model`, `--no-cache`, and
-`--json <file>` (writes `{ scorecard, winner }`) are all accepted. Because the
-disk cache keys on the system prompt, each variant caches independently — so
-re-comparing an unchanged variant is free.
+`--json <file>` (writes `{ scorecard, winner }`, including the per-criterion
+means and deltas) are all accepted. Because the disk cache keys on the system
+prompt, each variant caches independently — so re-comparing an unchanged variant
+is free.
 
 ### Prompt variants
 
-Strategies live in `@saravapos/sdk` (`prompts/strategies/`). All three render the
-profiles identically, so a comparison isolates the instruction change.
+Strategies live in `@saravapos/sdk` (`prompts/strategies/`). Every variant renders
+the profiles identically, so a comparison isolates the instruction change. The
+candidate variants (Day 21) each build on `structured` and target a weak spot the
+golden corpus is designed to probe.
 
-| Variant      | What it does                                                       |
-| ------------ | ------------------------------------------------------------------ |
-| `baseline`   | The original v0 prompt: profile descriptions + translation rules.  |
-| `structured` | Sectioned system prompt: role / profiles / contract / checklist.   |
-| `fewShot`    | `structured` plus two worked, domain-neutral translation examples. |
+| Variant         | What it does                                                          | Targets                                   |
+| --------------- | --------------------------------------------------------------------- | ----------------------------------------- |
+| `baseline`      | The original v0 prompt: profile descriptions + translation rules.     | reference                                 |
+| `structured`    | Sectioned system prompt: role / profiles / contract / checklist.      | structure vs. prose                       |
+| `fewShot`       | `structured` plus two worked, domain-neutral translation examples.    | swap-framing-keep-claim move              |
+| `plainLanguage` | `structured` plus an aggressive jargon-strip + everyday-analogy rule. | `must_avoid` lexical gate, plain-language |
+| `planned`       | `structured` plus a private plan-then-write (claim + term inventory). | claim-preservation fidelity               |
+| `analogyFirst`  | `structured` plus a directive to anchor in the target's analogy bank. | cross-domain "lands-for-target"           |
 
 Add a variant by exporting a new `PromptStrategy` and registering it in
 `prompts/registry.ts`; it becomes available to both `translate()` and `compare`.

@@ -1,8 +1,10 @@
 # Changelog
 
-All notable changes to this project are documented here. The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/) with `-alpha.N` pre-release tags while the schema is unstable.
+All notable changes to this project are documented here. The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
-## [Unreleased]
+## [0.1.0] — 2026-06-16
+
+First stable release. `SCHEMA_VERSION` is `0.1`; profiles authored against the alpha continue to validate unchanged.
 
 ### Added — `@saravapos/sdk`
 
@@ -19,6 +21,12 @@ All notable changes to this project are documented here. The format is loosely b
 - `eval compare --variants a,b,…` runs the corpus per prompt variant and prints an A/B
   scorecard with a winner, including a **per-criterion breakdown** that shows which rubric
   dimension each variant moved.
+
+### Fixed
+
+- Per-package `test` scripts now resolve their own tests (each package has a local
+  `vitest.config.ts`), so `pnpm -r test` and `prepublishOnly` pass instead of erroring with
+  "No test files found".
 
 ### Internal
 
@@ -56,8 +64,9 @@ First publishable alpha. Schema is frozen at `0.1` for this release but may brea
 
 ### Known limitations
 
-- `analogy_bank` is parsed but not yet injected into prompts — translation is naive prompt-only.
+- `analogy_bank` is injected only as a static prompt dump; input-aware selection lands in `0.1.0`.
 - No eval harness yet (planned for Week 3).
 - Schema may change before `0.1.0` stable.
 
+[0.1.0]: https://github.com/kunthive-Labs/Saravapos/releases/tag/v0.1.0
 [0.1.0-alpha.0]: https://github.com/kunthive-Labs/Saravapos/releases/tag/v0.1.0-alpha.0

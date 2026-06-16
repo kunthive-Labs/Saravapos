@@ -4,9 +4,9 @@
 
 [![CI](https://github.com/kunthive-Labs/Saravapos/actions/workflows/ci.yml/badge.svg)](https://github.com/kunthive-Labs/Saravapos/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![npm](https://img.shields.io/npm/v/@saravapos/cli/alpha)](https://www.npmjs.com/package/@saravapos/cli)
+[![npm](https://img.shields.io/npm/v/@saravapos/cli)](https://www.npmjs.com/package/@saravapos/cli)
 
-**Status:** `0.1.0-alpha.0` — schema unstable, breaking changes expected before `0.1.0` stable.
+**Status:** `0.1.0` — first stable release. Schema `0.1` is frozen; changes follow the [versioning policy](./docs/spec.md).
 
 ## What is this?
 
@@ -23,7 +23,7 @@ Saravapos closes that gap. You describe a person's worldview — their expertise
 
 ```bash
 # global CLI
-npm install -g @saravapos/cli@alpha
+npm install -g @saravapos/cli
 
 # or per-project
 pnpm add @saravapos/sdk @saravapos/adapters
@@ -89,11 +89,11 @@ The [`profiles/`](./profiles) directory ships hand-authored personas — chess e
 
 ## Roadmap
 
-- ✅ Weeks 1–2: protocol, SDK, three adapters, CLI, alpha release (this).
+- ✅ Weeks 1–2: protocol, SDK, three adapters, CLI, alpha release.
 - ✅ Week 3: eval harness — golden cases, LLM judge, lexical checks, quality gate (`--threshold` / `--min-case`), baseline regression tracking, and a non-blocking CI eval job.
-- Week 4: prompt engineering driven by eval signal.
-- Week 5: `analogy_bank` injection — concept extraction → metaphor lookup → enriched prompt.
-- Week 6: `0.1.0` stable, public announce.
+- ✅ Week 4: prompt engineering — swappable strategies (`baseline` / `structured` / `fewShot` / `plainLanguage` / `planned` / `analogyFirst`), `eval compare` A/B scorecard with per-criterion deltas.
+- ✅ Week 5: `analogy_bank` injection — the `dynamicAnalogy` strategy extracts input concepts, matches them against the banks, and injects only the relevant metaphors.
+- ✅ Week 6: `0.1.0` stable release.
 
 The CI eval gate expects a corpus mean ≥ `3.5` with no single case below `3`, and flags regressions against [`eval-baseline.json`](./eval-baseline.json). See the [Evals section in CONTRIBUTING](./CONTRIBUTING.md#evals) for how to add a case or refresh the baseline.
 

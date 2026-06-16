@@ -126,6 +126,39 @@ pnpm eval run --baseline eval-baseline.json
    the sort key and report label.
 3. `pnpm --filter @saravapos/eval test` to confirm it validates.
 
+### Tuning prompts (the variant → compare → promote loop)
+
+Translation prompts are swappable **strategies** (`packages/sdk/src/prompts/strategies/`).
+The loop for improving them is data-driven, not by feel:
+
+1. **Add a candidate.** Export a new `PromptStrategy` (reuse `buildStructuredSystemPrompt`
+   so the A/B isolates only your instruction change), register it in
+   `packages/sdk/src/prompts/registry.ts`, and export it from `prompts/index.ts`. It is now
+   available to both `translate({ strategy })` and `eval compare`. Add a unit test plus run
+   `vitest run -u` to record its entry in the prompt snapshot guard
+   (`prompts/__snapshots__/promptSnapshots.test.ts.snap`).
+
+2. **Compare (needs a key).** Run the corpus across the variants and read the scorecard —
+   the per-criterion breakdown shows _which_ rubric dimension each variant moved:
+
+   ```bash
+   ANTHROPIC_API_KEY=sk-... pnpm build   # the eval CLI imports the SDK's built dist/
+   ANTHROPIC_API_KEY=sk-... pnpm eval compare \
+     --variants baseline,structured,fewShot,plainLanguage,planned,analogyFirst,dynamicAnalogy
+   ```
+
+3. **Promote the winner.** When a variant clearly beats `baseline`, make it the default:
+   - Change `DEFAULT_STRATEGY` in `packages/sdk/src/prompts/registry.ts` to the winner's name.
+   - Update the expectation in `prompts/registry.test.ts` and the two default-strategy
+     assertions in `translate.test.ts` (the "defaults to baseline" tests).
+   - Refresh the snapshot in `translate.test.ts` with `vitest run -u` (the default system
+     prompt changed — review the diff). The byte-for-byte `baseline.test.ts` is unaffected
+     (it pins `baseline`, not the default).
+   - Record the score lift in `CHANGELOG.md`.
+
+4. **Re-baseline.** Promoting changes the default prompt, so regenerate the baseline (below)
+   in the same PR so reviewers see the corpus-wide delta.
+
 ### Updating the baseline
 
 `eval-baseline.json` is the regression reference. The committed file is a

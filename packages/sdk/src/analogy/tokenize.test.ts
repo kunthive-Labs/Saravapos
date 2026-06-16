@@ -24,6 +24,17 @@ describe('tokenize', () => {
     expect(tokenize('loss progress')).toEqual(['loss', 'progress']);
   });
 
+  it('does not over-stem when the remaining stem would be too short', () => {
+    expect(tokenize('sing')).toEqual(['sing']); // -ing strip would leave "s"
+    expect(tokenize('tied')).toEqual(['tied']); // -ed strip would leave "ti"
+  });
+
+  it('keeps digits and splits on hyphens and apostrophes', () => {
+    expect(tokenize('formula-one')).toEqual(['formula', 'one']);
+    expect(tokenize('grid123')).toEqual(['grid123']);
+    expect(tokenize("player's move")).toEqual(['player', 'move']);
+  });
+
   it('is deterministic across repeated calls', () => {
     const input = 'Controlling the undercut window for positional advantage';
     expect(tokenize(input)).toEqual(tokenize(input));

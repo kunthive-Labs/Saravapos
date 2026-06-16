@@ -28,6 +28,18 @@ describe('extractConcepts', () => {
     expect(concepts.indexOf('pawn sacrifice')).toBeLessThan(concepts.indexOf('lone'));
   });
 
+  it('ranks a single bigram above an earlier single unigram (bigram weight > unigram)', () => {
+    // "lone" appears (pos 0) before the "lone pawn" bigram; the heavier bigram must still win.
+    const concepts = extractConcepts('lone pawn sacrifice');
+    expect(concepts.indexOf('lone pawn')).toBeLessThan(concepts.indexOf('lone'));
+  });
+
+  it('breaks equal-score ties by first appearance', () => {
+    const concepts = extractConcepts('alpha beta gamma');
+    expect(concepts.indexOf('alpha')).toBeLessThan(concepts.indexOf('beta'));
+    expect(concepts.indexOf('beta')).toBeLessThan(concepts.indexOf('gamma'));
+  });
+
   it('respects the maxConcepts cap', () => {
     const concepts = extractConcepts('alpha beta gamma delta epsilon', { maxConcepts: 2 });
     expect(concepts).toHaveLength(2);

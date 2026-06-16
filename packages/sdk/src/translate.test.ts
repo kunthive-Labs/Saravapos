@@ -125,6 +125,20 @@ describe('translate', () => {
     expect(system).not.toContain('# TRANSLATION CONTRACT');
   });
 
+  it('leaves text-agnostic strategies unchanged by the threaded source text', async () => {
+    const from = makeProfile('A', 'chess');
+    const to = makeProfile('B', 'formula-one');
+
+    const withText = makeAdapter();
+    await translate({ text: 'a long source sentence', from, to, adapter: withText });
+    const withEmpty = makeAdapter();
+    await translate({ text: '', from, to, adapter: withEmpty });
+
+    const a = (withText.complete.mock.calls[0]![0] as unknown as { system: string }).system;
+    const b = (withEmpty.complete.mock.calls[0]![0] as unknown as { system: string }).system;
+    expect(a).toBe(b); // baseline ignores the text arg → identical system prompt
+  });
+
   it('accepts a custom strategy object', async () => {
     const adapter = makeAdapter();
     const from = makeProfile('A', 'chess');

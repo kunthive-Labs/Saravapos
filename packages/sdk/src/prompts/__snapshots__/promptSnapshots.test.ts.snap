@@ -138,7 +138,8 @@ References to avoid: chess openings
 Return only the translated text.
 
 # RELEVANT ANALOGIES
-No input text was available to match; consult the target's analogy bank where it fits."
+No input text was available to match; if an analogy is needed, build a fresh
+one from the target's expertise domain."
 `;
 
 exports[`prompt strategy system prompts > fewShot renders a stable system prompt 1`] = `

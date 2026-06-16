@@ -32,9 +32,12 @@ export function buildMatchedAnalogyBlock(matches: AnalogyMatch[]): string {
   const list = matches
     .map((m) => `- ${m.entry.concept} -> ${m.entry.metaphor} [${m.entry.domain}]`)
     .join('\n');
-  return [HEADER, 'The input touches these analogies — prefer them when they fit:', list].join(
-    '\n',
-  );
+  return [
+    HEADER,
+    'The input touches these analogy mappings; reach for the target-native side',
+    '(the metaphor on the right) when it fits:',
+    list,
+  ].join('\n');
 }
 
 /**
@@ -46,7 +49,8 @@ export function buildDynamicAnalogySystemPrompt(from: Profile, to: Profile, text
   if (text === undefined || text.trim() === '') {
     const fallback = [
       HEADER,
-      "No input text was available to match; consult the target's analogy bank where it fits.",
+      'No input text was available to match; if an analogy is needed, build a fresh',
+      "one from the target's expertise domain.",
     ].join('\n');
     return [base, fallback].join('\n\n');
   }

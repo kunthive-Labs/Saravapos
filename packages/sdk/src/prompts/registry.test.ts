@@ -6,6 +6,7 @@ describe('resolveStrategy', () => {
     expect(Object.keys(promptStrategies).sort()).toEqual([
       'analogyFirst',
       'baseline',
+      'dynamicAnalogy',
       'fewShot',
       'plainLanguage',
       'planned',
@@ -24,6 +25,7 @@ describe('resolveStrategy', () => {
     expect(resolveStrategy('plainLanguage').name).toBe('plainLanguage');
     expect(resolveStrategy('planned').name).toBe('planned');
     expect(resolveStrategy('analogyFirst').name).toBe('analogyFirst');
+    expect(resolveStrategy('dynamicAnalogy').name).toBe('dynamicAnalogy');
   });
 
   it('throws with the known names on an unknown strategy', () => {

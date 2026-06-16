@@ -1,5 +1,5 @@
 /**
- * Frozen for the 0.1.0-alpha.0 release.
+ * Frozen at `0.1` for the 0.1.0 stable release.
  *
  * Deprecation policy: schema_version follows semver applied to the *schema
  * shape*, not to the npm package. Breaking changes to existing field

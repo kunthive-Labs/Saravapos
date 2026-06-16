@@ -1,6 +1,6 @@
 {
   "name": "@saravapos/adapters",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0",
   "description": "LLM provider adapters for Saravapos (Anthropic, OpenAI, Ollama)",
   "license": "MIT",
   "type": "module",

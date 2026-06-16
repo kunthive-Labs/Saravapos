@@ -5,6 +5,7 @@ import { fewShotStrategy } from './strategies/fewShot.js';
 import { plainLanguageStrategy } from './strategies/plainLanguage.js';
 import { plannedStrategy } from './strategies/planned.js';
 import { analogyFirstStrategy } from './strategies/analogyFirst.js';
+import { dynamicAnalogyStrategy } from './strategies/dynamicAnalogy.js';
 
 /** Strategy used when a caller does not name one. */
 export const DEFAULT_STRATEGY = 'baseline';
@@ -17,6 +18,7 @@ export const promptStrategies: Record<string, PromptStrategy> = {
   [plainLanguageStrategy.name]: plainLanguageStrategy,
   [plannedStrategy.name]: plannedStrategy,
   [analogyFirstStrategy.name]: analogyFirstStrategy,
+  [dynamicAnalogyStrategy.name]: dynamicAnalogyStrategy,
 };
 
 /**

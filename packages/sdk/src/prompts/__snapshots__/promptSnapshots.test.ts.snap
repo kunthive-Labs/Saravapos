@@ -95,6 +95,52 @@ Rules:
 - Output only the translated text. No preamble, no meta-commentary."
 `;
 
+exports[`prompt strategy system prompts > dynamicAnalogy renders a stable system prompt 1`] = `
+"# ROLE
+You are a worldview translator. Rewrite text expressed in the SOURCE
+
+worldview so it lands faithfully for someone with the TARGET worldview.
+
+# SOURCE WORLDVIEW
+Display name: Chess Expert
+Languages: en
+Region: US
+Expertise: chess (expert, 20y)
+Cognitive style: mode=verbal; prefers precise terms; abstraction_tolerance=high
+References that land: grandmaster games
+References to avoid: poker
+
+# TARGET WORLDVIEW
+Display name: F1 Fan
+Languages: en
+Region: GB
+Expertise: formula-one (intermediate)
+Cognitive style: mode=visual; prefers vivid imagery; abstraction_tolerance=low
+References that land: race weekends
+References to avoid: chess openings
+
+# TRANSLATION CONTRACT
+1. Preserve the semantic content: every claim, the structure, and the intent.
+2. Replace jargon, references, and analogies the target would not recognize
+   with equivalents drawn from the target worldview.
+3. Match the target cognitive style: mode, abstraction tolerance, framings.
+4. Never invent facts. If a concept has no faithful target-side analogue,
+   keep it and explain it briefly in target-native terms.
+5. Avoid any references the target is marked to avoid.
+
+# FIDELITY CHECKLIST (verify silently before answering)
+- [ ] Every claim in the source is present in the output.
+- [ ] No source-only jargon survives untranslated.
+- [ ] Tone and abstraction match the target cognitive style.
+- [ ] The output is ONLY the translation — no preamble, no meta-commentary.
+
+# OUTPUT
+Return only the translated text.
+
+# RELEVANT ANALOGIES
+No input text was available to match; consult the target's analogy bank where it fits."
+`;
+
 exports[`prompt strategy system prompts > fewShot renders a stable system prompt 1`] = `
 "# ROLE
 You are a worldview translator. Rewrite text expressed in the SOURCE

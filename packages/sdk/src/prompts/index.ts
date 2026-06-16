@@ -8,3 +8,4 @@ export { fewShotStrategy } from './strategies/fewShot.js';
 export { plainLanguageStrategy } from './strategies/plainLanguage.js';
 export { plannedStrategy } from './strategies/planned.js';
 export { analogyFirstStrategy } from './strategies/analogyFirst.js';
+export { dynamicAnalogyStrategy } from './strategies/dynamicAnalogy.js';

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Profile } from '@saravapos/spec';
-import { structuredStrategy } from './structured.js';
+import { buildStructuredSystemPrompt, structuredStrategy } from './structured.js';
 
 function makeProfile(name: string, domain: string): Profile {
   return {
@@ -31,5 +31,16 @@ describe('structuredStrategy', () => {
     expect(system).toContain('TARGET WORLDVIEW');
     expect(system).toContain('Chess Expert');
     expect(system).toContain('F1 Fan');
+  });
+
+  it('dumps the analogy banks by default but can omit them', () => {
+    const withBank: Profile = {
+      ...from,
+      analogy_bank: [{ concept: 'pawn', metaphor: 'tyre', domain: 'formula-one' }],
+    };
+    expect(structuredStrategy.buildSystemPrompt(withBank, to)).toContain('Analogy bank:');
+    expect(buildStructuredSystemPrompt(withBank, to, { includeAnalogyBanks: false })).not.toContain(
+      'Analogy bank:',
+    );
   });
 });

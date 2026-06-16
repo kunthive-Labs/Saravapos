@@ -2,6 +2,26 @@
 
 All notable changes to this project are documented here. The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/) with `-alpha.N` pre-release tags while the schema is unstable.
 
+## [Unreleased]
+
+### Added — `@saravapos/sdk`
+
+- Swappable prompt **strategies**: `baseline` (the original v0 prompt), `structured`,
+  `fewShot`, plus three candidate variants — `plainLanguage`, `planned`, and `analogyFirst`.
+  `translate({ strategy })` selects one; the default remains `baseline` until a keyed
+  `eval compare` names a winner.
+
+### Added — `@saravapos/eval`
+
+- `eval compare --variants a,b,…` runs the corpus per prompt variant and prints an A/B
+  scorecard with a winner, including a **per-criterion breakdown** that shows which rubric
+  dimension each variant moved.
+
+### Internal
+
+- Prompt regression guard: a vitest snapshot pins every strategy's system prompt, so prompt
+  drift is caught in review.
+
 ## [0.1.0-alpha.0] — 2026-05-26
 
 First publishable alpha. Schema is frozen at `0.1` for this release but may break before `0.1.0` stable.

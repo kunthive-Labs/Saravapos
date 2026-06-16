@@ -30,13 +30,27 @@ describe('scoreEntry', () => {
 
   it('scores a partial token overlap below a full hit', () => {
     const concepts = extractConcepts('I sacrificed a pawn');
-    const partial = scoreEntry(concepts, BANK[0]!); // matches "pawn" only (sacrificed stems to sacrific)
-    expect(partial).toBeGreaterThan(0);
-    expect(partial).toBeLessThan(6);
+    // matches "pawn" only (sacrificed stems to sacrific): overlap 1 + 2*(1/2) + 0 = 2
+    expect(scoreEntry(concepts, BANK[0]!)).toBeCloseTo(2);
   });
 
   it('scores zero when nothing overlaps', () => {
     expect(scoreEntry(extractConcepts('lights out and away we go'), BANK[2]!)).toBe(0);
+  });
+
+  it('scores a concept that tokenizes to nothing as zero (no NaN)', () => {
+    expect(scoreEntry(['pawn'], { concept: 'as is the', metaphor: 'm', domain: 'd' })).toBe(0);
+  });
+
+  it('dedupes repeated concept tokens so they do not inflate the score', () => {
+    // "advantages advantage" stems to ['advantage','advantage'] -> distinct ['advantage'].
+    const dup = scoreEntry(['advantage'], {
+      concept: 'advantages advantage',
+      metaphor: 'm',
+      domain: 'd',
+    });
+    const single = scoreEntry(['advantage'], { concept: 'advantage', metaphor: 'm', domain: 'd' });
+    expect(dup).toBeCloseTo(single);
   });
 });
 
@@ -60,6 +74,24 @@ describe('matchAnalogies', () => {
   it('caps results at topN', () => {
     const concepts = extractConcepts('pawn positional endgame');
     expect(matchAnalogies(concepts, BANK, { topN: 1 })).toHaveLength(1);
+  });
+
+  it('caps at the default topN of 5', () => {
+    // "chess" is stem-stable (no -ing/-ed/-s suffix), so the raw concept token matches.
+    const big: AnalogyEntry[] = Array.from({ length: 7 }, (_, i) => ({
+      concept: `chess topic${i}`,
+      metaphor: `m${i}`,
+      domain: 'd',
+    }));
+    expect(matchAnalogies(['chess'], big)).toHaveLength(5);
+  });
+
+  it('honours an explicit minScore', () => {
+    const concepts = extractConcepts('I sacrificed a pawn for a positional advantage');
+    // Only the full-phrase hit (score 6) clears minScore 3; the partial "pawn" (2) is dropped.
+    expect(matchAnalogies(concepts, BANK, { minScore: 3 }).map((m) => m.entry.concept)).toEqual([
+      'positional advantage',
+    ]);
   });
 
   it('breaks score ties on original bank order', () => {

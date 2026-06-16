@@ -1,6 +1,20 @@
 import type { Profile } from '@saravapos/spec';
 
-export function describeProfile(profile: Profile, role: 'source' | 'target'): string {
+export interface DescribeProfileOptions {
+  /**
+   * Whether to dump the profile's analogy bank into the description. Defaults
+   * to `true` (the historical behaviour). The `dynamicAnalogy` strategy sets
+   * this `false` so it can inject only the input-relevant analogies instead of
+   * the full static list.
+   */
+  includeAnalogyBank?: boolean;
+}
+
+export function describeProfile(
+  profile: Profile,
+  role: 'source' | 'target',
+  opts: DescribeProfileOptions = {},
+): string {
   const lines: string[] = [];
   lines.push(`# ${role === 'source' ? 'SOURCE' : 'TARGET'} WORLDVIEW`);
   lines.push(`Display name: ${profile.identity.display_name}`);
@@ -30,7 +44,7 @@ export function describeProfile(profile: Profile, role: 'source' | 'target'): st
       lines.push(`References to avoid: ${cc.references_to_avoid.join(', ')}`);
     }
   }
-  if (profile.analogy_bank?.length) {
+  if ((opts.includeAnalogyBank ?? true) && profile.analogy_bank?.length) {
     const sample = profile.analogy_bank
       .slice(0, 8)
       .map((a) => `- ${a.concept} -> ${a.metaphor}${a.domain ? ` [${a.domain}]` : ''}`)

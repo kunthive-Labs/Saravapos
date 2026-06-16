@@ -24,13 +24,27 @@ const CHECKLIST = [
 
 const OUTPUT = '# OUTPUT\nReturn only the translated text.';
 
+export interface StructuredPromptOptions {
+  /**
+   * Whether the source/target descriptions dump their full analogy banks.
+   * Defaults to `true` (output byte-identical to before). `dynamicAnalogy` sets
+   * this `false` so it can inject only the input-relevant analogies instead.
+   */
+  includeAnalogyBanks?: boolean;
+}
+
 /** Build a sectioned system prompt: role, profiles, contract, checklist, output. */
-export function buildStructuredSystemPrompt(from: Profile, to: Profile): string {
+export function buildStructuredSystemPrompt(
+  from: Profile,
+  to: Profile,
+  opts: StructuredPromptOptions = {},
+): string {
+  const describeOpts = { includeAnalogyBank: opts.includeAnalogyBanks ?? true };
   return [
     '# ROLE\nYou are a worldview translator. Rewrite text expressed in the SOURCE',
     'worldview so it lands faithfully for someone with the TARGET worldview.',
-    describeProfile(from, 'source'),
-    describeProfile(to, 'target'),
+    describeProfile(from, 'source', describeOpts),
+    describeProfile(to, 'target', describeOpts),
     CONTRACT,
     CHECKLIST,
     OUTPUT,
@@ -45,6 +59,8 @@ export function buildStructuredSystemPrompt(from: Profile, to: Profile): string 
 export const structuredStrategy: PromptStrategy = {
   name: 'structured',
   description: 'Sectioned system prompt (role / profiles / contract / checklist / output).',
-  buildSystemPrompt: buildStructuredSystemPrompt,
+  // Wrapped to the (from, to) shape: the strategy never suppresses analogy
+  // banks — that knob exists only for dynamicAnalogy's internal use.
+  buildSystemPrompt: (from, to) => buildStructuredSystemPrompt(from, to),
   buildUserPrompt,
 };

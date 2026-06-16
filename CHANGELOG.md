@@ -10,6 +10,9 @@ All notable changes to this project are documented here. The format is loosely b
   `fewShot`, plus three candidate variants — `plainLanguage`, `planned`, and `analogyFirst`.
   `translate({ strategy })` selects one; the default remains `baseline` until a keyed
   `eval compare` names a winner.
+- **Dynamic analogy injection** (`dynamicAnalogy` strategy): extracts the input text's concepts,
+  matches them against both profiles' `analogy_bank` entries, and injects only the relevant
+  metaphors instead of dumping the whole bank. Fully deterministic, no extra LLM call.
 
 ### Added — `@saravapos/eval`
 

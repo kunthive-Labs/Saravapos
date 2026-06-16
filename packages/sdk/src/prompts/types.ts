@@ -10,8 +10,13 @@ export interface PromptStrategy {
   name: string;
   /** One-line description of what this variant does differently. */
   description: string;
-  /** Build the system prompt from the source and target profiles. */
-  buildSystemPrompt(from: Profile, to: Profile): string;
+  /**
+   * Build the system prompt from the source and target profiles. The optional
+   * `text` is the source input being translated; input-aware strategies (e.g.
+   * `dynamicAnalogy`) use it to tailor the prompt. Strategies that don't need
+   * it simply omit the parameter.
+   */
+  buildSystemPrompt(from: Profile, to: Profile, text?: string): string;
   /** Wrap the source text into the user prompt. */
   buildUserPrompt(text: string): string;
 }

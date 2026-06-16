@@ -24,7 +24,9 @@ function asStrategy(strategy: string | PromptStrategy | undefined): PromptStrate
 
 export async function translate(options: TranslateOptions): Promise<string> {
   const strategy = asStrategy(options.strategy);
-  const system = strategy.buildSystemPrompt(options.from, options.to);
+  // Pass the source text so input-aware strategies (e.g. dynamicAnalogy) can
+  // tailor the system prompt. Strategies that ignore it are unaffected.
+  const system = strategy.buildSystemPrompt(options.from, options.to, options.text);
   const user = strategy.buildUserPrompt(options.text);
   const completion: CompletionOptions = { system, user };
   if (options.model !== undefined) completion.model = options.model;

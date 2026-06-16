@@ -16,51 +16,49 @@ export interface MatchOptions {
 
 /** Weight of how *fully* an entry's concept is covered by the input. */
 const COVERAGE_WEIGHT = 2;
-/** Bonus when the entry's whole concept phrase appears among the extracted concepts. */
+/** Bonus when every token of the entry's concept is present in the input. */
 const PHRASE_BONUS = 2;
 const DEFAULT_TOP_N = 5;
 const DEFAULT_MIN_SCORE = 1;
 
-interface ConceptIndex {
-  tokens: Set<string>;
-  phrases: Set<string>;
-}
-
-/** Split extracted concept phrases into a token set + the set of whole phrases. */
-function buildIndex(concepts: string[]): ConceptIndex {
+/** Flatten extracted concept phrases into the set of distinct tokens they contain. */
+function buildTokenSet(concepts: string[]): Set<string> {
   const tokens = new Set<string>();
-  const phrases = new Set<string>();
   for (const concept of concepts) {
-    phrases.add(concept);
     for (const token of concept.split(' ')) {
       if (token.length > 0) {
         tokens.add(token);
       }
     }
   }
-  return { tokens, phrases };
+  return tokens;
 }
 
-function scoreAgainstIndex(index: ConceptIndex, entry: AnalogyEntry): number {
-  const conceptTokens = tokenize(entry.concept);
+function scoreAgainstTokens(tokens: Set<string>, entry: AnalogyEntry): number {
+  // Distinct tokens, so a concept repeating a word can't inflate overlap/coverage.
+  const conceptTokens = [...new Set(tokenize(entry.concept))];
   if (conceptTokens.length === 0) {
     return 0;
   }
-  const overlap = conceptTokens.filter((t) => index.tokens.has(t)).length;
+  const overlap = conceptTokens.filter((t) => tokens.has(t)).length;
   const coverage = overlap / conceptTokens.length;
-  const phraseBonus = index.phrases.has(conceptTokens.join(' ')) ? PHRASE_BONUS : 0;
+  // Whole-phrase bonus: every token of the entry's concept is present. Keyed on
+  // full coverage rather than a literal phrase hit because extractConcepts only
+  // emits unigrams/bigrams — a 3+ token concept could never match by phrase
+  // string alone, so the bonus would be dead for the most specific entries.
+  const phraseBonus = overlap === conceptTokens.length ? PHRASE_BONUS : 0;
   return overlap + COVERAGE_WEIGHT * coverage + phraseBonus;
 }
 
 /**
  * Score one analogy entry against a list of extracted concepts. Exported as a
- * pure, directly-testable unit. Score =
- * `overlap + 2·coverage + phraseBonus`, where overlap is the count of the
- * entry's (stemmed) concept tokens present in the concepts, coverage is the
- * fraction of them covered, and phraseBonus rewards a whole-phrase hit.
+ * pure, directly-testable unit. Score = `overlap + 2·coverage + phraseBonus`,
+ * where overlap is the count of the entry's distinct (stemmed) concept tokens
+ * present in the concepts, coverage is the fraction of them covered, and
+ * phraseBonus rewards a fully-covered concept (every token present).
  */
 export function scoreEntry(concepts: string[], entry: AnalogyEntry): number {
-  return scoreAgainstIndex(buildIndex(concepts), entry);
+  return scoreAgainstTokens(buildTokenSet(concepts), entry);
 }
 
 /**
@@ -80,10 +78,10 @@ export function matchAnalogies(
   }
   const topN = opts.topN ?? DEFAULT_TOP_N;
   const minScore = opts.minScore ?? DEFAULT_MIN_SCORE;
-  const index = buildIndex(concepts);
+  const tokens = buildTokenSet(concepts);
 
   return bank
-    .map((entry, idx) => ({ entry, score: scoreAgainstIndex(index, entry), idx }))
+    .map((entry, idx) => ({ entry, score: scoreAgainstTokens(tokens, entry), idx }))
     .filter((m) => m.score >= minScore)
     .sort((a, b) => (b.score !== a.score ? b.score - a.score : a.idx - b.idx))
     .slice(0, topN)

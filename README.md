@@ -106,3 +106,7 @@ See [`CONTRIBUTING.md`](./CONTRIBUTING.md). The schema shape and the prompt desi
 ## License
 
 MIT. See [LICENSE](./LICENSE).
+
+---
+
+Part of [kunthive-Labs](https://github.com/kunthive-Labs) — open experiments in AI & tooling.

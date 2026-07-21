@@ -19,6 +19,13 @@ describe('createProgram', () => {
       command.name(),
     );
 
-    expect(commandNames).toEqual(['translate', 'validate', 'init', 'list-providers', 'version']);
+    expect(commandNames).toEqual([
+      'translate',
+      'validate',
+      'init',
+      'list-providers',
+      'doctor',
+      'version',
+    ]);
   });
 });

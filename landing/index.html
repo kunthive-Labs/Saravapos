@@ -1,529 +1,1020 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saravapos - an open protocol for worldview-aware communication | Kunthive Labs</title>
-  <meta name="description" content="Saravapos is an open protocol, TypeScript SDK, and CLI for worldview-aware communication. It describes a person's mental world as a small portable profile and uses an LLM to rewrite content between worldviews. Free and open source, by Kunthive Labs." />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Saravapos - an open protocol for worldview-aware communication" />
-  <meta property="og:description" content="Describe a worldview as a small YAML profile, then translate ideas between mental models. The metaphors land, the facts stay intact. Protocol-first, local-first, multi-provider." />
-  <meta property="og:url" content="https://kunthive-labs.github.io/Saravapos/" />
-  <meta name="theme-color" content="#fafafa" />
-  <script>
-    (function () {
-      try {
-        if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
-      } catch (e) {}
-    })();
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Saravapos - an open protocol for worldview-aware communication | Kunthive Labs</title>
+    <meta
+      name="description"
+      content="Saravapos is an open protocol, TypeScript SDK, and CLI for worldview-aware communication. It describes a person's mental world as a small portable profile and uses an LLM to rewrite content between worldviews. Free and open source, by Kunthive Labs."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Saravapos - an open protocol for worldview-aware communication"
+    />
+    <meta
+      property="og:description"
+      content="Describe a worldview as a small YAML profile, then translate ideas between mental models. The metaphors land, the facts stay intact. Protocol-first, local-first, multi-provider."
+    />
+    <meta property="og:url" content="https://kunthive-labs.github.io/Saravapos/" />
+    <meta name="theme-color" content="#fafafa" />
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('theme') === 'dark')
+            document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    :root {
-      --bg: #fafafa;
-      --text: #09090b;
-      --text-2: #52525b;
-      --muted: #86868f;
-      --dim: #71717a;
-      --soft: #71717a;
-      --line: rgba(0, 0, 0, 0.07);
-      --line-strong: rgba(0, 0, 0, 0.16);
-      --line-hover: rgba(0, 0, 0, 0.38);
-      --panel: #ffffff;
-      --header-bg: rgba(250, 250, 250, 0.92);
-      --btn-bg: #09090b;
-      --btn-fg: #ffffff;
-      --sel-bg: #09090b;
-      --sel-fg: #ffffff;
-      --code: #27272a;
-      --dgm-dot: rgba(0, 0, 0, 0.09);
-      --dgm-corner: rgba(0, 0, 0, 0.3);
-      --dgm-node-fill: rgba(0, 0, 0, 0.02);
-      --dgm-node-stroke: rgba(0, 0, 0, 0.28);
-      --dgm-label: #09090b;
-      --dgm-wire: rgba(0, 0, 0, 0.35);
-      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-      --maxw: 1180px;
-    }
-    html.dark {
-      --bg: #050505;
-      --text: #ffffff;
-      --text-2: #a1a1aa;
-      --muted: #52525b;
-      --dim: #52525b;
-      --soft: #71717a;
-      --line: rgba(255, 255, 255, 0.06);
-      --line-strong: rgba(255, 255, 255, 0.12);
-      --line-hover: rgba(255, 255, 255, 0.3);
-      --panel: #0a0a0a;
-      --header-bg: rgba(5, 5, 5, 0.92);
-      --btn-bg: #ffffff;
-      --btn-fg: #000000;
-      --sel-bg: #ffffff;
-      --sel-fg: #000000;
-      --code: #e4e4e7;
-      --dgm-dot: rgba(255, 255, 255, 0.055);
-      --dgm-corner: rgba(255, 255, 255, 0.25);
-      --dgm-node-fill: rgba(255, 255, 255, 0.03);
-      --dgm-node-stroke: rgba(255, 255, 255, 0.22);
-      --dgm-label: #fafafa;
-      --dgm-wire: rgba(255, 255, 255, 0.3);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; color-scheme: light; }
-    html.dark { color-scheme: dark; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    ::selection { background: var(--sel-bg); color: var(--sel-fg); }
-    a { color: inherit; text-decoration: none; }
-    img, svg { display: block; max-width: 100%; }
-
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-
-    /* ---------- header ---------- */
-    header {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-      background: var(--header-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
-    }
-    .nav-brand { display: flex; align-items: baseline; gap: 10px; }
-    .nav-brand .org { font-size: 13px; color: var(--soft); font-weight: 500; }
-    .nav-brand .proj { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
-    .nav-links { display: flex; align-items: center; gap: 28px; }
-    .nav-links a { font-size: 13.5px; color: var(--text-2); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links .btn-sm {
-      color: var(--btn-fg); background: var(--btn-bg); padding: 7px 14px; border-radius: 6px;
-      font-weight: 600; transition: opacity 0.2s;
-    }
-    .nav-links .btn-sm:hover { opacity: 0.85; color: var(--btn-fg); }
-    .theme-toggle {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 32px; height: 32px; border: 1px solid var(--line-strong); border-radius: 50%;
-      background: transparent; color: var(--text-2); cursor: pointer;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .theme-toggle:hover { color: var(--text); border-color: var(--line-hover); }
-    .theme-toggle svg { width: 15px; height: 15px; }
-    .theme-toggle .icon-moon { display: none; }
-    html.dark .theme-toggle .icon-moon { display: block; }
-    html.dark .theme-toggle .icon-sun { display: none; }
-
-    /* ---------- hero ---------- */
-    .hero { padding: 150px 0 90px; border-bottom: 1px solid var(--line); }
-    .hero-label {
-      font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--soft); margin-bottom: 28px;
-    }
-    .hero h1 {
-      font-size: clamp(42px, 7.5vw, 84px);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-      font-weight: 700;
-      max-width: 12ch;
-    }
-    .hero h1 .dim { color: var(--dim); }
-    .hero p {
-      margin-top: 28px; font-size: 18px; color: var(--text-2);
-      max-width: 52ch; line-height: 1.65;
-    }
-    .hero-ctas { margin-top: 40px; display: flex; gap: 14px; flex-wrap: wrap; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 22px; border-radius: 7px; font-size: 14.5px; font-weight: 600;
-      transition: transform 0.15s, opacity 0.2s, border-color 0.2s;
-    }
-    .btn:active { transform: scale(0.98); }
-    .btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
-    .btn-primary:hover { opacity: 0.87; }
-    .btn-ghost { border: 1px solid var(--line-strong); color: var(--text); }
-    .btn-ghost:hover { border-color: var(--line-hover); }
-
-    /* ---------- sections ---------- */
-    section { padding: 96px 0; border-bottom: 1px solid var(--line); }
-    .sec-title {
-      font-size: clamp(28px, 4vw, 44px); font-weight: 700;
-      letter-spacing: -0.03em; line-height: 1.1; max-width: 22ch;
-    }
-    .sec-body { margin-top: 22px; font-size: 16.5px; color: var(--text-2); max-width: 62ch; }
-    .sec-body + .sec-body { margin-top: 16px; }
-    .sec-body strong { color: var(--text); font-weight: 600; }
-
-    /* ---------- diagram panel (Kunthive schematic motif) ---------- */
-    .dgm-panel {
-      position: relative; margin-top: 56px;
-      border: 1px solid var(--line); border-radius: 10px;
-      background:
-        radial-gradient(var(--dgm-dot) 1px, transparent 1px);
-      background-size: 26px 26px;
-      background-color: var(--panel);
-      padding: 48px 32px;
-      overflow: hidden;
-    }
-    .dgm-corner { position: absolute; width: 14px; height: 14px; border-color: var(--dgm-corner); border-style: solid; border-width: 0; }
-    .dgm-corner.tl { top: 10px; left: 10px; border-top-width: 1px; border-left-width: 1px; }
-    .dgm-corner.tr { top: 10px; right: 10px; border-top-width: 1px; border-right-width: 1px; }
-    .dgm-corner.bl { bottom: 10px; left: 10px; border-bottom-width: 1px; border-left-width: 1px; }
-    .dgm-corner.br { bottom: 10px; right: 10px; border-bottom-width: 1px; border-right-width: 1px; }
-    .dgm-caption {
-      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 34px; text-align: center;
-    }
-    .dgm-svg { width: 100%; height: auto; }
-    .dgm-svg text { font-family: var(--mono); }
-    .dgm-node { fill: var(--dgm-node-fill); stroke: var(--dgm-node-stroke); }
-    .dgm-node-label { fill: var(--dgm-label); font-size: 12px; font-weight: 500; }
-    .dgm-node-sub { fill: var(--soft); font-size: 9.5px; }
-    .dgm-wire { stroke: var(--dgm-wire); stroke-dasharray: 5 5; fill: none; }
-    @media (prefers-reduced-motion: no-preference) {
-      .dgm-wire { animation: dash 1.6s linear infinite; }
-    }
-    @keyframes dash { to { stroke-dashoffset: -20; } }
-
-    /* ---------- feature rows ---------- */
-    .feat-grid { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
-    .feat {
-      padding: 36px 32px 40px; border-bottom: 1px solid var(--line);
-    }
-    .feat:nth-child(odd) { border-right: 1px solid var(--line); padding-left: 0; }
-    .feat:nth-child(even) { padding-right: 0; }
-    .feat h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
-    .feat p { margin-top: 10px; font-size: 14.5px; color: var(--text-2); line-height: 1.65; }
-    .feat .num { font-family: var(--mono); font-size: 11px; color: var(--muted); display: block; margin-bottom: 14px; }
-
-    /* ---------- package strip ---------- */
-    .pkg-strip { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
-    .pkg-cell { background: var(--panel); padding: 26px 20px; }
-    .pkg-cell .val { font-family: var(--mono); font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
-    .pkg-cell .lbl { margin-top: 8px; font-size: 12.5px; color: var(--soft); line-height: 1.45; }
-
-    /* ---------- terminal ---------- */
-    .term {
-      margin-top: 56px; border: 1px solid var(--line); border-radius: 10px;
-      background: var(--panel); overflow: hidden;
-    }
-    .term-bar {
-      display: flex; align-items: center; gap: 8px;
-      padding: 12px 18px; border-bottom: 1px solid var(--line);
-      font-family: var(--mono); font-size: 11px; color: var(--muted);
-      letter-spacing: 0.08em;
-    }
-    .term-body { padding: 24px 22px; font-family: var(--mono); font-size: 13.5px; line-height: 2.05; overflow-x: auto; }
-    .term-body .c { color: var(--muted); }
-    .term-body .p { color: var(--soft); user-select: none; }
-    .term-body code { font-family: inherit; color: var(--code); white-space: pre; }
-
-    /* ---------- principles ---------- */
-    .principles { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
-    .principle h3 { font-size: 15.5px; font-weight: 600; }
-    .principle p { margin-top: 10px; font-size: 14px; color: var(--text-2); line-height: 1.65; }
-    .facts {
-      margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--line);
-      display: flex; flex-wrap: wrap; gap: 16px 48px;
-      font-family: var(--mono); font-size: 12px; color: var(--soft); letter-spacing: 0.04em;
-    }
-    .facts span strong { color: var(--text-2); font-weight: 500; }
-
-    /* ---------- footer ---------- */
-    footer { padding: 64px 0 48px; }
-    .foot-grid { display: flex; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
-    .foot-brand .name { font-weight: 600; font-size: 15px; }
-    .foot-brand p { margin-top: 10px; font-size: 13.5px; color: var(--soft); max-width: 34ch; }
-    .foot-col h4 {
-      font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 16px; font-weight: 500;
-    }
-    .foot-col ul { list-style: none; }
-    .foot-col li { margin-bottom: 10px; }
-    .foot-col a { font-size: 13.5px; color: var(--text-2); transition: color 0.2s; }
-    .foot-col a:hover { color: var(--text); }
-    .foot-bottom {
-      margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-      font-size: 12.5px; color: var(--muted);
-    }
-
-    /* ---------- reveal motion ---------- */
-    @media (prefers-reduced-motion: no-preference) {
-      .rv { opacity: 0; transform: translateY(18px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-      .rv.in { opacity: 1; transform: none; }
-      .hero .rv { transition-delay: 0.05s; }
-    }
-
-    /* ---------- mobile ---------- */
-    @media (max-width: 860px) {
-      .hero { padding: 130px 0 70px; }
-      section { padding: 72px 0; }
-      .feat-grid { grid-template-columns: 1fr; }
-      .feat:nth-child(odd) { border-right: 0; }
-      .feat { padding-left: 0 !important; padding-right: 0 !important; }
-      .pkg-strip { grid-template-columns: 1fr 1fr; }
-      .principles { grid-template-columns: 1fr; gap: 32px; }
-      .nav-links a:not(.btn-sm) { display: none; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="wrap nav">
-      <a class="nav-brand" href="https://labs.kunthive.in">
-        <span class="org">Kunthive Labs /</span>
-        <span class="proj">Saravapos</span>
-      </a>
-      <nav class="nav-links">
-        <a href="#why">Why</a>
-        <a href="#how">How it works</a>
-        <a href="#start">Quickstart</a>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch between light and dark theme">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </button>
-        <a class="btn-sm" href="https://github.com/kunthive-Labs/Saravapos">GitHub</a>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <div class="hero">
-      <div class="wrap">
-        <p class="hero-label rv">Open source by Kunthive Labs</p>
-        <h1 class="rv">Say it in <span class="dim">their worldview.</span></h1>
-        <p class="rv">An open protocol that translates ideas between mental models, so metaphors land and facts stay intact.</p>
-        <div class="hero-ctas rv">
-          <a class="btn btn-primary" href="https://github.com/kunthive-Labs/Saravapos">View on GitHub</a>
-          <a class="btn btn-ghost" href="#start">Install the CLI</a>
-        </div>
-      </div>
-    </div>
-
-    <section id="why">
-      <div class="wrap">
-        <h2 class="sec-title rv">Every explanation rides on shared metaphors.</h2>
-        <p class="sec-body rv">A chess coach says "sacrifice a pawn for positional advantage" and another chess player nods, but a Formula 1 fan hears empty noise. The information is sound. The mental model behind it is missing.</p>
-        <p class="sec-body rv">LLMs can translate between languages and between codebases, but there was no portable, declarative way to say "render this idea for someone whose mental world looks like this." Saravapos closes that gap. You describe a worldview, its expertise, preferred analogies, cognitive style, and cultural references, as a small YAML profile. Given a from profile and a to profile, it swaps the metaphor layer while preserving the semantic payload. <strong>The translator never invents facts.</strong></p>
-      </div>
-    </section>
-
-    <section id="how">
-      <div class="wrap">
-        <h2 class="sec-title rv">Two profiles in, one faithful rewrite out.</h2>
-        <div class="dgm-panel rv">
-          <i class="dgm-corner tl"></i><i class="dgm-corner tr"></i><i class="dgm-corner bl"></i><i class="dgm-corner br"></i>
-          <p class="dgm-caption">Saravapos translation schematic</p>
-          <svg class="dgm-svg" viewBox="0 0 960 264" role="img" aria-label="Diagram: content plus a from profile and a to profile enter the translate stage, which applies a prompt strategy with dynamic analogy injection, calls an LLM adapter for Anthropic, OpenAI, or Ollama, and produces rewritten content with facts preserved and metaphors swapped">
-            <!-- nodes -->
-            <rect class="dgm-node" x="20" y="16" width="160" height="64" rx="8"/>
-            <text class="dgm-node-label" x="100" y="44" text-anchor="middle">CONTENT</text>
-            <text class="dgm-node-sub" x="100" y="62" text-anchor="middle">text to translate</text>
-
-            <rect class="dgm-node" x="20" y="100" width="160" height="64" rx="8"/>
-            <text class="dgm-node-label" x="100" y="128" text-anchor="middle">FROM PROFILE</text>
-            <text class="dgm-node-sub" x="100" y="146" text-anchor="middle">yaml</text>
-
-            <rect class="dgm-node" x="20" y="184" width="160" height="64" rx="8"/>
-            <text class="dgm-node-label" x="100" y="212" text-anchor="middle">TO PROFILE</text>
-            <text class="dgm-node-sub" x="100" y="230" text-anchor="middle">yaml</text>
-
-            <rect class="dgm-node" x="280" y="100" width="190" height="64" rx="8"/>
-            <text class="dgm-node-label" x="375" y="128" text-anchor="middle">TRANSLATE</text>
-            <text class="dgm-node-sub" x="375" y="146" text-anchor="middle">strategy + analogy injection</text>
-
-            <rect class="dgm-node" x="540" y="100" width="190" height="64" rx="8"/>
-            <text class="dgm-node-label" x="635" y="128" text-anchor="middle">LLM ADAPTER</text>
-            <text class="dgm-node-sub" x="635" y="146" text-anchor="middle">anthropic / openai / ollama</text>
-
-            <rect class="dgm-node" x="780" y="100" width="160" height="64" rx="8"/>
-            <text class="dgm-node-label" x="860" y="124" text-anchor="middle">REWRITTEN</text>
-            <text class="dgm-node-sub" x="860" y="141" text-anchor="middle">facts preserved</text>
-            <text class="dgm-node-sub" x="860" y="155" text-anchor="middle">metaphors swapped</text>
-
-            <!-- wires -->
-            <path class="dgm-wire" d="M 180 48 C 230 48, 230 116, 280 116"/>
-            <path class="dgm-wire" d="M 180 132 H 280"/>
-            <path class="dgm-wire" d="M 180 216 C 230 216, 230 148, 280 148"/>
-            <path class="dgm-wire" d="M 470 132 H 540"/>
-            <path class="dgm-wire" d="M 730 132 H 780"/>
-          </svg>
-        </div>
-
-        <div class="pkg-strip rv" aria-label="Monorepo packages">
-          <div class="pkg-cell"><span class="val">@saravapos/spec</span><p class="lbl">The protocol: profile shape as a JSON Schema</p></div>
-          <div class="pkg-cell"><span class="val">@saravapos/sdk</span><p class="lbl">Translation from Node, TypeScript throughout</p></div>
-          <div class="pkg-cell"><span class="val">@saravapos/adapters</span><p class="lbl">Anthropic, OpenAI, and local Ollama backends</p></div>
-          <div class="pkg-cell"><span class="val">@saravapos/cli</span><p class="lbl">init, validate, and translate from the terminal</p></div>
-        </div>
-        <p class="sec-body rv">The implementation is a pnpm workspace of four packages, published to npm. Sample profiles ship in the repository: a chess expert, an F1 fan, a software engineer, and a curious novice.</p>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <h2 class="sec-title rv">The profile is the contract. The provider is replaceable.</h2>
-        <div class="feat-grid">
-          <div class="feat rv">
-            <span class="num">persona profiles</span>
-            <h3>A worldview is a file you can version</h3>
-            <p>Profiles are small YAML or JSON files, validated against a JSON Schema. Author one once and reuse it everywhere, with no vendor tying it down.</p>
-          </div>
-          <div class="feat rv">
-            <span class="num">worldview translation</span>
-            <h3>Jargon expands or compresses to fit</h3>
-            <p>Translation runs worldview to worldview. It expands jargon for novices and compresses it for experts, based on the expertise each profile declares.</p>
-          </div>
-          <div class="feat rv">
-            <span class="num">analogy banks</span>
-            <h3>Only the relevant metaphors get injected</h3>
-            <p>Profiles carry their preferred metaphors. The dynamicAnalogy strategy extracts the concepts in your text and injects only the metaphors that match, deterministically, with no extra LLM call.</p>
-          </div>
-          <div class="feat rv">
-            <span class="num">multi-provider</span>
-            <h3>Bring your own key, or no key at all</h3>
-            <p>Adapters ship for Anthropic, OpenAI, and local Ollama. Pick one at runtime and supply your own credentials, or run fully local.</p>
-          </div>
-          <div class="feat rv">
-            <span class="num">cli + sdk</span>
-            <h3>The terminal and Node both speak it</h3>
-            <p>Run saravapos init, validate, and translate from the terminal, or call the same operations from @saravapos/sdk in Node.</p>
-          </div>
-          <div class="feat rv">
-            <span class="num">eval harness</span>
-            <h3>Quality is a CI gate, not a claim</h3>
-            <p>Golden cases are scored by an LLM judge, strategies are compared A/B, and CI fails unless the corpus mean stays at or above 3.5.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="start">
-      <div class="wrap">
-        <h2 class="sec-title rv">Translating in two minutes.</h2>
-        <p class="sec-body rv">Node 20 or newer. Install the CLI, author and validate a profile, then translate with your own API key.</p>
-        <div class="term rv">
-          <div class="term-bar">saravapos - zsh</div>
-          <div class="term-body">
-<code><span class="p">$</span> npm install -g @saravapos/cli
-<span class="p">$</span> saravapos init --output me.yaml && saravapos validate me.yaml
-<span class="p">$</span> export ANTHROPIC_API_KEY=sk-...
-<span class="p">$</span> saravapos translate --from profiles/chess-expert.yaml --to profiles/f1-fan.yaml \
-    --text "I sacrificed a pawn for a positional advantage"</code>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="wrap">
-        <h2 class="sec-title rv">Deliberately portable.</h2>
-        <p class="sec-body rv">Saravapos ships no service. A worldview is a plain file, the protocol is a schema, and the model is whichever one you already have a key for or run on your own hardware.</p>
-        <div class="principles">
-          <div class="principle rv">
-            <h3>Protocol-first</h3>
-            <p>The profile format is defined by a JSON Schema, not by the reference implementation. Anything that reads and writes valid profiles interoperates.</p>
-          </div>
-          <div class="principle rv">
-            <h3>Local-first</h3>
-            <p>Profiles live on your machine as files you edit and version. No accounts, no servers, no telemetry.</p>
-          </div>
-          <div class="principle rv">
-            <h3>Multi-provider</h3>
-            <p>Anthropic, OpenAI, and Ollama adapters ship in the box. Swap providers without touching your profiles or your code.</p>
-          </div>
-        </div>
-        <div class="facts rv">
-          <span><strong>stack</strong> typescript / node 20+ (esm)</span>
-          <span><strong>strategies</strong> 6 prompt strategies</span>
-          <span><strong>adapters</strong> anthropic / openai / ollama</span>
-          <span><strong>license</strong> mit</span>
-          <span><strong>release</strong> v0.1.0 on npm</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-sec">
-      <div class="wrap">
-        <h2 class="sec-title rv">The protocol is open.</h2>
-        <p class="sec-body rv">Clone it, write a profile for someone you keep failing to reach, and translate your next explanation into their worldview.</p>
-        <div class="hero-ctas rv">
-          <a class="btn btn-primary" href="https://github.com/kunthive-Labs/Saravapos">View on GitHub</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">
-      <div class="foot-grid">
-        <div class="foot-brand">
-          <p class="name">Kunthive Labs</p>
-          <p>An AI research and product collective in Bangalore. AI research should produce working software, not just papers.</p>
-        </div>
-        <div class="foot-col">
-          <h4>Projects</h4>
-          <ul>
-            <li><a href="https://kunthive-labs.github.io/Argora/">Argora</a></li>
-            <li><a href="https://kunthive-labs.github.io/Arthaive/">Arthaive</a></li>
-            <li><a href="https://kunthive-labs.github.io/Margana/">Marga</a></li>
-            <li><a href="https://kunthive-labs.github.io/Nomaya/">Nomaya</a></li>
-            <li><a href="https://kunthive-labs.github.io/Saravapos/">Saravapos</a></li>
-          </ul>
-        </div>
-        <div class="foot-col">
-          <h4>Kunthive</h4>
-          <ul>
-            <li><a href="https://labs.kunthive.in">labs.kunthive.in</a></li>
-            <li><a href="https://github.com/kunthive-Labs">GitHub</a></li>
-            <li><a href="mailto:hello@kunthive.in">hello@kunthive.in</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="foot-bottom">
-        <span>Kunthive Labs &copy; 2026</span>
-        <span>Saravapos, translation between worldviews</span>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    (function () {
-      var btn = document.getElementById('themeToggle');
-      var meta = document.querySelector('meta[name="theme-color"]');
-      function syncMeta() {
-        meta.setAttribute('content', document.documentElement.classList.contains('dark') ? '#050505' : '#fafafa');
+    <style>
+      :root {
+        --bg: #fafafa;
+        --text: #09090b;
+        --text-2: #52525b;
+        --muted: #86868f;
+        --dim: #71717a;
+        --soft: #71717a;
+        --line: rgba(0, 0, 0, 0.07);
+        --line-strong: rgba(0, 0, 0, 0.16);
+        --line-hover: rgba(0, 0, 0, 0.38);
+        --panel: #ffffff;
+        --header-bg: rgba(250, 250, 250, 0.92);
+        --btn-bg: #09090b;
+        --btn-fg: #ffffff;
+        --sel-bg: #09090b;
+        --sel-fg: #ffffff;
+        --code: #27272a;
+        --dgm-dot: rgba(0, 0, 0, 0.09);
+        --dgm-corner: rgba(0, 0, 0, 0.3);
+        --dgm-node-fill: rgba(0, 0, 0, 0.02);
+        --dgm-node-stroke: rgba(0, 0, 0, 0.28);
+        --dgm-label: #09090b;
+        --dgm-wire: rgba(0, 0, 0, 0.35);
+        --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+        --maxw: 1180px;
       }
-      syncMeta();
-      btn.addEventListener('click', function () {
-        var dark = document.documentElement.classList.toggle('dark');
-        try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+      html.dark {
+        --bg: #050505;
+        --text: #ffffff;
+        --text-2: #a1a1aa;
+        --muted: #52525b;
+        --dim: #52525b;
+        --soft: #71717a;
+        --line: rgba(255, 255, 255, 0.06);
+        --line-strong: rgba(255, 255, 255, 0.12);
+        --line-hover: rgba(255, 255, 255, 0.3);
+        --panel: #0a0a0a;
+        --header-bg: rgba(5, 5, 5, 0.92);
+        --btn-bg: #ffffff;
+        --btn-fg: #000000;
+        --sel-bg: #ffffff;
+        --sel-fg: #000000;
+        --code: #e4e4e7;
+        --dgm-dot: rgba(255, 255, 255, 0.055);
+        --dgm-corner: rgba(255, 255, 255, 0.25);
+        --dgm-node-fill: rgba(255, 255, 255, 0.03);
+        --dgm-node-stroke: rgba(255, 255, 255, 0.22);
+        --dgm-label: #fafafa;
+        --dgm-wire: rgba(255, 255, 255, 0.3);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+        color-scheme: light;
+      }
+      html.dark {
+        color-scheme: dark;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: var(--sel-bg);
+        color: var(--sel-fg);
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      .wrap {
+        max-width: var(--maxw);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* ---------- header ---------- */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: var(--header-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .nav-brand {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      .nav-brand .org {
+        font-size: 13px;
+        color: var(--soft);
+        font-weight: 500;
+      }
+      .nav-brand .proj {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .nav-links a {
+        font-size: 13.5px;
+        color: var(--text-2);
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+      .nav-links .btn-sm {
+        color: var(--btn-fg);
+        background: var(--btn-bg);
+        padding: 7px 14px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: opacity 0.2s;
+      }
+      .nav-links .btn-sm:hover {
+        opacity: 0.85;
+        color: var(--btn-fg);
+      }
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        background: transparent;
+        color: var(--text-2);
+        cursor: pointer;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+      }
+      .theme-toggle:hover {
+        color: var(--text);
+        border-color: var(--line-hover);
+      }
+      .theme-toggle svg {
+        width: 15px;
+        height: 15px;
+      }
+      .theme-toggle .icon-moon {
+        display: none;
+      }
+      html.dark .theme-toggle .icon-moon {
+        display: block;
+      }
+      html.dark .theme-toggle .icon-sun {
+        display: none;
+      }
+
+      /* ---------- hero ---------- */
+      .hero {
+        padding: 150px 0 90px;
+        border-bottom: 1px solid var(--line);
+      }
+      .hero-label {
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--soft);
+        margin-bottom: 28px;
+      }
+      .hero h1 {
+        font-size: clamp(42px, 7.5vw, 84px);
+        line-height: 0.98;
+        letter-spacing: -0.04em;
+        font-weight: 700;
+        max-width: 12ch;
+      }
+      .hero h1 .dim {
+        color: var(--dim);
+      }
+      .hero p {
+        margin-top: 28px;
+        font-size: 18px;
+        color: var(--text-2);
+        max-width: 52ch;
+        line-height: 1.65;
+      }
+      .hero-ctas {
+        margin-top: 40px;
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 22px;
+        border-radius: 7px;
+        font-size: 14.5px;
+        font-weight: 600;
+        transition:
+          transform 0.15s,
+          opacity 0.2s,
+          border-color 0.2s;
+      }
+      .btn:active {
+        transform: scale(0.98);
+      }
+      .btn-primary {
+        background: var(--btn-bg);
+        color: var(--btn-fg);
+      }
+      .btn-primary:hover {
+        opacity: 0.87;
+      }
+      .btn-ghost {
+        border: 1px solid var(--line-strong);
+        color: var(--text);
+      }
+      .btn-ghost:hover {
+        border-color: var(--line-hover);
+      }
+
+      /* ---------- sections ---------- */
+      section {
+        padding: 96px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .sec-title {
+        font-size: clamp(28px, 4vw, 44px);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        max-width: 22ch;
+      }
+      .sec-body {
+        margin-top: 22px;
+        font-size: 16.5px;
+        color: var(--text-2);
+        max-width: 62ch;
+      }
+      .sec-body + .sec-body {
+        margin-top: 16px;
+      }
+      .sec-body strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      /* ---------- diagram panel (Kunthive schematic motif) ---------- */
+      .dgm-panel {
+        position: relative;
+        margin-top: 56px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: radial-gradient(var(--dgm-dot) 1px, transparent 1px);
+        background-size: 26px 26px;
+        background-color: var(--panel);
+        padding: 48px 32px;
+        overflow: hidden;
+      }
+      .dgm-corner {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-color: var(--dgm-corner);
+        border-style: solid;
+        border-width: 0;
+      }
+      .dgm-corner.tl {
+        top: 10px;
+        left: 10px;
+        border-top-width: 1px;
+        border-left-width: 1px;
+      }
+      .dgm-corner.tr {
+        top: 10px;
+        right: 10px;
+        border-top-width: 1px;
+        border-right-width: 1px;
+      }
+      .dgm-corner.bl {
+        bottom: 10px;
+        left: 10px;
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+      }
+      .dgm-corner.br {
+        bottom: 10px;
+        right: 10px;
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+      }
+      .dgm-caption {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 34px;
+        text-align: center;
+      }
+      .dgm-svg {
+        width: 100%;
+        height: auto;
+      }
+      .dgm-svg text {
+        font-family: var(--mono);
+      }
+      .dgm-node {
+        fill: var(--dgm-node-fill);
+        stroke: var(--dgm-node-stroke);
+      }
+      .dgm-node-label {
+        fill: var(--dgm-label);
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .dgm-node-sub {
+        fill: var(--soft);
+        font-size: 9.5px;
+      }
+      .dgm-wire {
+        stroke: var(--dgm-wire);
+        stroke-dasharray: 5 5;
+        fill: none;
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .dgm-wire {
+          animation: dash 1.6s linear infinite;
+        }
+      }
+      @keyframes dash {
+        to {
+          stroke-dashoffset: -20;
+        }
+      }
+
+      /* ---------- feature rows ---------- */
+      .feat-grid {
+        margin-top: 56px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-top: 1px solid var(--line);
+      }
+      .feat {
+        padding: 36px 32px 40px;
+        border-bottom: 1px solid var(--line);
+      }
+      .feat:nth-child(odd) {
+        border-right: 1px solid var(--line);
+        padding-left: 0;
+      }
+      .feat:nth-child(even) {
+        padding-right: 0;
+      }
+      .feat h3 {
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .feat p {
+        margin-top: 10px;
+        font-size: 14.5px;
+        color: var(--text-2);
+        line-height: 1.65;
+      }
+      .feat .num {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+        display: block;
+        margin-bottom: 14px;
+      }
+
+      /* ---------- package strip ---------- */
+      .pkg-strip {
+        margin-top: 56px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .pkg-cell {
+        background: var(--panel);
+        padding: 26px 20px;
+      }
+      .pkg-cell .val {
+        font-family: var(--mono);
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+      .pkg-cell .lbl {
+        margin-top: 8px;
+        font-size: 12.5px;
+        color: var(--soft);
+        line-height: 1.45;
+      }
+
+      /* ---------- terminal ---------- */
+      .term {
+        margin-top: 56px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--panel);
+        overflow: hidden;
+      }
+      .term-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+      .term-body {
+        padding: 24px 22px;
+        font-family: var(--mono);
+        font-size: 13.5px;
+        line-height: 2.05;
+        overflow-x: auto;
+      }
+      .term-body .c {
+        color: var(--muted);
+      }
+      .term-body .p {
+        color: var(--soft);
+        user-select: none;
+      }
+      .term-body code {
+        font-family: inherit;
+        color: var(--code);
+        white-space: pre;
+      }
+
+      /* ---------- principles ---------- */
+      .principles {
+        margin-top: 48px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 48px;
+      }
+      .principle h3 {
+        font-size: 15.5px;
+        font-weight: 600;
+      }
+      .principle p {
+        margin-top: 10px;
+        font-size: 14px;
+        color: var(--text-2);
+        line-height: 1.65;
+      }
+      .facts {
+        margin-top: 72px;
+        padding-top: 28px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px 48px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--soft);
+        letter-spacing: 0.04em;
+      }
+      .facts span strong {
+        color: var(--text-2);
+        font-weight: 500;
+      }
+
+      /* ---------- footer ---------- */
+      footer {
+        padding: 64px 0 48px;
+      }
+      .foot-grid {
+        display: flex;
+        justify-content: space-between;
+        gap: 48px;
+        flex-wrap: wrap;
+      }
+      .foot-brand .name {
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .foot-brand p {
+        margin-top: 10px;
+        font-size: 13.5px;
+        color: var(--soft);
+        max-width: 34ch;
+      }
+      .foot-col h4 {
+        font-family: var(--mono);
+        font-size: 10.5px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 16px;
+        font-weight: 500;
+      }
+      .foot-col ul {
+        list-style: none;
+      }
+      .foot-col li {
+        margin-bottom: 10px;
+      }
+      .foot-col a {
+        font-size: 13.5px;
+        color: var(--text-2);
+        transition: color 0.2s;
+      }
+      .foot-col a:hover {
+        color: var(--text);
+      }
+      .foot-bottom {
+        margin-top: 56px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+
+      /* ---------- reveal motion ---------- */
+      @media (prefers-reduced-motion: no-preference) {
+        .rv {
+          opacity: 0;
+          transform: translateY(18px);
+          transition:
+            opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .rv.in {
+          opacity: 1;
+          transform: none;
+        }
+        .hero .rv {
+          transition-delay: 0.05s;
+        }
+      }
+
+      /* ---------- mobile ---------- */
+      @media (max-width: 860px) {
+        .hero {
+          padding: 130px 0 70px;
+        }
+        section {
+          padding: 72px 0;
+        }
+        .feat-grid {
+          grid-template-columns: 1fr;
+        }
+        .feat:nth-child(odd) {
+          border-right: 0;
+        }
+        .feat {
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+        }
+        .pkg-strip {
+          grid-template-columns: 1fr 1fr;
+        }
+        .principles {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+        .nav-links a:not(.btn-sm) {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap nav">
+        <a class="nav-brand" href="https://labs.kunthive.in">
+          <span class="org">Kunthive Labs /</span>
+          <span class="proj">Saravapos</span>
+        </a>
+        <nav class="nav-links">
+          <a href="#why">Why</a>
+          <a href="#how">How it works</a>
+          <a href="#start">Quickstart</a>
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            type="button"
+            aria-label="Switch between light and dark theme"
+          >
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+              />
+            </svg>
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+          <a class="btn-sm" href="https://github.com/kunthive-Labs/Saravapos">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="wrap">
+          <p class="hero-label rv">Open source by Kunthive Labs</p>
+          <h1 class="rv">Say it in <span class="dim">their worldview.</span></h1>
+          <p class="rv">
+            An open protocol that translates ideas between mental models, so metaphors land and
+            facts stay intact.
+          </p>
+          <div class="hero-ctas rv">
+            <a class="btn btn-primary" href="https://github.com/kunthive-Labs/Saravapos"
+              >View on GitHub</a
+            >
+            <a class="btn btn-ghost" href="#start">Install the CLI</a>
+          </div>
+        </div>
+      </div>
+
+      <section id="why">
+        <div class="wrap">
+          <h2 class="sec-title rv">Every explanation rides on shared metaphors.</h2>
+          <p class="sec-body rv">
+            A chess coach says "sacrifice a pawn for positional advantage" and another chess player
+            nods, but a Formula 1 fan hears empty noise. The information is sound. The mental model
+            behind it is missing.
+          </p>
+          <p class="sec-body rv">
+            LLMs can translate between languages and between codebases, but there was no portable,
+            declarative way to say "render this idea for someone whose mental world looks like
+            this." Saravapos closes that gap. You describe a worldview, its expertise, preferred
+            analogies, cognitive style, and cultural references, as a small YAML profile. Given a
+            from profile and a to profile, it swaps the metaphor layer while preserving the semantic
+            payload. <strong>The translator never invents facts.</strong>
+          </p>
+        </div>
+      </section>
+
+      <section id="how">
+        <div class="wrap">
+          <h2 class="sec-title rv">Two profiles in, one faithful rewrite out.</h2>
+          <div class="dgm-panel rv">
+            <i class="dgm-corner tl"></i><i class="dgm-corner tr"></i><i class="dgm-corner bl"></i
+            ><i class="dgm-corner br"></i>
+            <p class="dgm-caption">Saravapos translation schematic</p>
+            <svg
+              class="dgm-svg"
+              viewBox="0 0 960 264"
+              role="img"
+              aria-label="Diagram: content plus a from profile and a to profile enter the translate stage, which applies a prompt strategy with dynamic analogy injection, calls an LLM adapter for Anthropic, OpenAI, or Ollama, and produces rewritten content with facts preserved and metaphors swapped"
+            >
+              <!-- nodes -->
+              <rect class="dgm-node" x="20" y="16" width="160" height="64" rx="8" />
+              <text class="dgm-node-label" x="100" y="44" text-anchor="middle">CONTENT</text>
+              <text class="dgm-node-sub" x="100" y="62" text-anchor="middle">
+                text to translate
+              </text>
+
+              <rect class="dgm-node" x="20" y="100" width="160" height="64" rx="8" />
+              <text class="dgm-node-label" x="100" y="128" text-anchor="middle">FROM PROFILE</text>
+              <text class="dgm-node-sub" x="100" y="146" text-anchor="middle">yaml</text>
+
+              <rect class="dgm-node" x="20" y="184" width="160" height="64" rx="8" />
+              <text class="dgm-node-label" x="100" y="212" text-anchor="middle">TO PROFILE</text>
+              <text class="dgm-node-sub" x="100" y="230" text-anchor="middle">yaml</text>
+
+              <rect class="dgm-node" x="280" y="100" width="190" height="64" rx="8" />
+              <text class="dgm-node-label" x="375" y="128" text-anchor="middle">TRANSLATE</text>
+              <text class="dgm-node-sub" x="375" y="146" text-anchor="middle">
+                strategy + analogy injection
+              </text>
+
+              <rect class="dgm-node" x="540" y="100" width="190" height="64" rx="8" />
+              <text class="dgm-node-label" x="635" y="128" text-anchor="middle">LLM ADAPTER</text>
+              <text class="dgm-node-sub" x="635" y="146" text-anchor="middle">
+                anthropic / openai / ollama
+              </text>
+
+              <rect class="dgm-node" x="780" y="100" width="160" height="64" rx="8" />
+              <text class="dgm-node-label" x="860" y="124" text-anchor="middle">REWRITTEN</text>
+              <text class="dgm-node-sub" x="860" y="141" text-anchor="middle">facts preserved</text>
+              <text class="dgm-node-sub" x="860" y="155" text-anchor="middle">
+                metaphors swapped
+              </text>
+
+              <!-- wires -->
+              <path class="dgm-wire" d="M 180 48 C 230 48, 230 116, 280 116" />
+              <path class="dgm-wire" d="M 180 132 H 280" />
+              <path class="dgm-wire" d="M 180 216 C 230 216, 230 148, 280 148" />
+              <path class="dgm-wire" d="M 470 132 H 540" />
+              <path class="dgm-wire" d="M 730 132 H 780" />
+            </svg>
+          </div>
+
+          <div class="pkg-strip rv" aria-label="Monorepo packages">
+            <div class="pkg-cell">
+              <span class="val">@saravapos/spec</span>
+              <p class="lbl">The protocol: profile shape as a JSON Schema</p>
+            </div>
+            <div class="pkg-cell">
+              <span class="val">@saravapos/sdk</span>
+              <p class="lbl">Translation from Node, TypeScript throughout</p>
+            </div>
+            <div class="pkg-cell">
+              <span class="val">@saravapos/adapters</span>
+              <p class="lbl">Anthropic, OpenAI, and local Ollama backends</p>
+            </div>
+            <div class="pkg-cell">
+              <span class="val">@saravapos/cli</span>
+              <p class="lbl">init, validate, and translate from the terminal</p>
+            </div>
+          </div>
+          <p class="sec-body rv">
+            The implementation is a pnpm workspace of four packages, published to npm. Sample
+            profiles ship in the repository: a chess expert, an F1 fan, a software engineer, and a
+            curious novice.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2 class="sec-title rv">The profile is the contract. The provider is replaceable.</h2>
+          <div class="feat-grid">
+            <div class="feat rv">
+              <span class="num">persona profiles</span>
+              <h3>A worldview is a file you can version</h3>
+              <p>
+                Profiles are small YAML or JSON files, validated against a JSON Schema. Author one
+                once and reuse it everywhere, with no vendor tying it down.
+              </p>
+            </div>
+            <div class="feat rv">
+              <span class="num">worldview translation</span>
+              <h3>Jargon expands or compresses to fit</h3>
+              <p>
+                Translation runs worldview to worldview. It expands jargon for novices and
+                compresses it for experts, based on the expertise each profile declares.
+              </p>
+            </div>
+            <div class="feat rv">
+              <span class="num">analogy banks</span>
+              <h3>Only the relevant metaphors get injected</h3>
+              <p>
+                Profiles carry their preferred metaphors. The dynamicAnalogy strategy extracts the
+                concepts in your text and injects only the metaphors that match, deterministically,
+                with no extra LLM call.
+              </p>
+            </div>
+            <div class="feat rv">
+              <span class="num">multi-provider</span>
+              <h3>Bring your own key, or no key at all</h3>
+              <p>
+                Adapters ship for Anthropic, OpenAI, and local Ollama. Pick one at runtime and
+                supply your own credentials, or run fully local.
+              </p>
+            </div>
+            <div class="feat rv">
+              <span class="num">cli + sdk</span>
+              <h3>The terminal and Node both speak it</h3>
+              <p>
+                Run saravapos init, validate, and translate from the terminal, or call the same
+                operations from @saravapos/sdk in Node.
+              </p>
+            </div>
+            <div class="feat rv">
+              <span class="num">eval harness</span>
+              <h3>Quality is a CI gate, not a claim</h3>
+              <p>
+                Golden cases are scored by an LLM judge, strategies are compared A/B, and CI fails
+                unless the corpus mean stays at or above 3.5.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="start">
+        <div class="wrap">
+          <h2 class="sec-title rv">Translating in two minutes.</h2>
+          <p class="sec-body rv">
+            Node 20 or newer. Install the CLI, author and validate a profile, then translate with
+            your own API key.
+          </p>
+          <div class="term rv">
+            <div class="term-bar">saravapos - zsh</div>
+            <div class="term-body">
+              <code
+                ><span class="p">$</span> npm install -g @saravapos/cli
+                <span class="p">$</span> saravapos init --output me.yaml && saravapos validate
+                me.yaml <span class="p">$</span> export ANTHROPIC_API_KEY=sk-...
+                <span class="p">$</span> saravapos translate --from profiles/chess-expert.yaml --to
+                profiles/f1-fan.yaml \ --text "I sacrificed a pawn for a positional advantage"</code
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <h2 class="sec-title rv">Deliberately portable.</h2>
+          <p class="sec-body rv">
+            Saravapos ships no service. A worldview is a plain file, the protocol is a schema, and
+            the model is whichever one you already have a key for or run on your own hardware.
+          </p>
+          <div class="principles">
+            <div class="principle rv">
+              <h3>Protocol-first</h3>
+              <p>
+                The profile format is defined by a JSON Schema, not by the reference implementation.
+                Anything that reads and writes valid profiles interoperates.
+              </p>
+            </div>
+            <div class="principle rv">
+              <h3>Local-first</h3>
+              <p>
+                Profiles live on your machine as files you edit and version. No accounts, no
+                servers, no telemetry.
+              </p>
+            </div>
+            <div class="principle rv">
+              <h3>Multi-provider</h3>
+              <p>
+                Anthropic, OpenAI, and Ollama adapters ship in the box. Swap providers without
+                touching your profiles or your code.
+              </p>
+            </div>
+          </div>
+          <div class="facts rv">
+            <span><strong>stack</strong> typescript / node 20+ (esm)</span>
+            <span><strong>strategies</strong> 6 prompt strategies</span>
+            <span><strong>adapters</strong> anthropic / openai / ollama</span>
+            <span><strong>license</strong> mit</span>
+            <span><strong>release</strong> v0.1.0 on npm</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-sec">
+        <div class="wrap">
+          <h2 class="sec-title rv">The protocol is open.</h2>
+          <p class="sec-body rv">
+            Clone it, write a profile for someone you keep failing to reach, and translate your next
+            explanation into their worldview.
+          </p>
+          <div class="hero-ctas rv">
+            <a class="btn btn-primary" href="https://github.com/kunthive-Labs/Saravapos"
+              >View on GitHub</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <p class="name">Kunthive Labs</p>
+            <p>
+              An AI research and product collective in Bangalore. AI research should produce working
+              software, not just papers.
+            </p>
+          </div>
+          <div class="foot-col">
+            <h4>Projects</h4>
+            <ul>
+              <li><a href="https://kunthive-labs.github.io/Argora/">Argora</a></li>
+              <li><a href="https://kunthive-labs.github.io/Arthaive/">Arthaive</a></li>
+              <li><a href="https://kunthive-labs.github.io/Margana/">Marga</a></li>
+              <li><a href="https://kunthive-labs.github.io/Nomaya/">Nomaya</a></li>
+              <li><a href="https://kunthive-labs.github.io/Saravapos/">Saravapos</a></li>
+            </ul>
+          </div>
+          <div class="foot-col">
+            <h4>Kunthive</h4>
+            <ul>
+              <li><a href="https://labs.kunthive.in">labs.kunthive.in</a></li>
+              <li><a href="https://github.com/kunthive-Labs">GitHub</a></li>
+              <li><a href="mailto:hello@kunthive.in">hello@kunthive.in</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>Kunthive Labs &copy; 2026</span>
+          <span>Saravapos, translation between worldviews</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var btn = document.getElementById('themeToggle');
+        var meta = document.querySelector('meta[name="theme-color"]');
+        function syncMeta() {
+          meta.setAttribute(
+            'content',
+            document.documentElement.classList.contains('dark') ? '#050505' : '#fafafa',
+          );
+        }
         syncMeta();
-      });
-    })();
-    (function () {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        btn.addEventListener('click', function () {
+          var dark = document.documentElement.classList.toggle('dark');
+          try {
+            localStorage.setItem('theme', dark ? 'dark' : 'light');
+          } catch (e) {}
+          syncMeta();
         });
-      }, { threshold: 0.15 });
-      document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
-    })();
-  </script>
-</body>
+      })();
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+        document.querySelectorAll('.rv').forEach(function (el) {
+          io.observe(el);
+        });
+      })();
+    </script>
+  </body>
 </html>

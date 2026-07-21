@@ -3,6 +3,7 @@ import { translateCommand } from './commands/translate.js';
 import { validateCommand } from './commands/validate.js';
 import { initCommand } from './commands/init.js';
 import { listProvidersCommand } from './commands/list-providers.js';
+import { createDoctorCommand } from './commands/doctor.js';
 
 export function createProgram(version: string): Command {
   const program = new Command();
@@ -18,6 +19,7 @@ export function createProgram(version: string): Command {
   program.addCommand(validateCommand);
   program.addCommand(initCommand);
   program.addCommand(listProvidersCommand);
+  program.addCommand(createDoctorCommand(version));
 
   program
     .command('version')

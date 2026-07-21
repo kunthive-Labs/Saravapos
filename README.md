@@ -40,6 +40,9 @@ saravapos init --output me.yaml
 # validate it against the schema
 saravapos validate me.yaml
 
+# confirm Node, release metadata, and provider configuration
+saravapos doctor
+
 # translate something
 export ANTHROPIC_API_KEY=sk-...
 saravapos translate \
@@ -49,6 +52,8 @@ saravapos translate \
 ```
 
 See [`packages/cli/README.md`](./packages/cli/README.md) for the full command reference, including stdin piping, file I/O, and provider/model overrides.
+
+For repository releases, `pnpm verify:release` builds every package and rejects version drift, prerelease metadata, a missing changelog entry, or a CLI binary whose reported version differs from its package.
 
 ## SDK usage
 

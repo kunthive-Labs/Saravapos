@@ -99,6 +99,17 @@ the repo, it will also post a PR comment per `codecov.yml`.
 Snapshot tests live next to their source under `__snapshots__/`. Update them
 intentionally with `pnpm vitest run --update` after reviewing the diff.
 
+## Release verification
+
+Run both built-artifact checks before tagging a release:
+
+```bash
+pnpm verify:release
+pnpm smoke:cli
+```
+
+`verify:release` rejects version drift across publishable packages, prerelease versions, missing changelog headings, and stale CLI version output. `smoke:cli` exercises help, version reporting, profile validation, and `doctor` against the compiled executable. CI runs both checks after building.
+
 ## Evals
 
 The `@saravapos/eval` harness scores translation quality against a corpus of

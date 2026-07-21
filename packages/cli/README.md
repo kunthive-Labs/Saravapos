@@ -18,6 +18,7 @@ npx @saravapos/cli --help
 | `saravapos validate <path>` | Validate a Saravapos profile YAML file against the spec       |
 | `saravapos init -o <path>`  | Create a new Saravapos profile YAML file (interactive wizard) |
 | `saravapos list-providers`  | List supported LLM providers and their required env vars      |
+| `saravapos doctor`          | Check Node, release, and selected-provider readiness          |
 | `saravapos version`         | Print the CLI version (same as `--version`)                   |
 
 ## Global flags
@@ -121,9 +122,30 @@ saravapos list-providers
 # Select with `--provider <name>` or the SARAVAPOS_PROVIDER env var.
 ```
 
+## `saravapos doctor` examples
+
+Check the default provider (`SARAVAPOS_PROVIDER`, falling back to Anthropic):
+
+```sh
+saravapos doctor
+# ✓ Node.js: v20.18.0 (requires >=20)
+# ✓ CLI release: v0.1.0
+# ✓ Anthropic: ANTHROPIC_API_KEY is set
+```
+
+Check another provider explicitly:
+
+```sh
+saravapos --provider openai doctor
+saravapos --provider ollama doctor
+```
+
+For cloud providers, the command confirms that the required API-key variable is present without printing its value or making a paid request. For Ollama, it probes `/api/tags` on `OLLAMA_HOST` (default `http://127.0.0.1:11434`). Any failed check produces a non-zero exit status.
+
 ## Development
 
 ```sh
 pnpm dev:cli -- --help     # run the CLI without building
 pnpm --filter @saravapos/cli build
+pnpm smoke:cli             # exercise the built CLI without paid API calls
 ```

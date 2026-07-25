@@ -1,6 +1,17 @@
 import { defineConfig } from 'vitest/config';
+import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
+  resolve: {
+    // Exercise workspace source directly so a fresh clone can test before build output exists.
+    alias: {
+      '@saravapos/adapters': fileURLToPath(
+        new URL('./packages/adapters/src/index.ts', import.meta.url),
+      ),
+      '@saravapos/sdk': fileURLToPath(new URL('./packages/sdk/src/index.ts', import.meta.url)),
+      '@saravapos/spec': fileURLToPath(new URL('./packages/spec/src/index.ts', import.meta.url)),
+    },
+  },
   test: {
     environment: 'node',
     include: ['packages/*/src/**/*.test.ts', 'packages/*/test/**/*.test.ts'],

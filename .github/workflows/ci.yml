@@ -42,6 +42,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
+      - run: pnpm format:check
 
   typecheck:
     name: Typecheck
@@ -71,7 +72,10 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm build
       - run: pnpm test:coverage
+      - run: node scripts/verify-release.mjs
+      - run: node scripts/smoke-cli.mjs
       - name: Upload coverage artifact
         if: always()
         uses: actions/upload-artifact@v4
@@ -96,6 +100,7 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm build
 
       # Persist the eval disk cache so re-runs only pay for changed cases.
       - name: Cache eval responses

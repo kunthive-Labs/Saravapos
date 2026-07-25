@@ -24,18 +24,34 @@
         --swe: #4ad6ff;
         --novice: #ffd166;
       }
-      * { box-sizing: border-box; }
-      html, body { margin: 0; padding: 0; }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
       body {
         background: var(--bg);
         color: var(--text);
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         line-height: 1.6;
         font-size: 15px;
       }
-      a { color: var(--accent-2); text-decoration: none; }
-      a:hover { text-decoration: underline; }
-      code, pre, .mono { font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace; }
+      a {
+        color: var(--accent-2);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      code,
+      pre,
+      .mono {
+        font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+      }
       code {
         background: var(--code-bg);
         border: 1px solid var(--code-border);
@@ -53,7 +69,11 @@
         font-size: 13px;
         line-height: 1.55;
       }
-      pre code { background: transparent; border: none; padding: 0; }
+      pre code {
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
 
       /* Hero */
       .hero {
@@ -79,9 +99,21 @@
         border: 1px solid rgba(124, 92, 255, 0.35);
         color: #c8bdff;
       }
-      .pill.warn { background: rgba(255, 180, 77, 0.12); border-color: rgba(255, 180, 77, 0.35); color: #ffd9a0; }
-      .pill.ok { background: rgba(74, 222, 128, 0.12); border-color: rgba(74, 222, 128, 0.35); color: #b6f3c8; }
-      .pill.muted { background: rgba(255, 255, 255, 0.04); border-color: var(--border); color: var(--muted); }
+      .pill.warn {
+        background: rgba(255, 180, 77, 0.12);
+        border-color: rgba(255, 180, 77, 0.35);
+        color: #ffd9a0;
+      }
+      .pill.ok {
+        background: rgba(74, 222, 128, 0.12);
+        border-color: rgba(74, 222, 128, 0.35);
+        color: #b6f3c8;
+      }
+      .pill.muted {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--border);
+        color: var(--muted);
+      }
 
       h1 {
         font-size: 56px;
@@ -112,7 +144,10 @@
         margin: 0 auto;
         padding: 40px 24px 120px;
       }
-      section { margin: 64px 0; scroll-margin-top: 24px; }
+      section {
+        margin: 64px 0;
+        scroll-margin-top: 24px;
+      }
       h2 {
         font-size: 30px;
         margin: 0 0 8px;
@@ -129,8 +164,16 @@
         margin: 24px 0 10px;
         color: #fff;
       }
-      h4 { font-size: 14px; margin: 16px 0 6px; color: #fff; text-transform: uppercase; letter-spacing: 0.6px; }
-      p { color: #cdd2dd; }
+      h4 {
+        font-size: 14px;
+        margin: 16px 0 6px;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+      }
+      p {
+        color: #cdd2dd;
+      }
 
       /* TOC */
       nav.toc {
@@ -182,11 +225,16 @@
         border-radius: 12px;
         padding: 20px;
       }
-      .card h3 { margin-top: 0; }
+      .card h3 {
+        margin-top: 0;
+      }
       .card .icon {
-        width: 36px; height: 36px;
+        width: 36px;
+        height: 36px;
         border-radius: 8px;
-        display: inline-flex; align-items: center; justify-content: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
         font-weight: 700;
         font-family: 'JetBrains Mono', monospace;
         margin-bottom: 10px;
@@ -198,7 +246,17 @@
         grid-template-columns: 1fr 1fr;
         gap: 18px;
       }
-      @media (max-width: 760px) { .two-up { grid-template-columns: 1fr; } h1 { font-size: 40px; } .hero { padding: 60px 20px 40px; } }
+      @media (max-width: 760px) {
+        .two-up {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 40px;
+        }
+        .hero {
+          padding: 60px 20px 40px;
+        }
+      }
 
       /* Tables */
       table {
@@ -210,7 +268,8 @@
         border-radius: 8px;
         overflow: hidden;
       }
-      th, td {
+      th,
+      td {
         text-align: left;
         padding: 10px 14px;
         border-bottom: 1px solid var(--border);
@@ -225,7 +284,9 @@
         text-transform: uppercase;
         letter-spacing: 0.4px;
       }
-      tr:last-child td { border-bottom: none; }
+      tr:last-child td {
+        border-bottom: none;
+      }
 
       /* Diagram boxes */
       .diagram {
@@ -251,12 +312,25 @@
         position: relative;
       }
       .pipeline .step .label {
-        font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
-      .pipeline .step .name { font-size: 15px; font-weight: 600; margin-top: 4px; }
-      .pipeline .step .desc { font-size: 12px; color: var(--muted); margin-top: 6px; }
+      .pipeline .step .name {
+        font-size: 15px;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+      .pipeline .step .desc {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+      }
       .arrow {
-        display: flex; align-items: center; color: var(--accent);
+        display: flex;
+        align-items: center;
+        color: var(--accent);
         font-size: 22px;
       }
 
@@ -275,17 +349,42 @@
         border: 1px solid var(--border);
         border-radius: 10px;
       }
-      .tl-row .phase { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
-      .tl-row .title { font-weight: 600; }
-      .tl-row .desc { color: var(--muted); font-size: 13px; }
+      .tl-row .phase {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .tl-row .title {
+        font-weight: 600;
+      }
+      .tl-row .desc {
+        color: var(--muted);
+        font-size: 13px;
+      }
       .status {
-        display: inline-flex; align-items: center; gap: 6px;
-        font-size: 12px; padding: 4px 10px; border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 999px;
         font-family: 'JetBrains Mono', monospace;
       }
-      .status.done { background: rgba(74,222,128,0.13); color: #b6f3c8; border: 1px solid rgba(74,222,128,0.35); }
-      .status.partial { background: rgba(255,180,77,0.13); color: #ffd9a0; border: 1px solid rgba(255,180,77,0.35); }
-      .status.todo { background: rgba(255,107,129,0.13); color: #ffb6c1; border: 1px solid rgba(255,107,129,0.35); }
+      .status.done {
+        background: rgba(74, 222, 128, 0.13);
+        color: #b6f3c8;
+        border: 1px solid rgba(74, 222, 128, 0.35);
+      }
+      .status.partial {
+        background: rgba(255, 180, 77, 0.13);
+        color: #ffd9a0;
+        border: 1px solid rgba(255, 180, 77, 0.35);
+      }
+      .status.todo {
+        background: rgba(255, 107, 129, 0.13);
+        color: #ffb6c1;
+        border: 1px solid rgba(255, 107, 129, 0.35);
+      }
 
       /* Profile cards */
       .profiles {
@@ -300,16 +399,35 @@
         background: var(--panel);
       }
       .profile .avatar {
-        width: 44px; height: 44px; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        font-weight: 700; font-size: 18px; color: #0b0d12;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #0b0d12;
         margin-bottom: 10px;
       }
-      .profile.chess .avatar { background: var(--chess); }
-      .profile.f1 .avatar { background: var(--f1); }
-      .profile.swe .avatar { background: var(--swe); }
-      .profile.novice .avatar { background: var(--novice); }
-      .profile .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+      .profile.chess .avatar {
+        background: var(--chess);
+      }
+      .profile.f1 .avatar {
+        background: var(--f1);
+      }
+      .profile.swe .avatar {
+        background: var(--swe);
+      }
+      .profile.novice .avatar {
+        background: var(--novice);
+      }
+      .profile .label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
 
       /* Translation visual */
       .translation-demo {
@@ -326,14 +444,35 @@
         padding: 16px;
         position: relative;
       }
-      .bubble .who { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
-      .bubble .text { font-size: 14px; color: #fff; }
-      .bubble.from { border-color: rgba(140, 123, 255, 0.4); }
-      .bubble.to { border-color: rgba(255, 90, 77, 0.4); }
-      .arrow-cell { text-align: center; color: var(--accent); font-size: 28px; }
+      .bubble .who {
+        font-size: 11px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        margin-bottom: 6px;
+      }
+      .bubble .text {
+        font-size: 14px;
+        color: #fff;
+      }
+      .bubble.from {
+        border-color: rgba(140, 123, 255, 0.4);
+      }
+      .bubble.to {
+        border-color: rgba(255, 90, 77, 0.4);
+      }
+      .arrow-cell {
+        text-align: center;
+        color: var(--accent);
+        font-size: 28px;
+      }
 
       /* SVG wrapper */
-      svg.diagram-svg { width: 100%; height: auto; display: block; }
+      svg.diagram-svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
 
       /* Footer */
       footer {
@@ -357,32 +496,55 @@
         color: #d4d8e0;
       }
       .legend {
-        display: flex; flex-wrap: wrap; gap: 14px; margin: 14px 0 0; font-size: 12px; color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin: 14px 0 0;
+        font-size: 12px;
+        color: var(--muted);
       }
-      .legend span { display: inline-flex; align-items: center; gap: 6px; }
-      .legend .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+      .legend span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .legend .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
 
       .callout {
-        background: linear-gradient(180deg, rgba(124,92,255,0.08) 0%, rgba(0,212,180,0.04) 100%);
-        border: 1px solid rgba(124,92,255,0.25);
+        background: linear-gradient(
+          180deg,
+          rgba(124, 92, 255, 0.08) 0%,
+          rgba(0, 212, 180, 0.04) 100%
+        );
+        border: 1px solid rgba(124, 92, 255, 0.25);
         border-radius: 12px;
         padding: 18px 20px;
         margin: 18px 0;
       }
-      .callout.warn { background: rgba(255,180,77,0.08); border-color: rgba(255,180,77,0.3); }
-      .callout strong { color: #fff; }
+      .callout.warn {
+        background: rgba(255, 180, 77, 0.08);
+        border-color: rgba(255, 180, 77, 0.3);
+      }
+      .callout strong {
+        color: #fff;
+      }
     </style>
   </head>
   <body>
     <section class="hero">
       <div class="hero-inner">
         <span class="pill">v0.1.0-alpha.0 · schema unstable</span>
-        <span class="pill ok" style="margin-left: 6px;">MIT · Local-first · BYOK</span>
+        <span class="pill ok" style="margin-left: 6px">MIT · Local-first · BYOK</span>
         <h1>Saravapos</h1>
         <p class="tagline">
-          An open protocol for <strong style="color:#fff">worldview-aware communication</strong> —
-          translate ideas between mental models. Explain a chess concept to a Formula 1 fan,
-          or compress a software talk for a novice, using a portable persona profile and any LLM.
+          An open protocol for <strong style="color: #fff">worldview-aware communication</strong> —
+          translate ideas between mental models. Explain a chess concept to a Formula 1 fan, or
+          compress a software talk for a novice, using a portable persona profile and any LLM.
         </p>
         <div class="hero-meta">
           <span class="pill muted">TypeScript</span>
@@ -418,7 +580,10 @@
       <!-- 1. PROBLEM -->
       <section id="problem">
         <h2>01 · The Problem</h2>
-        <p class="section-sub">Every explanation rides on shared metaphors. When the mental model is missing, the information vanishes — even if every word is technically correct.</p>
+        <p class="section-sub">
+          Every explanation rides on shared metaphors. When the mental model is missing, the
+          information vanishes — even if every word is technically correct.
+        </p>
 
         <div class="translation-demo">
           <div class="bubble from">
@@ -426,19 +591,31 @@
             <div class="text">"I sacrificed a pawn for a positional advantage."</div>
           </div>
           <div class="arrow-cell">→</div>
-          <div class="bubble to" style="border-color: rgba(255,107,129,0.4); background: rgba(255,107,129,0.05);">
+          <div
+            class="bubble to"
+            style="border-color: rgba(255, 107, 129, 0.4); background: rgba(255, 107, 129, 0.05)"
+          >
             <div class="who">Formula 1 fan hears</div>
-            <div class="text" style="color: #ffb6c1;">[empty noise — no shared metaphor]</div>
+            <div class="text" style="color: #ffb6c1">[empty noise — no shared metaphor]</div>
           </div>
         </div>
 
-        <p>Today the fix is ad-hoc — the speaker rewrites by hand, or the listener gives up. LLMs can translate between human languages, codebases, and tones, but there is <strong>no portable, declarative way</strong> to say <em>"render this idea for someone whose mental world looks like this."</em></p>
+        <p>
+          Today the fix is ad-hoc — the speaker rewrites by hand, or the listener gives up. LLMs can
+          translate between human languages, codebases, and tones, but there is
+          <strong>no portable, declarative way</strong> to say
+          <em>"render this idea for someone whose mental world looks like this."</em>
+        </p>
       </section>
 
       <!-- 2. WHAT -->
       <section id="what">
         <h2>02 · What Saravapos Does</h2>
-        <p class="section-sub">Closes the metaphor gap. You describe a person's worldview as a small YAML profile. Given a <code>from</code> and <code>to</code> profile, Saravapos rewrites content so the metaphors land while the facts stay intact.</p>
+        <p class="section-sub">
+          Closes the metaphor gap. You describe a person's worldview as a small YAML profile. Given
+          a <code>from</code> and <code>to</code> profile, Saravapos rewrites content so the
+          metaphors land while the facts stay intact.
+        </p>
 
         <div class="translation-demo">
           <div class="bubble from">
@@ -448,30 +625,43 @@
           <div class="arrow-cell">⇨</div>
           <div class="bubble to">
             <div class="who">TARGET — f1-fan.yaml</div>
-            <div class="text">"I burned an extra pit stop to undercut the leader and take track position."</div>
+            <div class="text">
+              "I burned an extra pit stop to undercut the leader and take track position."
+            </div>
           </div>
         </div>
 
-        <div class="card-grid" style="margin-top: 24px;">
+        <div class="card-grid" style="margin-top: 24px">
           <div class="card">
-            <div class="icon" style="background: rgba(124,92,255,0.18); color:#c8bdff;">P</div>
+            <div class="icon" style="background: rgba(124, 92, 255, 0.18); color: #c8bdff">P</div>
             <h3>Protocol-first</h3>
-            <p>A JSON Schema defines what a profile <em>is</em>. Anyone can implement against it — SDKs, CLIs, editor plugins.</p>
+            <p>
+              A JSON Schema defines what a profile <em>is</em>. Anyone can implement against it —
+              SDKs, CLIs, editor plugins.
+            </p>
           </div>
           <div class="card">
-            <div class="icon" style="background: rgba(0,212,180,0.18); color:#95f0e1;">L</div>
+            <div class="icon" style="background: rgba(0, 212, 180, 0.18); color: #95f0e1">L</div>
             <h3>Local-first</h3>
-            <p>Profiles are plain YAML files you own. No accounts, no servers, no telemetry. Version-controllable.</p>
+            <p>
+              Profiles are plain YAML files you own. No accounts, no servers, no telemetry.
+              Version-controllable.
+            </p>
           </div>
           <div class="card">
-            <div class="icon" style="background: rgba(255,180,77,0.18); color:#ffd9a0;">M</div>
+            <div class="icon" style="background: rgba(255, 180, 77, 0.18); color: #ffd9a0">M</div>
             <h3>Multi-provider</h3>
-            <p>BYOK — bring your own LLM key. Anthropic, OpenAI, or Ollama (local). Swap at runtime.</p>
+            <p>
+              BYOK — bring your own LLM key. Anthropic, OpenAI, or Ollama (local). Swap at runtime.
+            </p>
           </div>
           <div class="card">
-            <div class="icon" style="background: rgba(255,90,77,0.18); color:#ffb6c1;">C</div>
+            <div class="icon" style="background: rgba(255, 90, 77, 0.18); color: #ffb6c1">C</div>
             <h3>CLI + SDK</h3>
-            <p>Use <code>saravapos</code> from the terminal, or <code>@saravapos/sdk</code> from a Node app.</p>
+            <p>
+              Use <code>saravapos</code> from the terminal, or <code>@saravapos/sdk</code> from a
+              Node app.
+            </p>
           </div>
         </div>
       </section>
@@ -479,32 +669,46 @@
       <!-- 3. HOW -->
       <section id="how">
         <h2>03 · How It Works</h2>
-        <p class="section-sub">A translation call always takes two profiles. The SDK lowers both into a system prompt, sends the source text as user input, and the chosen LLM rewrites.</p>
+        <p class="section-sub">
+          A translation call always takes two profiles. The SDK lowers both into a system prompt,
+          sends the source text as user input, and the chosen LLM rewrites.
+        </p>
 
         <div class="diagram">
           <div class="pipeline">
             <div class="step">
               <div class="label">Step 1</div>
               <div class="name">Load profiles</div>
-              <div class="desc">Read YAML from disk. Validate against JSON Schema. Throw <code>ProfileValidationError</code> with field path on bad shape.</div>
+              <div class="desc">
+                Read YAML from disk. Validate against JSON Schema. Throw
+                <code>ProfileValidationError</code> with field path on bad shape.
+              </div>
             </div>
             <div class="arrow">→</div>
             <div class="step">
               <div class="label">Step 2</div>
               <div class="name">Build prompt</div>
-              <div class="desc">A <code>PromptStrategy</code> renders both profiles into a system prompt: identity, expertise, analogy bank, cognitive style, cultural context.</div>
+              <div class="desc">
+                A <code>PromptStrategy</code> renders both profiles into a system prompt: identity,
+                expertise, analogy bank, cognitive style, cultural context.
+              </div>
             </div>
             <div class="arrow">→</div>
             <div class="step">
               <div class="label">Step 3</div>
               <div class="name">Call adapter</div>
-              <div class="desc">Adapter (Anthropic/OpenAI/Ollama) sends the prompt at chosen temperature, retries on 429, surfaces typed <code>AdapterError</code>.</div>
+              <div class="desc">
+                Adapter (Anthropic/OpenAI/Ollama) sends the prompt at chosen temperature, retries on
+                429, surfaces typed <code>AdapterError</code>.
+              </div>
             </div>
             <div class="arrow">→</div>
             <div class="step">
               <div class="label">Step 4</div>
               <div class="name">Return text</div>
-              <div class="desc">Raw translated text. Caller writes to stdout, file, or further pipelines.</div>
+              <div class="desc">
+                Raw translated text. Caller writes to stdout, file, or further pipelines.
+              </div>
             </div>
           </div>
         </div>
@@ -513,146 +717,394 @@
       <!-- 4. ARCHITECTURE -->
       <section id="architecture">
         <h2>04 · Architecture</h2>
-        <p class="section-sub">A small pnpm-workspace monorepo. Five packages, layered so the protocol is independent of the SDK, the SDK is independent of any specific provider, and the CLI is a thin shell over the SDK.</p>
+        <p class="section-sub">
+          A small pnpm-workspace monorepo. Five packages, layered so the protocol is independent of
+          the SDK, the SDK is independent of any specific provider, and the CLI is a thin shell over
+          the SDK.
+        </p>
 
         <div class="diagram">
-          <svg class="diagram-svg" viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Saravapos architecture diagram">
+          <svg
+            class="diagram-svg"
+            viewBox="0 0 920 460"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Saravapos architecture diagram"
+          >
             <defs>
               <linearGradient id="gp" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#7c5cff" stop-opacity="0.95"/>
-                <stop offset="100%" stop-color="#5a3fcc" stop-opacity="0.95"/>
+                <stop offset="0%" stop-color="#7c5cff" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#5a3fcc" stop-opacity="0.95" />
               </linearGradient>
               <linearGradient id="gs" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#00d4b4" stop-opacity="0.95"/>
-                <stop offset="100%" stop-color="#00a88f" stop-opacity="0.95"/>
+                <stop offset="0%" stop-color="#00d4b4" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#00a88f" stop-opacity="0.95" />
               </linearGradient>
               <linearGradient id="ga" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ffb44d" stop-opacity="0.95"/>
-                <stop offset="100%" stop-color="#cc8a36" stop-opacity="0.95"/>
+                <stop offset="0%" stop-color="#ffb44d" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#cc8a36" stop-opacity="0.95" />
               </linearGradient>
               <linearGradient id="gc" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ff5a4d" stop-opacity="0.95"/>
-                <stop offset="100%" stop-color="#cc463c" stop-opacity="0.95"/>
+                <stop offset="0%" stop-color="#ff5a4d" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#cc463c" stop-opacity="0.95" />
               </linearGradient>
               <linearGradient id="ge" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#4ad6ff" stop-opacity="0.95"/>
-                <stop offset="100%" stop-color="#3aa9cc" stop-opacity="0.95"/>
+                <stop offset="0%" stop-color="#4ad6ff" stop-opacity="0.95" />
+                <stop offset="100%" stop-color="#3aa9cc" stop-opacity="0.95" />
               </linearGradient>
-              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a92a6"/>
+              <marker
+                id="arrow"
+                viewBox="0 0 10 10"
+                refX="9"
+                refY="5"
+                markerWidth="6"
+                markerHeight="6"
+                orient="auto"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a92a6" />
               </marker>
             </defs>
 
             <!-- USER LAYER -->
-            <text x="20" y="30" fill="#8a92a6" font-size="12" font-family="JetBrains Mono, monospace">USER INTERFACE</text>
+            <text
+              x="20"
+              y="30"
+              fill="#8a92a6"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              USER INTERFACE
+            </text>
             <rect x="60" y="50" width="170" height="80" rx="10" fill="url(#gc)" />
-            <text x="145" y="85" text-anchor="middle" fill="#fff" font-size="16" font-weight="700" font-family="-apple-system, sans-serif">@saravapos/cli</text>
-            <text x="145" y="105" text-anchor="middle" fill="#fff" font-size="12" font-family="-apple-system, sans-serif">saravapos translate</text>
-            <text x="145" y="120" text-anchor="middle" fill="#fff" font-size="12" font-family="-apple-system, sans-serif">validate · init</text>
+            <text
+              x="145"
+              y="85"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="16"
+              font-weight="700"
+              font-family="-apple-system, sans-serif"
+            >
+              @saravapos/cli
+            </text>
+            <text
+              x="145"
+              y="105"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-family="-apple-system, sans-serif"
+            >
+              saravapos translate
+            </text>
+            <text
+              x="145"
+              y="120"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="12"
+              font-family="-apple-system, sans-serif"
+            >
+              validate · init
+            </text>
 
-            <rect x="270" y="50" width="170" height="80" rx="10" fill="#1a1f2b" stroke="#2f3648"/>
-            <text x="355" y="80" text-anchor="middle" fill="#e6e9ef" font-size="14" font-weight="600">Your Node app</text>
-            <text x="355" y="98" text-anchor="middle" fill="#8a92a6" font-size="12">import { translate }</text>
-            <text x="355" y="115" text-anchor="middle" fill="#8a92a6" font-size="12">from '@saravapos/sdk'</text>
+            <rect x="270" y="50" width="170" height="80" rx="10" fill="#1a1f2b" stroke="#2f3648" />
+            <text
+              x="355"
+              y="80"
+              text-anchor="middle"
+              fill="#e6e9ef"
+              font-size="14"
+              font-weight="600"
+            >
+              Your Node app
+            </text>
+            <text x="355" y="98" text-anchor="middle" fill="#8a92a6" font-size="12">
+              import { translate }
+            </text>
+            <text x="355" y="115" text-anchor="middle" fill="#8a92a6" font-size="12">
+              from '@saravapos/sdk'
+            </text>
 
             <rect x="480" y="50" width="170" height="80" rx="10" fill="url(#ge)" />
-            <text x="565" y="85" text-anchor="middle" fill="#0b0d12" font-size="16" font-weight="700">@saravapos/eval</text>
-            <text x="565" y="105" text-anchor="middle" fill="#0b0d12" font-size="12">golden cases · judge</text>
-            <text x="565" y="120" text-anchor="middle" fill="#0b0d12" font-size="12">CI quality gate</text>
+            <text
+              x="565"
+              y="85"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="16"
+              font-weight="700"
+            >
+              @saravapos/eval
+            </text>
+            <text x="565" y="105" text-anchor="middle" fill="#0b0d12" font-size="12">
+              golden cases · judge
+            </text>
+            <text x="565" y="120" text-anchor="middle" fill="#0b0d12" font-size="12">
+              CI quality gate
+            </text>
 
             <!-- ARROWS DOWN -->
-            <line x1="145" y1="135" x2="145" y2="190" stroke="#8a92a6" stroke-width="1.5" marker-end="url(#arrow)" />
-            <line x1="355" y1="135" x2="355" y2="190" stroke="#8a92a6" stroke-width="1.5" marker-end="url(#arrow)" />
-            <line x1="565" y1="135" x2="565" y2="190" stroke="#8a92a6" stroke-width="1.5" marker-end="url(#arrow)" />
+            <line
+              x1="145"
+              y1="135"
+              x2="145"
+              y2="190"
+              stroke="#8a92a6"
+              stroke-width="1.5"
+              marker-end="url(#arrow)"
+            />
+            <line
+              x1="355"
+              y1="135"
+              x2="355"
+              y2="190"
+              stroke="#8a92a6"
+              stroke-width="1.5"
+              marker-end="url(#arrow)"
+            />
+            <line
+              x1="565"
+              y1="135"
+              x2="565"
+              y2="190"
+              stroke="#8a92a6"
+              stroke-width="1.5"
+              marker-end="url(#arrow)"
+            />
 
             <!-- SDK LAYER -->
-            <text x="20" y="180" fill="#8a92a6" font-size="12" font-family="JetBrains Mono, monospace">CORE</text>
-            <rect x="60" y="195" width="590" height="90" rx="10" fill="url(#gs)"/>
-            <text x="355" y="225" text-anchor="middle" fill="#0b0d12" font-size="18" font-weight="700">@saravapos/sdk</text>
-            <text x="355" y="248" text-anchor="middle" fill="#0b0d12" font-size="13">loadProfile() · loadProfileFromString() · translate()</text>
-            <text x="355" y="268" text-anchor="middle" fill="#0b0d12" font-size="12">PromptStrategy: baseline · structured</text>
+            <text
+              x="20"
+              y="180"
+              fill="#8a92a6"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              CORE
+            </text>
+            <rect x="60" y="195" width="590" height="90" rx="10" fill="url(#gs)" />
+            <text
+              x="355"
+              y="225"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="18"
+              font-weight="700"
+            >
+              @saravapos/sdk
+            </text>
+            <text x="355" y="248" text-anchor="middle" fill="#0b0d12" font-size="13">
+              loadProfile() · loadProfileFromString() · translate()
+            </text>
+            <text x="355" y="268" text-anchor="middle" fill="#0b0d12" font-size="12">
+              PromptStrategy: baseline · structured
+            </text>
 
-            <line x1="355" y1="290" x2="355" y2="335" stroke="#8a92a6" stroke-width="1.5" marker-end="url(#arrow)" />
-            <line x1="200" y1="290" x2="200" y2="335" stroke="#8a92a6" stroke-width="1.5" marker-end="url(#arrow)" />
+            <line
+              x1="355"
+              y1="290"
+              x2="355"
+              y2="335"
+              stroke="#8a92a6"
+              stroke-width="1.5"
+              marker-end="url(#arrow)"
+            />
+            <line
+              x1="200"
+              y1="290"
+              x2="200"
+              y2="335"
+              stroke="#8a92a6"
+              stroke-width="1.5"
+              marker-end="url(#arrow)"
+            />
 
             <!-- SPEC LAYER -->
             <rect x="60" y="335" width="280" height="80" rx="10" fill="url(#gp)" />
-            <text x="200" y="365" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">@saravapos/spec</text>
-            <text x="200" y="385" text-anchor="middle" fill="#fff" font-size="12">Profile JSON Schema v0.1</text>
-            <text x="200" y="402" text-anchor="middle" fill="#fff" font-size="12">TypeScript types · field semantics</text>
+            <text x="200" y="365" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">
+              @saravapos/spec
+            </text>
+            <text x="200" y="385" text-anchor="middle" fill="#fff" font-size="12">
+              Profile JSON Schema v0.1
+            </text>
+            <text x="200" y="402" text-anchor="middle" fill="#fff" font-size="12">
+              TypeScript types · field semantics
+            </text>
 
             <!-- ADAPTERS LAYER -->
             <rect x="370" y="335" width="280" height="80" rx="10" fill="url(#ga)" />
-            <text x="510" y="365" text-anchor="middle" fill="#0b0d12" font-size="16" font-weight="700">@saravapos/adapters</text>
-            <text x="510" y="385" text-anchor="middle" fill="#0b0d12" font-size="12">AnthropicAdapter · OpenAIAdapter</text>
-            <text x="510" y="402" text-anchor="middle" fill="#0b0d12" font-size="12">OllamaAdapter · LLMAdapter interface</text>
+            <text
+              x="510"
+              y="365"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="16"
+              font-weight="700"
+            >
+              @saravapos/adapters
+            </text>
+            <text x="510" y="385" text-anchor="middle" fill="#0b0d12" font-size="12">
+              AnthropicAdapter · OpenAIAdapter
+            </text>
+            <text x="510" y="402" text-anchor="middle" fill="#0b0d12" font-size="12">
+              OllamaAdapter · LLMAdapter interface
+            </text>
 
             <!-- EXTERNAL -->
-            <text x="700" y="180" fill="#8a92a6" font-size="12" font-family="JetBrains Mono, monospace">EXTERNAL</text>
-            <rect x="700" y="195" width="200" height="220" rx="10" fill="#0f1218" stroke="#1d2230"/>
-            <text x="800" y="225" text-anchor="middle" fill="#e6e9ef" font-size="14" font-weight="600">LLM Providers</text>
-            <rect x="720" y="245" width="160" height="35" rx="6" fill="#1a1f2b" stroke="#2f3648"/>
-            <text x="800" y="267" text-anchor="middle" fill="#c8bdff" font-size="12">Anthropic Claude</text>
-            <rect x="720" y="290" width="160" height="35" rx="6" fill="#1a1f2b" stroke="#2f3648"/>
-            <text x="800" y="312" text-anchor="middle" fill="#95f0e1" font-size="12">OpenAI GPT</text>
-            <rect x="720" y="335" width="160" height="35" rx="6" fill="#1a1f2b" stroke="#2f3648"/>
-            <text x="800" y="357" text-anchor="middle" fill="#ffd9a0" font-size="12">Ollama (local)</text>
-            <text x="800" y="395" text-anchor="middle" fill="#8a92a6" font-size="11">BYOK · env vars</text>
+            <text
+              x="700"
+              y="180"
+              fill="#8a92a6"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              EXTERNAL
+            </text>
+            <rect
+              x="700"
+              y="195"
+              width="200"
+              height="220"
+              rx="10"
+              fill="#0f1218"
+              stroke="#1d2230"
+            />
+            <text
+              x="800"
+              y="225"
+              text-anchor="middle"
+              fill="#e6e9ef"
+              font-size="14"
+              font-weight="600"
+            >
+              LLM Providers
+            </text>
+            <rect x="720" y="245" width="160" height="35" rx="6" fill="#1a1f2b" stroke="#2f3648" />
+            <text x="800" y="267" text-anchor="middle" fill="#c8bdff" font-size="12">
+              Anthropic Claude
+            </text>
+            <rect x="720" y="290" width="160" height="35" rx="6" fill="#1a1f2b" stroke="#2f3648" />
+            <text x="800" y="312" text-anchor="middle" fill="#95f0e1" font-size="12">
+              OpenAI GPT
+            </text>
+            <rect x="720" y="335" width="160" height="35" rx="6" fill="#1a1f2b" stroke="#2f3648" />
+            <text x="800" y="357" text-anchor="middle" fill="#ffd9a0" font-size="12">
+              Ollama (local)
+            </text>
+            <text x="800" y="395" text-anchor="middle" fill="#8a92a6" font-size="11">
+              BYOK · env vars
+            </text>
 
-            <line x1="650" y1="375" x2="700" y2="350" stroke="#8a92a6" stroke-width="1.5" marker-end="url(#arrow)" />
+            <line
+              x1="650"
+              y1="375"
+              x2="700"
+              y2="350"
+              stroke="#8a92a6"
+              stroke-width="1.5"
+              marker-end="url(#arrow)"
+            />
 
             <!-- LEGEND -->
-            <text x="20" y="445" fill="#8a92a6" font-size="11" font-family="JetBrains Mono, monospace">↑ spec layer is consumed by everything · adapters are interchangeable · CLI is a shell over SDK</text>
+            <text
+              x="20"
+              y="445"
+              fill="#8a92a6"
+              font-size="11"
+              font-family="JetBrains Mono, monospace"
+            >
+              ↑ spec layer is consumed by everything · adapters are interchangeable · CLI is a shell
+              over SDK
+            </text>
           </svg>
         </div>
 
         <div class="legend">
-          <span><span class="dot" style="background:#7c5cff;"></span> protocol (spec)</span>
-          <span><span class="dot" style="background:#00d4b4;"></span> core library (sdk)</span>
-          <span><span class="dot" style="background:#ffb44d;"></span> provider plugins (adapters)</span>
-          <span><span class="dot" style="background:#ff5a4d;"></span> user interface (cli)</span>
-          <span><span class="dot" style="background:#4ad6ff;"></span> quality harness (eval, private)</span>
+          <span><span class="dot" style="background: #7c5cff"></span> protocol (spec)</span>
+          <span><span class="dot" style="background: #00d4b4"></span> core library (sdk)</span>
+          <span
+            ><span class="dot" style="background: #ffb44d"></span> provider plugins (adapters)</span
+          >
+          <span><span class="dot" style="background: #ff5a4d"></span> user interface (cli)</span>
+          <span
+            ><span class="dot" style="background: #4ad6ff"></span> quality harness (eval,
+            private)</span
+          >
         </div>
       </section>
 
       <!-- 5. PACKAGES -->
       <section id="packages">
         <h2>05 · The 5 Packages</h2>
-        <p class="section-sub">Each package has a single responsibility, lives in <code>packages/&lt;name&gt;</code>, and is published as <code>@saravapos/&lt;name&gt;</code> (except <code>eval</code>, which stays private).</p>
+        <p class="section-sub">
+          Each package has a single responsibility, lives in <code>packages/&lt;name&gt;</code>, and
+          is published as <code>@saravapos/&lt;name&gt;</code> (except <code>eval</code>, which
+          stays private).
+        </p>
 
         <table>
           <thead>
-            <tr><th>Package</th><th>Role</th><th>Key exports</th><th>Published?</th></tr>
+            <tr>
+              <th>Package</th>
+              <th>Role</th>
+              <th>Key exports</th>
+              <th>Published?</th>
+            </tr>
           </thead>
           <tbody>
             <tr>
               <td><code>@saravapos/spec</code></td>
-              <td>The profile JSON Schema and TypeScript types. Single source of truth for what a profile <em>is</em>.</td>
-              <td><code>profileSchema</code>, <code>SCHEMA_VERSION</code>, <code>Profile</code> type</td>
+              <td>
+                The profile JSON Schema and TypeScript types. Single source of truth for what a
+                profile <em>is</em>.
+              </td>
+              <td>
+                <code>profileSchema</code>, <code>SCHEMA_VERSION</code>, <code>Profile</code> type
+              </td>
               <td>✅ public</td>
             </tr>
             <tr>
               <td><code>@saravapos/sdk</code></td>
-              <td>The core library. Loads profiles, validates them, builds prompts, calls an adapter.</td>
-              <td><code>loadProfile</code>, <code>loadProfileFromString</code>, <code>translate</code>, <code>PromptStrategy</code></td>
+              <td>
+                The core library. Loads profiles, validates them, builds prompts, calls an adapter.
+              </td>
+              <td>
+                <code>loadProfile</code>, <code>loadProfileFromString</code>,
+                <code>translate</code>, <code>PromptStrategy</code>
+              </td>
               <td>✅ public</td>
             </tr>
             <tr>
               <td><code>@saravapos/adapters</code></td>
               <td>Pluggable LLM backends. BYOK via env vars. Adds single-retry backoff on 429.</td>
-              <td><code>AnthropicAdapter</code>, <code>OpenAIAdapter</code>, <code>OllamaAdapter</code>, <code>resolveAdapter</code></td>
+              <td>
+                <code>AnthropicAdapter</code>, <code>OpenAIAdapter</code>,
+                <code>OllamaAdapter</code>, <code>resolveAdapter</code>
+              </td>
               <td>✅ public</td>
             </tr>
             <tr>
               <td><code>@saravapos/cli</code></td>
-              <td>The <code>saravapos</code> terminal command. Thin shell over the SDK with friendly error formatting.</td>
-              <td>subcommands: <code>translate · validate · init · list-providers · version</code></td>
+              <td>
+                The <code>saravapos</code> terminal command. Thin shell over the SDK with friendly
+                error formatting.
+              </td>
+              <td>
+                subcommands: <code>translate · validate · init · list-providers · version</code>
+              </td>
               <td>✅ public</td>
             </tr>
             <tr>
               <td><code>@saravapos/eval</code></td>
-              <td>Eval harness — golden cases, LLM judge, lexical checks, cache, CI gate. Drives prompt tuning.</td>
-              <td><code>loadCase</code>, <code>judge</code>, <code>runSuite</code>, <code>evaluateGate</code></td>
+              <td>
+                Eval harness — golden cases, LLM judge, lexical checks, cache, CI gate. Drives
+                prompt tuning.
+              </td>
+              <td>
+                <code>loadCase</code>, <code>judge</code>, <code>runSuite</code>,
+                <code>evaluateGate</code>
+              </td>
               <td>🔒 private</td>
             </tr>
           </tbody>
@@ -662,90 +1114,396 @@
       <!-- 6. PROFILE SCHEMA -->
       <section id="profile-schema">
         <h2>06 · Profile Schema (v0.1)</h2>
-        <p class="section-sub">A profile is a YAML document with one required header + five fields describing the persona. Only <code>schema_version</code> and <code>identity</code> are required; everything else is optional but recommended.</p>
+        <p class="section-sub">
+          A profile is a YAML document with one required header + five fields describing the
+          persona. Only <code>schema_version</code> and <code>identity</code> are required;
+          everything else is optional but recommended.
+        </p>
 
         <div class="diagram">
-          <svg class="diagram-svg" viewBox="0 0 920 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Profile schema diagram">
+          <svg
+            class="diagram-svg"
+            viewBox="0 0 920 360"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Profile schema diagram"
+          >
             <defs>
-              <linearGradient id="gid" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7c5cff"/><stop offset="100%" stop-color="#5a3fcc"/></linearGradient>
-              <linearGradient id="gex" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#00d4b4"/><stop offset="100%" stop-color="#00a88f"/></linearGradient>
-              <linearGradient id="gan" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ffb44d"/><stop offset="100%" stop-color="#cc8a36"/></linearGradient>
-              <linearGradient id="gco" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff5a4d"/><stop offset="100%" stop-color="#cc463c"/></linearGradient>
-              <linearGradient id="gcu" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4ad6ff"/><stop offset="100%" stop-color="#3aa9cc"/></linearGradient>
+              <linearGradient id="gid" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7c5cff" />
+                <stop offset="100%" stop-color="#5a3fcc" />
+              </linearGradient>
+              <linearGradient id="gex" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#00d4b4" />
+                <stop offset="100%" stop-color="#00a88f" />
+              </linearGradient>
+              <linearGradient id="gan" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffb44d" />
+                <stop offset="100%" stop-color="#cc8a36" />
+              </linearGradient>
+              <linearGradient id="gco" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ff5a4d" />
+                <stop offset="100%" stop-color="#cc463c" />
+              </linearGradient>
+              <linearGradient id="gcu" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#4ad6ff" />
+                <stop offset="100%" stop-color="#3aa9cc" />
+              </linearGradient>
             </defs>
 
             <!-- Root -->
-            <rect x="380" y="20" width="180" height="60" rx="10" fill="#161a23" stroke="#2f3648" stroke-width="1.5"/>
-            <text x="470" y="50" text-anchor="middle" fill="#fff" font-size="15" font-weight="700" font-family="-apple-system, sans-serif">Profile</text>
-            <text x="470" y="68" text-anchor="middle" fill="#8a92a6" font-size="11" font-family="JetBrains Mono, monospace">schema_version: '0.1'</text>
+            <rect
+              x="380"
+              y="20"
+              width="180"
+              height="60"
+              rx="10"
+              fill="#161a23"
+              stroke="#2f3648"
+              stroke-width="1.5"
+            />
+            <text
+              x="470"
+              y="50"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="15"
+              font-weight="700"
+              font-family="-apple-system, sans-serif"
+            >
+              Profile
+            </text>
+            <text
+              x="470"
+              y="68"
+              text-anchor="middle"
+              fill="#8a92a6"
+              font-size="11"
+              font-family="JetBrains Mono, monospace"
+            >
+              schema_version: '0.1'
+            </text>
 
             <!-- Branches -->
-            <line x1="470" y1="80" x2="100" y2="135" stroke="#3a4156" stroke-width="1.2"/>
-            <line x1="470" y1="80" x2="260" y2="135" stroke="#3a4156" stroke-width="1.2"/>
-            <line x1="470" y1="80" x2="470" y2="135" stroke="#3a4156" stroke-width="1.2"/>
-            <line x1="470" y1="80" x2="680" y2="135" stroke="#3a4156" stroke-width="1.2"/>
-            <line x1="470" y1="80" x2="850" y2="135" stroke="#3a4156" stroke-width="1.2"/>
+            <line x1="470" y1="80" x2="100" y2="135" stroke="#3a4156" stroke-width="1.2" />
+            <line x1="470" y1="80" x2="260" y2="135" stroke="#3a4156" stroke-width="1.2" />
+            <line x1="470" y1="80" x2="470" y2="135" stroke="#3a4156" stroke-width="1.2" />
+            <line x1="470" y1="80" x2="680" y2="135" stroke="#3a4156" stroke-width="1.2" />
+            <line x1="470" y1="80" x2="850" y2="135" stroke="#3a4156" stroke-width="1.2" />
 
             <!-- Identity (required) -->
-            <rect x="20" y="135" width="160" height="200" rx="10" fill="url(#gid)"/>
-            <text x="100" y="160" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">identity</text>
-            <text x="100" y="180" text-anchor="middle" fill="#fff" font-size="10" font-family="JetBrains Mono, monospace" opacity="0.85">[REQUIRED]</text>
-            <text x="35" y="208" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">display_name</text>
-            <text x="35" y="228" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">languages[]</text>
-            <text x="35" y="248" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">region</text>
-            <text x="35" y="290" fill="#fff" font-size="11" opacity="0.85" font-family="-apple-system, sans-serif">Surface labels.</text>
-            <text x="35" y="305" fill="#fff" font-size="11" opacity="0.85" font-family="-apple-system, sans-serif">Picks output</text>
-            <text x="35" y="320" fill="#fff" font-size="11" opacity="0.85" font-family="-apple-system, sans-serif">language + idiom.</text>
+            <rect x="20" y="135" width="160" height="200" rx="10" fill="url(#gid)" />
+            <text x="100" y="160" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">
+              identity
+            </text>
+            <text
+              x="100"
+              y="180"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="10"
+              font-family="JetBrains Mono, monospace"
+              opacity="0.85"
+            >
+              [REQUIRED]
+            </text>
+            <text x="35" y="208" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">
+              display_name
+            </text>
+            <text x="35" y="228" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">
+              languages[]
+            </text>
+            <text x="35" y="248" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">
+              region
+            </text>
+            <text
+              x="35"
+              y="290"
+              fill="#fff"
+              font-size="11"
+              opacity="0.85"
+              font-family="-apple-system, sans-serif"
+            >
+              Surface labels.
+            </text>
+            <text
+              x="35"
+              y="305"
+              fill="#fff"
+              font-size="11"
+              opacity="0.85"
+              font-family="-apple-system, sans-serif"
+            >
+              Picks output
+            </text>
+            <text
+              x="35"
+              y="320"
+              fill="#fff"
+              font-size="11"
+              opacity="0.85"
+              font-family="-apple-system, sans-serif"
+            >
+              language + idiom.
+            </text>
 
             <!-- Expertise -->
-            <rect x="195" y="135" width="160" height="200" rx="10" fill="url(#gex)"/>
-            <text x="275" y="160" text-anchor="middle" fill="#0b0d12" font-size="14" font-weight="700">expertise[]</text>
-            <text x="275" y="180" text-anchor="middle" fill="#0b0d12" font-size="10" font-family="JetBrains Mono, monospace" opacity="0.7">optional array</text>
-            <text x="210" y="208" fill="#0b0d12" font-size="12" font-family="JetBrains Mono, monospace">domain</text>
-            <text x="210" y="228" fill="#0b0d12" font-size="12" font-family="JetBrains Mono, monospace">level: enum</text>
-            <text x="210" y="248" fill="#0b0d12" font-size="12" font-family="JetBrains Mono, monospace">years?</text>
-            <text x="210" y="285" fill="#0b0d12" font-size="10" font-family="JetBrains Mono, monospace">novice|intermediate|</text>
-            <text x="210" y="297" fill="#0b0d12" font-size="10" font-family="JetBrains Mono, monospace">advanced|expert</text>
+            <rect x="195" y="135" width="160" height="200" rx="10" fill="url(#gex)" />
+            <text
+              x="275"
+              y="160"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="14"
+              font-weight="700"
+            >
+              expertise[]
+            </text>
+            <text
+              x="275"
+              y="180"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="10"
+              font-family="JetBrains Mono, monospace"
+              opacity="0.7"
+            >
+              optional array
+            </text>
+            <text
+              x="210"
+              y="208"
+              fill="#0b0d12"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              domain
+            </text>
+            <text
+              x="210"
+              y="228"
+              fill="#0b0d12"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              level: enum
+            </text>
+            <text
+              x="210"
+              y="248"
+              fill="#0b0d12"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              years?
+            </text>
+            <text
+              x="210"
+              y="285"
+              fill="#0b0d12"
+              font-size="10"
+              font-family="JetBrains Mono, monospace"
+            >
+              novice|intermediate|
+            </text>
+            <text
+              x="210"
+              y="297"
+              fill="#0b0d12"
+              font-size="10"
+              font-family="JetBrains Mono, monospace"
+            >
+              advanced|expert
+            </text>
             <text x="210" y="320" fill="#0b0d12" font-size="11">Drives jargon density.</text>
 
             <!-- Analogy bank -->
-            <rect x="370" y="135" width="200" height="200" rx="10" fill="url(#gan)"/>
-            <text x="470" y="160" text-anchor="middle" fill="#0b0d12" font-size="14" font-weight="700">analogy_bank[]</text>
-            <text x="470" y="180" text-anchor="middle" fill="#0b0d12" font-size="10" font-family="JetBrains Mono, monospace" opacity="0.7">optional · the secret sauce</text>
-            <text x="385" y="208" fill="#0b0d12" font-size="12" font-family="JetBrains Mono, monospace">concept</text>
-            <text x="385" y="228" fill="#0b0d12" font-size="12" font-family="JetBrains Mono, monospace">metaphor</text>
-            <text x="385" y="248" fill="#0b0d12" font-size="12" font-family="JetBrains Mono, monospace">domain</text>
+            <rect x="370" y="135" width="200" height="200" rx="10" fill="url(#gan)" />
+            <text
+              x="470"
+              y="160"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="14"
+              font-weight="700"
+            >
+              analogy_bank[]
+            </text>
+            <text
+              x="470"
+              y="180"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="10"
+              font-family="JetBrains Mono, monospace"
+              opacity="0.7"
+            >
+              optional · the secret sauce
+            </text>
+            <text
+              x="385"
+              y="208"
+              fill="#0b0d12"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              concept
+            </text>
+            <text
+              x="385"
+              y="228"
+              fill="#0b0d12"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              metaphor
+            </text>
+            <text
+              x="385"
+              y="248"
+              fill="#0b0d12"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              domain
+            </text>
             <text x="385" y="285" fill="#0b0d12" font-size="11">pawn sacrifice →</text>
             <text x="385" y="300" fill="#0b0d12" font-size="11">burning tyres for</text>
             <text x="385" y="315" fill="#0b0d12" font-size="11">track position</text>
 
             <!-- Cognitive style -->
-            <rect x="585" y="135" width="170" height="200" rx="10" fill="url(#gco)"/>
-            <text x="670" y="160" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">cognitive_style</text>
-            <text x="670" y="180" text-anchor="middle" fill="#fff" font-size="10" font-family="JetBrains Mono, monospace" opacity="0.85">optional object</text>
-            <text x="600" y="208" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">mode: enum</text>
-            <text x="600" y="228" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">prefers[]</text>
-            <text x="600" y="248" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">abstraction_</text>
-            <text x="600" y="262" fill="#fff" font-size="12" font-family="JetBrains Mono, monospace">tolerance</text>
+            <rect x="585" y="135" width="170" height="200" rx="10" fill="url(#gco)" />
+            <text x="670" y="160" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">
+              cognitive_style
+            </text>
+            <text
+              x="670"
+              y="180"
+              text-anchor="middle"
+              fill="#fff"
+              font-size="10"
+              font-family="JetBrains Mono, monospace"
+              opacity="0.85"
+            >
+              optional object
+            </text>
+            <text
+              x="600"
+              y="208"
+              fill="#fff"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              mode: enum
+            </text>
+            <text
+              x="600"
+              y="228"
+              fill="#fff"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              prefers[]
+            </text>
+            <text
+              x="600"
+              y="248"
+              fill="#fff"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              abstraction_
+            </text>
+            <text
+              x="600"
+              y="262"
+              fill="#fff"
+              font-size="12"
+              font-family="JetBrains Mono, monospace"
+            >
+              tolerance
+            </text>
             <text x="600" y="295" fill="#fff" font-size="11" opacity="0.9">visual · verbal</text>
-            <text x="600" y="310" fill="#fff" font-size="11" opacity="0.9">kinesthetic · mixed</text>
+            <text x="600" y="310" fill="#fff" font-size="11" opacity="0.9">
+              kinesthetic · mixed
+            </text>
 
             <!-- Cultural context -->
-            <rect x="770" y="135" width="130" height="200" rx="10" fill="url(#gcu)"/>
-            <text x="835" y="160" text-anchor="middle" fill="#0b0d12" font-size="13" font-weight="700">cultural_</text>
-            <text x="835" y="175" text-anchor="middle" fill="#0b0d12" font-size="13" font-weight="700">context</text>
-            <text x="835" y="195" text-anchor="middle" fill="#0b0d12" font-size="10" font-family="JetBrains Mono, monospace" opacity="0.7">optional</text>
-            <text x="780" y="220" fill="#0b0d12" font-size="11" font-family="JetBrains Mono, monospace">references_</text>
-            <text x="780" y="232" fill="#0b0d12" font-size="11" font-family="JetBrains Mono, monospace">that_land[]</text>
-            <text x="780" y="258" fill="#0b0d12" font-size="11" font-family="JetBrains Mono, monospace">references_</text>
-            <text x="780" y="270" fill="#0b0d12" font-size="11" font-family="JetBrains Mono, monospace">to_avoid[]</text>
+            <rect x="770" y="135" width="130" height="200" rx="10" fill="url(#gcu)" />
+            <text
+              x="835"
+              y="160"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="13"
+              font-weight="700"
+            >
+              cultural_
+            </text>
+            <text
+              x="835"
+              y="175"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="13"
+              font-weight="700"
+            >
+              context
+            </text>
+            <text
+              x="835"
+              y="195"
+              text-anchor="middle"
+              fill="#0b0d12"
+              font-size="10"
+              font-family="JetBrains Mono, monospace"
+              opacity="0.7"
+            >
+              optional
+            </text>
+            <text
+              x="780"
+              y="220"
+              fill="#0b0d12"
+              font-size="11"
+              font-family="JetBrains Mono, monospace"
+            >
+              references_
+            </text>
+            <text
+              x="780"
+              y="232"
+              fill="#0b0d12"
+              font-size="11"
+              font-family="JetBrains Mono, monospace"
+            >
+              that_land[]
+            </text>
+            <text
+              x="780"
+              y="258"
+              fill="#0b0d12"
+              font-size="11"
+              font-family="JetBrains Mono, monospace"
+            >
+              references_
+            </text>
+            <text
+              x="780"
+              y="270"
+              fill="#0b0d12"
+              font-size="11"
+              font-family="JetBrains Mono, monospace"
+            >
+              to_avoid[]
+            </text>
             <text x="780" y="305" fill="#0b0d12" font-size="11">References that</text>
             <text x="780" y="320" fill="#0b0d12" font-size="11">land or jar.</text>
           </svg>
         </div>
 
         <h3>Example: a full profile</h3>
-<pre><code>schema_version: '0.1'
+        <pre><code>schema_version: '0.1'
 
 identity:
   display_name: 'Jordan'
@@ -787,51 +1545,107 @@ cultural_context:
         <h3>Field-by-field semantics</h3>
         <table>
           <thead>
-            <tr><th>Field</th><th>Required</th><th>How a translator uses it</th></tr>
+            <tr>
+              <th>Field</th>
+              <th>Required</th>
+              <th>How a translator uses it</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td><code>identity.languages[0]</code></td><td>yes</td><td>Defines the <strong>output language</strong>. <code>region</code> is advisory — biases idioms/units but never changes facts.</td></tr>
-            <tr><td><code>expertise</code></td><td>no</td><td>Compares <code>from</code> vs <code>to</code> levels per domain. Lower → expand, define, slow down. Higher → compress, use shorthand.</td></tr>
-            <tr><td><code>analogy_bank</code></td><td>no</td><td>Translator <strong>prefers</strong> entries from <code>to.analogy_bank</code> before inventing. Lookup is case-insensitive substring on <code>concept</code>.</td></tr>
-            <tr><td><code>cognitive_style</code></td><td>no</td><td><code>mode</code> + <code>prefers</code> shape format (prose vs. bullets, diagrams vs. paragraphs). <code>abstraction_tolerance</code> shapes phrasing.</td></tr>
-            <tr><td><code>cultural_context</code></td><td>no</td><td><code>references_that_land</code> is a shortlist to reach for. <code>references_to_avoid</code> is a soft filter — skip these phrases.</td></tr>
+            <tr>
+              <td><code>identity.languages[0]</code></td>
+              <td>yes</td>
+              <td>
+                Defines the <strong>output language</strong>. <code>region</code> is advisory —
+                biases idioms/units but never changes facts.
+              </td>
+            </tr>
+            <tr>
+              <td><code>expertise</code></td>
+              <td>no</td>
+              <td>
+                Compares <code>from</code> vs <code>to</code> levels per domain. Lower → expand,
+                define, slow down. Higher → compress, use shorthand.
+              </td>
+            </tr>
+            <tr>
+              <td><code>analogy_bank</code></td>
+              <td>no</td>
+              <td>
+                Translator <strong>prefers</strong> entries from <code>to.analogy_bank</code> before
+                inventing. Lookup is case-insensitive substring on <code>concept</code>.
+              </td>
+            </tr>
+            <tr>
+              <td><code>cognitive_style</code></td>
+              <td>no</td>
+              <td>
+                <code>mode</code> + <code>prefers</code> shape format (prose vs. bullets, diagrams
+                vs. paragraphs). <code>abstraction_tolerance</code> shapes phrasing.
+              </td>
+            </tr>
+            <tr>
+              <td><code>cultural_context</code></td>
+              <td>no</td>
+              <td>
+                <code>references_that_land</code> is a shortlist to reach for.
+                <code>references_to_avoid</code> is a soft filter — skip these phrases.
+              </td>
+            </tr>
           </tbody>
         </table>
 
         <div class="callout">
-          <strong>Versioning policy:</strong> <code>schema_version</code> follows semver-style discipline. While in <code>0.y</code>, any bump may break. Profiles MUST pin the version they were authored against; loaders MUST reject unknown versions. Current: <code>0.1</code>.
+          <strong>Versioning policy:</strong> <code>schema_version</code> follows semver-style
+          discipline. While in <code>0.y</code>, any bump may break. Profiles MUST pin the version
+          they were authored against; loaders MUST reject unknown versions. Current:
+          <code>0.1</code>.
         </div>
       </section>
 
       <!-- 7. SAMPLE PROFILES -->
       <section id="profiles">
         <h2>07 · Sample Profiles</h2>
-        <p class="section-sub">Four hand-authored personas ship in <code>profiles/</code>. They drive examples, tests, and the eval corpus — and serve as templates for your own.</p>
+        <p class="section-sub">
+          Four hand-authored personas ship in <code>profiles/</code>. They drive examples, tests,
+          and the eval corpus — and serve as templates for your own.
+        </p>
 
         <div class="profiles">
           <div class="profile chess">
             <div class="avatar">♞</div>
             <div class="label">chess-expert.yaml</div>
-            <h3 style="margin: 6px 0;">Chess Expert</h3>
-            <p style="font-size:13px; color: var(--muted);">Expert chess (15y), novice F1. Reads Sicilian Defence and zugzwang fluently. Abstraction-tolerant.</p>
+            <h3 style="margin: 6px 0">Chess Expert</h3>
+            <p style="font-size: 13px; color: var(--muted)">
+              Expert chess (15y), novice F1. Reads Sicilian Defence and zugzwang fluently.
+              Abstraction-tolerant.
+            </p>
           </div>
           <div class="profile f1">
             <div class="avatar">🏎</div>
             <div class="label">f1-fan.yaml</div>
-            <h3 style="margin: 6px 0;">F1 Fan</h3>
-            <p style="font-size:13px; color: var(--muted);">Lives and breathes Formula 1. Pit stops, undercuts, tyre deg. No idea what a pawn sacrifice is.</p>
+            <h3 style="margin: 6px 0">F1 Fan</h3>
+            <p style="font-size: 13px; color: var(--muted)">
+              Lives and breathes Formula 1. Pit stops, undercuts, tyre deg. No idea what a pawn
+              sacrifice is.
+            </p>
           </div>
           <div class="profile swe">
             <div class="avatar">{ }</div>
             <div class="label">software-engineer.yaml</div>
-            <h3 style="margin: 6px 0;">Software Engineer</h3>
-            <p style="font-size:13px; color: var(--muted);">Technical. Comfortable with type-level reasoning, abstractions, and shorthand.</p>
+            <h3 style="margin: 6px 0">Software Engineer</h3>
+            <p style="font-size: 13px; color: var(--muted)">
+              Technical. Comfortable with type-level reasoning, abstractions, and shorthand.
+            </p>
           </div>
           <div class="profile novice">
             <div class="avatar">?</div>
             <div class="label">curious-novice.yaml</div>
-            <h3 style="margin: 6px 0;">Curious Novice</h3>
-            <p style="font-size:13px; color: var(--muted);">Generalist. Low jargon tolerance. Prefers concrete examples and step-by-step explanations.</p>
+            <h3 style="margin: 6px 0">Curious Novice</h3>
+            <p style="font-size: 13px; color: var(--muted)">
+              Generalist. Low jargon tolerance. Prefers concrete examples and step-by-step
+              explanations.
+            </p>
           </div>
         </div>
       </section>
@@ -839,11 +1653,21 @@ cultural_context:
       <!-- 8. ADAPTERS -->
       <section id="adapters">
         <h2>08 · LLM Adapters</h2>
-        <p class="section-sub">A small <code>LLMAdapter</code> interface (<code>name</code> + <code>complete()</code>) plus three first-party implementations. Pick via <code>resolveAdapter(name)</code> or the CLI <code>--provider</code> flag. BYOK — no provider is ever hardcoded.</p>
+        <p class="section-sub">
+          A small <code>LLMAdapter</code> interface (<code>name</code> + <code>complete()</code>)
+          plus three first-party implementations. Pick via <code>resolveAdapter(name)</code> or the
+          CLI <code>--provider</code> flag. BYOK — no provider is ever hardcoded.
+        </p>
 
         <table>
           <thead>
-            <tr><th>Provider</th><th><code>name</code></th><th>Env var</th><th>Default model</th><th>Transport</th></tr>
+            <tr>
+              <th>Provider</th>
+              <th><code>name</code></th>
+              <th>Env var</th>
+              <th>Default model</th>
+              <th>Transport</th>
+            </tr>
           </thead>
           <tbody>
             <tr>
@@ -871,7 +1695,7 @@ cultural_context:
         </table>
 
         <h3>The adapter contract</h3>
-<pre><code>interface LLMAdapter {
+        <pre><code>interface LLMAdapter {
   name: string;
   complete(opts: {
     system: string;
@@ -880,27 +1704,64 @@ cultural_context:
     temperature?: number;
   }): Promise&lt;{ text: string }&gt;;
 }</code></pre>
-        <p>All failures throw a typed <code>AdapterError</code> carrying <code>provider</code>, optional HTTP <code>status</code>, and <code>cause</code>. A single-retry backoff handles 429s. Missing API keys fail synchronously at construction.</p>
+        <p>
+          All failures throw a typed <code>AdapterError</code> carrying <code>provider</code>,
+          optional HTTP <code>status</code>, and <code>cause</code>. A single-retry backoff handles
+          429s. Missing API keys fail synchronously at construction.
+        </p>
       </section>
 
       <!-- 9. CLI -->
       <section id="cli">
         <h2>09 · CLI Reference</h2>
-        <p class="section-sub">The <code>saravapos</code> binary. Five subcommands. Friendly red error messages on validation/adapter failures with the failing field path quoted.</p>
+        <p class="section-sub">
+          The <code>saravapos</code> binary. Five subcommands. Friendly red error messages on
+          validation/adapter failures with the failing field path quoted.
+        </p>
 
         <table>
-          <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Command</th>
+              <th>What it does</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>saravapos translate</code></td><td>Translate text between two profiles. Source via <code>--text</code>, <code>--input &lt;file&gt;</code>, or stdin (exactly one). Output to stdout or <code>--output &lt;file&gt;</code>.</td></tr>
-            <tr><td><code>saravapos validate &lt;path&gt;</code></td><td>Validate a profile YAML against the schema. Green check on success; red field errors + non-zero exit on failure.</td></tr>
-            <tr><td><code>saravapos init -o &lt;path&gt;</code></td><td>Interactive wizard (inquirer prompts). Asks identity + ≥1 expertise entry, writes a well-commented template. Refuses to overwrite without <code>--force</code>.</td></tr>
-            <tr><td><code>saravapos list-providers</code></td><td>Prints supported adapters, env vars, default models.</td></tr>
-            <tr><td><code>saravapos version</code></td><td>Same as <code>--version</code>. Reads from the package manifest.</td></tr>
+            <tr>
+              <td><code>saravapos translate</code></td>
+              <td>
+                Translate text between two profiles. Source via <code>--text</code>,
+                <code>--input &lt;file&gt;</code>, or stdin (exactly one). Output to stdout or
+                <code>--output &lt;file&gt;</code>.
+              </td>
+            </tr>
+            <tr>
+              <td><code>saravapos validate &lt;path&gt;</code></td>
+              <td>
+                Validate a profile YAML against the schema. Green check on success; red field errors
+                + non-zero exit on failure.
+              </td>
+            </tr>
+            <tr>
+              <td><code>saravapos init -o &lt;path&gt;</code></td>
+              <td>
+                Interactive wizard (inquirer prompts). Asks identity + ≥1 expertise entry, writes a
+                well-commented template. Refuses to overwrite without <code>--force</code>.
+              </td>
+            </tr>
+            <tr>
+              <td><code>saravapos list-providers</code></td>
+              <td>Prints supported adapters, env vars, default models.</td>
+            </tr>
+            <tr>
+              <td><code>saravapos version</code></td>
+              <td>Same as <code>--version</code>. Reads from the package manifest.</td>
+            </tr>
           </tbody>
         </table>
 
         <h3>Translate — example invocations</h3>
-<pre><code># inline text
+        <pre><code># inline text
 saravapos translate \
   --from profiles/chess-expert.yaml \
   --to   profiles/f1-fan.yaml \
@@ -926,12 +1787,15 @@ echo "Recursion is the soul of induction." | saravapos \
       <!-- 10. SDK -->
       <section id="sdk">
         <h2>10 · SDK API</h2>
-        <p class="section-sub">Two exports do the work: <code>loadProfile</code> (parse + validate YAML) and <code>translate</code> (drive any adapter end-to-end).</p>
+        <p class="section-sub">
+          Two exports do the work: <code>loadProfile</code> (parse + validate YAML) and
+          <code>translate</code> (drive any adapter end-to-end).
+        </p>
 
         <div class="two-up">
           <div>
             <h3>loadProfile</h3>
-<pre><code>import { loadProfile } from '@saravapos/sdk';
+            <pre><code>import { loadProfile } from '@saravapos/sdk';
 
 const from = await loadProfile(
   'profiles/chess-expert.yaml'
@@ -940,11 +1804,13 @@ const from = await loadProfile(
 // Throws ProfileValidationError with the
 // failing field path if YAML doesn't match
 // the schema. Throws on missing file too.</code></pre>
-            <p style="font-size:13px; color: var(--muted);">There's also <code>loadProfileFromString(yaml)</code> for tests and URL fetches.</p>
+            <p style="font-size: 13px; color: var(--muted)">
+              There's also <code>loadProfileFromString(yaml)</code> for tests and URL fetches.
+            </p>
           </div>
           <div>
             <h3>translate</h3>
-<pre><code>import { translate } from '@saravapos/sdk';
+            <pre><code>import { translate } from '@saravapos/sdk';
 import { resolveAdapter } from '@saravapos/adapters';
 
 const out = await translate({
@@ -956,18 +1822,42 @@ const out = await translate({
   model: 'claude-opus-4-7',
   temperature: 0,
 });</code></pre>
-            <p style="font-size:13px; color: var(--muted);">Returns the raw translated string. Pipe it anywhere.</p>
+            <p style="font-size: 13px; color: var(--muted)">
+              Returns the raw translated string. Pipe it anywhere.
+            </p>
           </div>
         </div>
 
         <h3>Error types</h3>
         <table>
-          <thead><tr><th>Error</th><th>Thrown by</th><th>Carries</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Error</th>
+              <th>Thrown by</th>
+              <th>Carries</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>ProfileValidationError</code></td><td>loadProfile / loadProfileFromString</td><td>Failing JSON-pointer field path, ajv message</td></tr>
-            <tr><td><code>AdapterError</code></td><td>any adapter <code>.complete()</code></td><td><code>provider</code>, optional HTTP <code>status</code>, <code>cause</code></td></tr>
-            <tr><td><code>CaseValidationError</code></td><td>eval <code>loadCase</code></td><td>Failing field path on golden-case YAML</td></tr>
-            <tr><td><code>JudgeParseError</code></td><td>eval <code>judge()</code></td><td>Raw judge response (truncated) for inspection</td></tr>
+            <tr>
+              <td><code>ProfileValidationError</code></td>
+              <td>loadProfile / loadProfileFromString</td>
+              <td>Failing JSON-pointer field path, ajv message</td>
+            </tr>
+            <tr>
+              <td><code>AdapterError</code></td>
+              <td>any adapter <code>.complete()</code></td>
+              <td><code>provider</code>, optional HTTP <code>status</code>, <code>cause</code></td>
+            </tr>
+            <tr>
+              <td><code>CaseValidationError</code></td>
+              <td>eval <code>loadCase</code></td>
+              <td>Failing field path on golden-case YAML</td>
+            </tr>
+            <tr>
+              <td><code>JudgeParseError</code></td>
+              <td>eval <code>judge()</code></td>
+              <td>Raw judge response (truncated) for inspection</td>
+            </tr>
           </tbody>
         </table>
       </section>
@@ -975,30 +1865,52 @@ const out = await translate({
       <!-- 11. PROMPT STRATEGIES -->
       <section id="prompts">
         <h2>11 · Prompt Strategies</h2>
-        <p class="section-sub">The system prompt is not one hand-written string — it's a swappable <code>PromptStrategy</code>. This is what Week 4 will exploit: run multiple variants through the eval harness, score them, pick the winner.</p>
+        <p class="section-sub">
+          The system prompt is not one hand-written string — it's a swappable
+          <code>PromptStrategy</code>. This is what Week 4 will exploit: run multiple variants
+          through the eval harness, score them, pick the winner.
+        </p>
 
         <div class="card-grid">
           <div class="card">
-            <div class="icon" style="background: rgba(0,212,180,0.18); color:#95f0e1;">1</div>
+            <div class="icon" style="background: rgba(0, 212, 180, 0.18); color: #95f0e1">1</div>
             <h3>baseline</h3>
-            <p>Today's prompt, verbatim. <code>describeProfile(from, 'source')</code> + <code>describeProfile(to, 'target')</code> + a 7-line instruction block.</p>
-            <p style="font-size:12px; color: var(--muted); margin-top:8px;"><code>packages/sdk/src/prompts/strategies/baseline.ts</code></p>
+            <p>
+              Today's prompt, verbatim. <code>describeProfile(from, 'source')</code> +
+              <code>describeProfile(to, 'target')</code> + a 7-line instruction block.
+            </p>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 8px">
+              <code>packages/sdk/src/prompts/strategies/baseline.ts</code>
+            </p>
           </div>
           <div class="card">
-            <div class="icon" style="background: rgba(124,92,255,0.18); color:#c8bdff;">2</div>
+            <div class="icon" style="background: rgba(124, 92, 255, 0.18); color: #c8bdff">2</div>
             <h3>structured</h3>
-            <p>Sectioned system prompt: <code># ROLE</code> · <code># SOURCE WORLDVIEW</code> · <code># TARGET WORLDVIEW</code> · <code># TRANSLATION CONTRACT</code> · <code># FIDELITY CHECKLIST</code> · <code># OUTPUT</code>. Same profile rendering — isolates "does structure help?"</p>
-            <p style="font-size:12px; color: var(--muted); margin-top:8px;"><code>packages/sdk/src/prompts/strategies/structured.ts</code></p>
+            <p>
+              Sectioned system prompt: <code># ROLE</code> · <code># SOURCE WORLDVIEW</code> ·
+              <code># TARGET WORLDVIEW</code> · <code># TRANSLATION CONTRACT</code> ·
+              <code># FIDELITY CHECKLIST</code> · <code># OUTPUT</code>. Same profile rendering —
+              isolates "does structure help?"
+            </p>
+            <p style="font-size: 12px; color: var(--muted); margin-top: 8px">
+              <code>packages/sdk/src/prompts/strategies/structured.ts</code>
+            </p>
           </div>
-          <div class="card" style="opacity: 0.7;">
-            <div class="icon" style="background: rgba(255,180,77,0.18); color:#ffd9a0;">3</div>
-            <h3>fewShot <span class="pill warn" style="font-size:10px; margin-left:6px;">planned</span></h3>
-            <p>Structured plus 2-3 worked translation examples in the system prompt. Tests whether examples beat instructions.</p>
+          <div class="card" style="opacity: 0.7">
+            <div class="icon" style="background: rgba(255, 180, 77, 0.18); color: #ffd9a0">3</div>
+            <h3>
+              fewShot
+              <span class="pill warn" style="font-size: 10px; margin-left: 6px">planned</span>
+            </h3>
+            <p>
+              Structured plus 2-3 worked translation examples in the system prompt. Tests whether
+              examples beat instructions.
+            </p>
           </div>
         </div>
 
         <h3>The PromptStrategy interface</h3>
-<pre><code>interface PromptStrategy {
+        <pre><code>interface PromptStrategy {
   name: string;
   description: string;
   buildSystemPrompt(from: Profile, to: Profile): string;
@@ -1012,54 +1924,122 @@ const out = await translate({
       <!-- 12. EVAL HARNESS -->
       <section id="eval">
         <h2>12 · Eval Harness</h2>
-        <p class="section-sub">A repeatable signal on translation <em>quality</em>, so prompt tuning and analogy injection are driven by data, not vibes. Lives in <code>packages/eval</code> — private, never published.</p>
+        <p class="section-sub">
+          A repeatable signal on translation <em>quality</em>, so prompt tuning and analogy
+          injection are driven by data, not vibes. Lives in <code>packages/eval</code> — private,
+          never published.
+        </p>
 
         <div class="diagram">
           <div class="pipeline">
-            <div class="step" style="background: linear-gradient(180deg, rgba(74,214,255,0.12), rgba(74,214,255,0.04));">
+            <div
+              class="step"
+              style="
+                background: linear-gradient(
+                  180deg,
+                  rgba(74, 214, 255, 0.12),
+                  rgba(74, 214, 255, 0.04)
+                );
+              "
+            >
               <div class="label">Inputs</div>
               <div class="name">Golden cases</div>
-              <div class="desc">9 YAML files in <code>packages/eval/cases/</code>: <code>from</code>/<code>to</code> profile paths, <code>input</code> text, named <code>rubric</code> criteria, optional <code>must_include</code>/<code>must_avoid</code>.</div>
+              <div class="desc">
+                9 YAML files in <code>packages/eval/cases/</code>: <code>from</code>/<code>to</code>
+                profile paths, <code>input</code> text, named <code>rubric</code> criteria, optional
+                <code>must_include</code>/<code>must_avoid</code>.
+              </div>
             </div>
             <div class="arrow">→</div>
             <div class="step">
               <div class="label">Run</div>
               <div class="name">Translate</div>
-              <div class="desc">Calls <code>sdk.translate()</code> at <code>temperature: 0</code>. Cached on disk by <code>sha256(provider+model+system+user)</code>.</div>
+              <div class="desc">
+                Calls <code>sdk.translate()</code> at <code>temperature: 0</code>. Cached on disk by
+                <code>sha256(provider+model+system+user)</code>.
+              </div>
             </div>
             <div class="arrow">→</div>
             <div class="step">
               <div class="label">Score</div>
               <div class="name">LLM judge</div>
-              <div class="desc">An adapter call (default <code>claude-sonnet-4-6</code>) returns strict JSON: per-criterion 1–5 score + one-line reasoning. Weighted into <code>overall</code>.</div>
+              <div class="desc">
+                An adapter call (default <code>claude-sonnet-4-6</code>) returns strict JSON:
+                per-criterion 1–5 score + one-line reasoning. Weighted into <code>overall</code>.
+              </div>
             </div>
             <div class="arrow">→</div>
             <div class="step">
               <div class="label">Check</div>
               <div class="name">Lexical + Gate</div>
-              <div class="desc"><code>must_include</code>/<code>must_avoid</code> regex checks fold into <code>passedLexical</code>. CI gate: mean ≥ 3.5, no case &lt; 3.</div>
+              <div class="desc">
+                <code>must_include</code>/<code>must_avoid</code> regex checks fold into
+                <code>passedLexical</code>. CI gate: mean ≥ 3.5, no case &lt; 3.
+              </div>
             </div>
           </div>
         </div>
 
         <h3>The 9 golden cases</h3>
         <table>
-          <thead><tr><th>Case ID</th><th>Direction</th><th>Probes</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Case ID</th>
+              <th>Direction</th>
+              <th>Probes</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>chess-to-f1-pawn</code></td><td>chess-expert → f1-fan</td><td>Pawn-sacrifice analogy translation (seed case)</td></tr>
-            <tr><td><code>chess-to-f1-initiative</code></td><td>chess-expert → f1-fan</td><td>Translating "initiative" between domains</td></tr>
-            <tr><td><code>chess-to-novice-checkmate</code></td><td>chess-expert → curious-novice</td><td>Jargon stripping</td></tr>
-            <tr><td><code>chess-to-novice-endgame</code></td><td>chess-expert → curious-novice</td><td>Concept expansion + concrete examples</td></tr>
-            <tr><td><code>f1-to-chess-undercut</code></td><td>f1-fan → chess-expert</td><td>Reverse direction</td></tr>
-            <tr><td><code>novice-to-swe-backup</code></td><td>curious-novice → software-engineer</td><td>Abstraction <em>raising</em></td></tr>
-            <tr><td><code>swe-to-f1-hotpath</code></td><td>software-engineer → f1-fan</td><td>Cross-domain analogy (perf jargon → racing)</td></tr>
-            <tr><td><code>swe-to-novice-memleak</code></td><td>software-engineer → curious-novice</td><td>Has <code>must_avoid</code> assertions</td></tr>
-            <tr><td><code>swe-to-novice-refactor</code></td><td>software-engineer → curious-novice</td><td>Edge-case (terse / single-word input)</td></tr>
+            <tr>
+              <td><code>chess-to-f1-pawn</code></td>
+              <td>chess-expert → f1-fan</td>
+              <td>Pawn-sacrifice analogy translation (seed case)</td>
+            </tr>
+            <tr>
+              <td><code>chess-to-f1-initiative</code></td>
+              <td>chess-expert → f1-fan</td>
+              <td>Translating "initiative" between domains</td>
+            </tr>
+            <tr>
+              <td><code>chess-to-novice-checkmate</code></td>
+              <td>chess-expert → curious-novice</td>
+              <td>Jargon stripping</td>
+            </tr>
+            <tr>
+              <td><code>chess-to-novice-endgame</code></td>
+              <td>chess-expert → curious-novice</td>
+              <td>Concept expansion + concrete examples</td>
+            </tr>
+            <tr>
+              <td><code>f1-to-chess-undercut</code></td>
+              <td>f1-fan → chess-expert</td>
+              <td>Reverse direction</td>
+            </tr>
+            <tr>
+              <td><code>novice-to-swe-backup</code></td>
+              <td>curious-novice → software-engineer</td>
+              <td>Abstraction <em>raising</em></td>
+            </tr>
+            <tr>
+              <td><code>swe-to-f1-hotpath</code></td>
+              <td>software-engineer → f1-fan</td>
+              <td>Cross-domain analogy (perf jargon → racing)</td>
+            </tr>
+            <tr>
+              <td><code>swe-to-novice-memleak</code></td>
+              <td>software-engineer → curious-novice</td>
+              <td>Has <code>must_avoid</code> assertions</td>
+            </tr>
+            <tr>
+              <td><code>swe-to-novice-refactor</code></td>
+              <td>software-engineer → curious-novice</td>
+              <td>Edge-case (terse / single-word input)</td>
+            </tr>
           </tbody>
         </table>
 
         <h3>Report format</h3>
-<pre><code>case                              over  lex   time
+        <pre><code>case                              over  lex   time
 --------------------------------------------------
 chess-to-f1-pawn                   4.0  pass  812ms
 chess-to-novice-checkmate          3.5  pass  640ms
@@ -1069,38 +2049,93 @@ cases=9</code></pre>
 
         <h3>Run flags</h3>
         <table>
-          <thead><tr><th>Flag</th><th>Default</th><th>What it does</th></tr></thead>
+          <thead>
+            <tr>
+              <th>Flag</th>
+              <th>Default</th>
+              <th>What it does</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>--cases &lt;dir&gt;</code></td><td><code>packages/eval/cases</code></td><td>Directory of golden case YAML files</td></tr>
-            <tr><td><code>--provider &lt;name&gt;</code></td><td><code>anthropic</code></td><td>Translation provider</td></tr>
-            <tr><td><code>--judge-model &lt;m&gt;</code></td><td><code>claude-sonnet-4-6</code></td><td>Override the judge model</td></tr>
-            <tr><td><code>--threshold &lt;n&gt;</code></td><td>—</td><td>Mean overall floor — exit non-zero below it</td></tr>
-            <tr><td><code>--min-case &lt;n&gt;</code></td><td>—</td><td>Per-case floor — exit non-zero if any case below</td></tr>
-            <tr><td><code>--baseline &lt;file&gt;</code></td><td>—</td><td>Compare against saved scores; reports cases that dropped &gt; 0.5</td></tr>
-            <tr><td><code>--write-baseline &lt;file&gt;</code></td><td>—</td><td>Snapshot current scores to file</td></tr>
-            <tr><td><code>--no-cache</code></td><td>off</td><td>Force fresh adapter calls</td></tr>
-            <tr><td><code>--json &lt;file&gt;</code></td><td>—</td><td>Write machine-readable report</td></tr>
+            <tr>
+              <td><code>--cases &lt;dir&gt;</code></td>
+              <td><code>packages/eval/cases</code></td>
+              <td>Directory of golden case YAML files</td>
+            </tr>
+            <tr>
+              <td><code>--provider &lt;name&gt;</code></td>
+              <td><code>anthropic</code></td>
+              <td>Translation provider</td>
+            </tr>
+            <tr>
+              <td><code>--judge-model &lt;m&gt;</code></td>
+              <td><code>claude-sonnet-4-6</code></td>
+              <td>Override the judge model</td>
+            </tr>
+            <tr>
+              <td><code>--threshold &lt;n&gt;</code></td>
+              <td>—</td>
+              <td>Mean overall floor — exit non-zero below it</td>
+            </tr>
+            <tr>
+              <td><code>--min-case &lt;n&gt;</code></td>
+              <td>—</td>
+              <td>Per-case floor — exit non-zero if any case below</td>
+            </tr>
+            <tr>
+              <td><code>--baseline &lt;file&gt;</code></td>
+              <td>—</td>
+              <td>Compare against saved scores; reports cases that dropped &gt; 0.5</td>
+            </tr>
+            <tr>
+              <td><code>--write-baseline &lt;file&gt;</code></td>
+              <td>—</td>
+              <td>Snapshot current scores to file</td>
+            </tr>
+            <tr>
+              <td><code>--no-cache</code></td>
+              <td>off</td>
+              <td>Force fresh adapter calls</td>
+            </tr>
+            <tr>
+              <td><code>--json &lt;file&gt;</code></td>
+              <td>—</td>
+              <td>Write machine-readable report</td>
+            </tr>
           </tbody>
         </table>
 
-        <p style="margin-top:14px;">Exit codes: <code>0</code> clean · <code>1</code> quality gate failed · <code>2</code> infra (judge returned non-JSON).</p>
+        <p style="margin-top: 14px">
+          Exit codes: <code>0</code> clean · <code>1</code> quality gate failed ·
+          <code>2</code> infra (judge returned non-JSON).
+        </p>
 
         <div class="callout warn">
-          <strong>Important:</strong> <code>eval-baseline.json</code> currently ships as a <strong>placeholder seed</strong> — all scores are <code>0</code>. The CI eval job runs but cannot flag regressions until you regenerate it with a real key: <code>ANTHROPIC_API_KEY=sk-... pnpm eval run --write-baseline eval-baseline.json</code>.
+          <strong>Important:</strong> <code>eval-baseline.json</code> currently ships as a
+          <strong>placeholder seed</strong> — all scores are <code>0</code>. The CI eval job runs
+          but cannot flag regressions until you regenerate it with a real key:
+          <code>ANTHROPIC_API_KEY=sk-... pnpm eval run --write-baseline eval-baseline.json</code>.
         </div>
       </section>
 
       <!-- 13. STATUS -->
       <section id="status">
         <h2>13 · Project Status</h2>
-        <p class="section-sub">Build is currently mid-Week 4. 255 commits in. <code>npx vitest run</code> → 89/89 passing. The alpha is published as <code>0.1.0-alpha.0</code> (npm publication itself unverified).</p>
+        <p class="section-sub">
+          Build is currently mid-Week 4. 255 commits in. <code>npx vitest run</code> → 89/89
+          passing. The alpha is published as <code>0.1.0-alpha.0</code> (npm publication itself
+          unverified).
+        </p>
 
         <div class="timeline">
           <div class="tl-row">
             <span class="phase">Week 1–2</span>
             <div>
               <div class="title">Protocol · SDK · 3 adapters · CLI · alpha release</div>
-              <div class="desc">Days 1–14. Schema, profile loader, translate(), Anthropic/OpenAI/Ollama, full CLI, alpha tagged.</div>
+              <div class="desc">
+                Days 1–14. Schema, profile loader, translate(), Anthropic/OpenAI/Ollama, full CLI,
+                alpha tagged.
+              </div>
             </div>
             <span class="status done">✓ DONE</span>
           </div>
@@ -1108,7 +2143,10 @@ cases=9</code></pre>
             <span class="phase">Week 3</span>
             <div>
               <div class="title">Eval harness — golden cases, judge, CI gate, baseline</div>
-              <div class="desc">Days 15–19. 9 cases, weighted judge, lexical checks, on-disk cache, non-blocking CI eval job.</div>
+              <div class="desc">
+                Days 15–19. 9 cases, weighted judge, lexical checks, on-disk cache, non-blocking CI
+                eval job.
+              </div>
             </div>
             <span class="status done">✓ DONE</span>
           </div>
@@ -1116,7 +2154,10 @@ cases=9</code></pre>
             <span class="phase">Week 4</span>
             <div>
               <div class="title">Prompt engineering — strategies + A/B compare</div>
-              <div class="desc">Days 20–25. PromptStrategy interface ✓, baseline + structured strategies ✓, registry + few-shot + <code>eval compare</code> in progress.</div>
+              <div class="desc">
+                Days 20–25. PromptStrategy interface ✓, baseline + structured strategies ✓, registry
+                + few-shot + <code>eval compare</code> in progress.
+              </div>
             </div>
             <span class="status partial">◐ IN PROGRESS</span>
           </div>
@@ -1124,7 +2165,10 @@ cases=9</code></pre>
             <span class="phase">Week 5</span>
             <div>
               <div class="title"><code>analogy_bank</code> dynamic injection</div>
-              <div class="desc">Days 26–30. Currently a naive static dump (up to 8 entries). Planned: concept extraction → lookup → enrichment.</div>
+              <div class="desc">
+                Days 26–30. Currently a naive static dump (up to 8 entries). Planned: concept
+                extraction → lookup → enrichment.
+              </div>
             </div>
             <span class="status partial">◐ STATIC ONLY</span>
           </div>
@@ -1132,37 +2176,94 @@ cases=9</code></pre>
             <span class="phase">Week 6</span>
             <div>
               <div class="title"><code>0.1.0</code> stable + public announce</div>
-              <div class="desc">Days 31–35. Schema stabilization, drop <code>-alpha</code>, HN Show / dev.to / r/LocalLLaMA.</div>
+              <div class="desc">
+                Days 31–35. Schema stabilization, drop <code>-alpha</code>, HN Show / dev.to /
+                r/LocalLLaMA.
+              </div>
             </div>
             <span class="status todo">○ TODO</span>
           </div>
         </div>
 
-        <h3 style="margin-top:30px;">By the numbers</h3>
+        <h3 style="margin-top: 30px">By the numbers</h3>
         <div class="card-grid">
-          <div class="card" style="text-align:center;">
-            <div style="font-size:32px; font-weight:700; color:#c8bdff;">255</div>
-            <div style="font-size:12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">commits</div>
+          <div class="card" style="text-align: center">
+            <div style="font-size: 32px; font-weight: 700; color: #c8bdff">255</div>
+            <div
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+              "
+            >
+              commits
+            </div>
           </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:32px; font-weight:700; color:#95f0e1;">89 / 89</div>
-            <div style="font-size:12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">tests passing</div>
+          <div class="card" style="text-align: center">
+            <div style="font-size: 32px; font-weight: 700; color: #95f0e1">89 / 89</div>
+            <div
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+              "
+            >
+              tests passing
+            </div>
           </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:32px; font-weight:700; color:#ffd9a0;">5</div>
-            <div style="font-size:12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">workspace packages</div>
+          <div class="card" style="text-align: center">
+            <div style="font-size: 32px; font-weight: 700; color: #ffd9a0">5</div>
+            <div
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+              "
+            >
+              workspace packages
+            </div>
           </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:32px; font-weight:700; color:#ffb6c1;">9</div>
-            <div style="font-size:12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">golden eval cases</div>
+          <div class="card" style="text-align: center">
+            <div style="font-size: 32px; font-weight: 700; color: #ffb6c1">9</div>
+            <div
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+              "
+            >
+              golden eval cases
+            </div>
           </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:32px; font-weight:700; color:#4ad6ff;">4</div>
-            <div style="font-size:12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">sample profiles</div>
+          <div class="card" style="text-align: center">
+            <div style="font-size: 32px; font-weight: 700; color: #4ad6ff">4</div>
+            <div
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+              "
+            >
+              sample profiles
+            </div>
           </div>
-          <div class="card" style="text-align:center;">
-            <div style="font-size:32px; font-weight:700; color:#7c5cff;">3</div>
-            <div style="font-size:12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;">LLM adapters</div>
+          <div class="card" style="text-align: center">
+            <div style="font-size: 32px; font-weight: 700; color: #7c5cff">3</div>
+            <div
+              style="
+                font-size: 12px;
+                color: var(--muted);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+              "
+            >
+              LLM adapters
+            </div>
           </div>
         </div>
       </section>
@@ -1170,48 +2271,101 @@ cases=9</code></pre>
       <!-- 14. ROADMAP -->
       <section id="roadmap">
         <h2>14 · Roadmap (next 2 weeks)</h2>
-        <p class="section-sub">Drawn from <code>PLAN.md</code>. Cadence is 1–2 hrs/day, 10–25 commits/day, Conventional Commits.</p>
+        <p class="section-sub">
+          Drawn from <code>PLAN.md</code>. Cadence is 1–2 hrs/day, 10–25 commits/day, Conventional
+          Commits.
+        </p>
 
         <h3>Week 4 — Prompt engineering loop (Days 20–25)</h3>
         <ol>
-          <li><strong>Day 20</strong> — PromptStrategy interface, baseline + structured + few-shot strategies, registry, <code>eval compare --variants a,b</code> command, scorecard with per-case deltas, winner picker. <em>(Partially landed)</em></li>
-          <li><strong>Day 21</strong> — Author 2–3 more candidate strategies based on weak cases from the Day 20 scorecard.</li>
-          <li><strong>Day 22</strong> — Per-criterion (not just overall) deltas — spot which rubric dimension each variant moves.</li>
-          <li><strong>Day 23</strong> — Promote winning strategy to default. Record lift in CHANGELOG.</li>
-          <li><strong>Day 24</strong> — Regression-guard the chosen prompt — snapshot system prompt + re-baseline corpus.</li>
+          <li>
+            <strong>Day 20</strong> — PromptStrategy interface, baseline + structured + few-shot
+            strategies, registry, <code>eval compare --variants a,b</code> command, scorecard with
+            per-case deltas, winner picker. <em>(Partially landed)</em>
+          </li>
+          <li>
+            <strong>Day 21</strong> — Author 2–3 more candidate strategies based on weak cases from
+            the Day 20 scorecard.
+          </li>
+          <li>
+            <strong>Day 22</strong> — Per-criterion (not just overall) deltas — spot which rubric
+            dimension each variant moves.
+          </li>
+          <li>
+            <strong>Day 23</strong> — Promote winning strategy to default. Record lift in CHANGELOG.
+          </li>
+          <li>
+            <strong>Day 24</strong> — Regression-guard the chosen prompt — snapshot system prompt +
+            re-baseline corpus.
+          </li>
           <li><strong>Day 25</strong> — Document the prompt-tuning loop in CONTRIBUTING.</li>
         </ol>
 
         <h3>Week 5 — analogy_bank dynamic injection (Days 26–30)</h3>
-        <p>Replace today's naive static dump with: <code>extract concepts from input</code> → <code>fuzzy-match against bank</code> → <code>inject only relevant entries</code> into an enriched prompt.</p>
+        <p>
+          Replace today's naive static dump with: <code>extract concepts from input</code> →
+          <code>fuzzy-match against bank</code> → <code>inject only relevant entries</code> into an
+          enriched prompt.
+        </p>
 
         <h3>Week 6 — 0.1.0 stable + public announce (Days 31–35)</h3>
-        <p>Stabilize the schema, drop the <code>-alpha</code> tag, write the announce posts (HN Show, dev.to, r/LocalLLaMA), GitHub release v0.1.0.</p>
+        <p>
+          Stabilize the schema, drop the <code>-alpha</code> tag, write the announce posts (HN Show,
+          dev.to, r/LocalLLaMA), GitHub release v0.1.0.
+        </p>
       </section>
 
       <!-- 15. DEFECTS -->
       <section id="defects">
         <h2>15 · Known Defects</h2>
-        <p class="section-sub">From <code>PROGRESS.local.md</code> — verified against working tree.</p>
+        <p class="section-sub">
+          From <code>PROGRESS.local.md</code> — verified against working tree.
+        </p>
 
         <div class="card-grid">
-          <div class="card" style="border-left: 3px solid var(--err);">
+          <div class="card" style="border-left: 3px solid var(--err)">
             <h3>#1 · <code>pnpm -r test</code> fails</h3>
-            <p>Per-package <code>test</code> script is <code>vitest run --dir src</code>, but the root vitest <code>include</code> glob is <code>packages/*/src/**/*.test.ts</code>. Inside a package the glob matches nothing → exit 1.</p>
-            <p style="font-size:13px; color: var(--muted);"><strong>Workaround:</strong> tests only pass from repo root (<code>npx vitest run</code> → 89/89). Because <code>prepublishOnly</code> calls <code>pnpm run test</code>, a real publish would break until fixed.</p>
+            <p>
+              Per-package <code>test</code> script is <code>vitest run --dir src</code>, but the
+              root vitest <code>include</code> glob is <code>packages/*/src/**/*.test.ts</code>.
+              Inside a package the glob matches nothing → exit 1.
+            </p>
+            <p style="font-size: 13px; color: var(--muted)">
+              <strong>Workaround:</strong> tests only pass from repo root (<code
+                >npx vitest run</code
+              >
+              → 89/89). Because <code>prepublishOnly</code> calls <code>pnpm run test</code>, a real
+              publish would break until fixed.
+            </p>
           </div>
-          <div class="card" style="border-left: 3px solid var(--warn);">
+          <div class="card" style="border-left: 3px solid var(--warn)">
             <h3>#2 · CHANGELOG out of sync</h3>
-            <p>CHANGELOG "Known limitations" says <code>analogy_bank</code> is "parsed but not yet injected" — but <code>packages/sdk/src/prompts/system.ts:33</code> already dumps up to 8 entries verbatim into the system prompt. Stale note.</p>
+            <p>
+              CHANGELOG "Known limitations" says <code>analogy_bank</code> is "parsed but not yet
+              injected" — but <code>packages/sdk/src/prompts/system.ts:33</code> already dumps up to
+              8 entries verbatim into the system prompt. Stale note.
+            </p>
           </div>
-          <div class="card" style="border-left: 3px solid var(--warn);">
+          <div class="card" style="border-left: 3px solid var(--warn)">
             <h3>#3 · <code>eval-baseline.json</code> is a placeholder</h3>
-            <p>All scores are 0 (out of the 1–5 range). The CI eval gate runs but won't flag regressions until you regenerate the baseline with a real API key.</p>
-            <p style="font-size:13px; color: var(--muted);">Fix: <code>ANTHROPIC_API_KEY=sk-... pnpm eval run --write-baseline eval-baseline.json</code></p>
+            <p>
+              All scores are 0 (out of the 1–5 range). The CI eval gate runs but won't flag
+              regressions until you regenerate the baseline with a real API key.
+            </p>
+            <p style="font-size: 13px; color: var(--muted)">
+              Fix:
+              <code
+                >ANTHROPIC_API_KEY=sk-... pnpm eval run --write-baseline eval-baseline.json</code
+              >
+            </p>
           </div>
-          <div class="card" style="border-left: 3px solid var(--warn);">
+          <div class="card" style="border-left: 3px solid var(--warn)">
             <h3>#4 · npm publish unverified</h3>
-            <p>The Day-14 tag <code>v0.1.0-alpha.0</code> exists locally, but there's no git evidence that the manual <code>pnpm publish</code> ran. Verify with <code>npm view @saravapos/cli version</code> before claiming the alpha is live.</p>
+            <p>
+              The Day-14 tag <code>v0.1.0-alpha.0</code> exists locally, but there's no git evidence
+              that the manual <code>pnpm publish</code> ran. Verify with
+              <code>npm view @saravapos/cli version</code> before claiming the alpha is live.
+            </p>
           </div>
         </div>
       </section>
@@ -1219,10 +2373,12 @@ cases=9</code></pre>
       <!-- 16. GETTING STARTED -->
       <section id="getting-started">
         <h2>16 · Getting Started</h2>
-        <p class="section-sub">Three ways in: the CLI, the SDK, or running the eval harness yourself.</p>
+        <p class="section-sub">
+          Three ways in: the CLI, the SDK, or running the eval harness yourself.
+        </p>
 
         <h3>1 · Install the CLI</h3>
-<pre><code># global
+        <pre><code># global
 npm install -g @saravapos/cli@alpha
 
 # or per-project
@@ -1230,14 +2386,14 @@ pnpm add @saravapos/sdk @saravapos/adapters</code></pre>
         <p>Requires Node 20+.</p>
 
         <h3>2 · Author + validate a profile</h3>
-<pre><code># interactive wizard
+        <pre><code># interactive wizard
 saravapos init --output me.yaml
 
 # check the spec
 saravapos validate me.yaml</code></pre>
 
         <h3>3 · Translate something</h3>
-<pre><code>export ANTHROPIC_API_KEY=sk-...
+        <pre><code>export ANTHROPIC_API_KEY=sk-...
 
 saravapos translate \
   --from profiles/chess-expert.yaml \
@@ -1245,7 +2401,7 @@ saravapos translate \
   --text "I sacrificed a pawn for a positional advantage"</code></pre>
 
         <h3>4 · Use the SDK directly</h3>
-<pre><code>import { loadProfile, translate } from '@saravapos/sdk';
+        <pre><code>import { loadProfile, translate } from '@saravapos/sdk';
 import { resolveAdapter } from '@saravapos/adapters';
 
 const from = await loadProfile('profiles/chess-expert.yaml');
@@ -1262,7 +2418,7 @@ console.log(out);
 // → "I burned an extra pit stop to undercut the leader..."</code></pre>
 
         <h3>5 · Run the eval harness</h3>
-<pre><code># needs ANTHROPIC_API_KEY for the judge
+        <pre><code># needs ANTHROPIC_API_KEY for the judge
 pnpm eval run
 
 # with the CI quality gate
@@ -1272,7 +2428,7 @@ pnpm eval run --threshold 3.5 --min-case 3 --baseline eval-baseline.json
 pnpm eval run --write-baseline eval-baseline.json</code></pre>
 
         <h3>6 · Repo layout</h3>
-<pre><code>Context/                       # repo root (local dir name; project is "Saravapos")
+        <pre><code>Context/                       # repo root (local dir name; project is "Saravapos")
 ├─ packages/
 │  ├─ spec/                   # JSON Schema + types
 │  ├─ sdk/                    # loadProfile, translate, PromptStrategy
@@ -1291,20 +2447,58 @@ pnpm eval run --write-baseline eval-baseline.json</code></pre>
       <!-- KEY FILES -->
       <section>
         <h2>17 · Key Files to Read First</h2>
-        <p class="section-sub">If you're new to the codebase, this is the read order that gives the most context per minute.</p>
+        <p class="section-sub">
+          If you're new to the codebase, this is the read order that gives the most context per
+          minute.
+        </p>
         <table>
-          <thead><tr><th>File</th><th>Why</th></tr></thead>
+          <thead>
+            <tr>
+              <th>File</th>
+              <th>Why</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td><code>README.md</code></td><td>1-page pitch + install + quickstart</td></tr>
-            <tr><td><code>docs/spec.md</code></td><td>The full profile schema, semantics, versioning policy — ~10 min read</td></tr>
-            <tr><td><code>PLAN.md</code></td><td>The 35-day build plan, day-by-day commits</td></tr>
-            <tr><td><code>PROGRESS.local.md</code></td><td>What's actually done vs. planned, with defects list</td></tr>
-            <tr><td><code>packages/sdk/src/translate.ts</code></td><td>The whole translate function — 22 lines</td></tr>
-            <tr><td><code>packages/sdk/src/prompts/system.ts</code></td><td>The current (baseline) system prompt builder</td></tr>
-            <tr><td><code>packages/sdk/src/prompts/strategies/structured.ts</code></td><td>The Week-4 structured prompt variant</td></tr>
-            <tr><td><code>profiles/chess-expert.yaml</code></td><td>A real profile to compare against the spec</td></tr>
-            <tr><td><code>packages/eval/cases/chess-to-f1-pawn.yaml</code></td><td>The seed golden case — the canonical example</td></tr>
-            <tr><td><code>CHANGELOG.md</code></td><td>What shipped in <code>0.1.0-alpha.0</code></td></tr>
+            <tr>
+              <td><code>README.md</code></td>
+              <td>1-page pitch + install + quickstart</td>
+            </tr>
+            <tr>
+              <td><code>docs/spec.md</code></td>
+              <td>The full profile schema, semantics, versioning policy — ~10 min read</td>
+            </tr>
+            <tr>
+              <td><code>PLAN.md</code></td>
+              <td>The 35-day build plan, day-by-day commits</td>
+            </tr>
+            <tr>
+              <td><code>PROGRESS.local.md</code></td>
+              <td>What's actually done vs. planned, with defects list</td>
+            </tr>
+            <tr>
+              <td><code>packages/sdk/src/translate.ts</code></td>
+              <td>The whole translate function — 22 lines</td>
+            </tr>
+            <tr>
+              <td><code>packages/sdk/src/prompts/system.ts</code></td>
+              <td>The current (baseline) system prompt builder</td>
+            </tr>
+            <tr>
+              <td><code>packages/sdk/src/prompts/strategies/structured.ts</code></td>
+              <td>The Week-4 structured prompt variant</td>
+            </tr>
+            <tr>
+              <td><code>profiles/chess-expert.yaml</code></td>
+              <td>A real profile to compare against the spec</td>
+            </tr>
+            <tr>
+              <td><code>packages/eval/cases/chess-to-f1-pawn.yaml</code></td>
+              <td>The seed golden case — the canonical example</td>
+            </tr>
+            <tr>
+              <td><code>CHANGELOG.md</code></td>
+              <td>What shipped in <code>0.1.0-alpha.0</code></td>
+            </tr>
           </tbody>
         </table>
       </section>
@@ -1312,10 +2506,12 @@ pnpm eval run --write-baseline eval-baseline.json</code></pre>
 
     <footer>
       <div>
-        <strong style="color: var(--text);">Saravapos</strong> · v0.1.0-alpha.0 · MIT license · TypeScript / pnpm · Node 20+
+        <strong style="color: var(--text)">Saravapos</strong> · v0.1.0-alpha.0 · MIT license ·
+        TypeScript / pnpm · Node 20+
       </div>
-      <div style="margin-top: 6px;">
-        Repo: <code>kunthive-Labs/Saravapos</code> · Author: Bharath Bhaktha · This overview generated 2026-05-31.
+      <div style="margin-top: 6px">
+        Repo: <code>kunthive-Labs/Saravapos</code> · Author: Bharath Bhaktha · This overview
+        generated 2026-05-31.
       </div>
     </footer>
   </body>

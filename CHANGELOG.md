@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented here. The format is loosely based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); versioning follows [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `saravapos doctor` checks Node compatibility, stable CLI metadata, cloud-provider configuration, and Ollama reachability without exposing credentials.
+- Built-artifact smoke tests and release metadata verification now guard package-version drift and stale CLI output.
+
+### Fixed
+
+- Root tests resolve workspace source directly, so a fresh checkout no longer requires pre-existing `dist` directories.
+- CI builds before coverage and live eval jobs, then verifies formatting, release metadata, and the compiled CLI.
+- Schema `0.1` documentation now consistently describes the compatibility guarantee of the stable `0.1.x` release line.
+
 ## [0.1.0] — 2026-06-16
 
 First stable release. `SCHEMA_VERSION` is `0.1`; profiles authored against the alpha continue to validate unchanged.
